@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مفكرة مسؤوليتي | أكاديمية أساور</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ══════ TOKENS ══════ */
+:root{
+  --rose:#b5416e; --rose-d:#8c2f55; --rose-l:#d4768f;
+  --rose-pale:#f0c8d4; --rose-bg:#fdf0f4; --rose-muted:#e8a0b8;
+  --sand:#faf4f0; --warm:#f5ede8;
+  --txt:#2d1a22; --txt-m:#6b3a4e; --txt-l:#9e7080;
+  --sh:0 8px 40px rgba(180,65,110,.13);
+  --sh-sm:0 3px 14px rgba(180,65,110,.1);
+  --r:20px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Tajawal',sans-serif;background:var(--rose-bg);color:var(--txt);line-height:1.8;min-height:100vh;}
+
+/* ══════ HERO ══════ */
+.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;background:linear-gradient(155deg,#fde8ef 0%,#f5d5e2 45%,#dba4bc 100%);}
+.orb{position:absolute;top:6%;left:50%;transform:translateX(-50%);width:240px;height:240px;background:radial-gradient(circle at 38% 32%,rgba(255,255,255,.95) 0%,rgba(240,200,215,.65) 55%,transparent 100%);border-radius:50%;box-shadow:0 0 100px 30px rgba(255,255,255,.4);animation:orb 7s ease-in-out infinite;}
+@keyframes orb{0%,100%{transform:translateX(-50%) scale(1);opacity:.88;}50%{transform:translateX(-50%) scale(1.06);opacity:1;}}
+.hero-wave{position:absolute;bottom:0;left:0;right:0;line-height:0;}
+.hero-wave svg{width:100%;display:block;}
+.badge-top{position:relative;z-index:2;background:var(--rose);color:#fff;padding:7px 24px;border-radius:30px;font-size:.88rem;font-weight:700;letter-spacing:1px;margin-bottom:2rem;box-shadow:0 4px 22px rgba(181,65,110,.4);animation:fd .8s ease both;}
+.hero-h{position:relative;z-index:2;text-align:center;animation:fu 1s ease .2s both;}
+.hero-h .big{display:block;font-family:'Amiri',serif;font-size:clamp(3.8rem,11vw,7rem);color:var(--rose);line-height:1.05;text-shadow:2px 4px 22px rgba(181,65,110,.2);}
+.hero-h .sm{display:block;font-size:clamp(.9rem,2.5vw,1.25rem);color:var(--txt-m);font-weight:400;letter-spacing:3px;margin-top:.6rem;}
+.hero-p{position:relative;z-index:2;text-align:center;max-width:480px;color:var(--txt-m);font-size:1rem;margin-top:1.4rem;padding:0 2rem;animation:fu 1s ease .4s both;}
+.hero-cta{position:relative;z-index:2;margin-top:2.5rem;animation:fu 1s ease .6s both;display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;}
+.btn{padding:.7rem 2rem;border-radius:30px;font-family:'Tajawal',sans-serif;font-size:.95rem;font-weight:700;cursor:pointer;border:none;transition:all .3s cubic-bezier(.175,.885,.32,1.275);text-decoration:none;display:inline-block;}
+.bp{background:var(--rose);color:#fff;box-shadow:0 4px 18px rgba(181,65,110,.35);}
+.bp:hover{background:var(--rose-d);transform:translateY(-3px);}
+.bg{background:rgba(255,255,255,.65);color:var(--rose);border:2px solid var(--rose-pale);}
+.bg:hover{background:#fff;transform:translateY(-3px);}
+@keyframes fu{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+@keyframes fd{from{opacity:0;transform:translateY(-18px)}to{opacity:1;transform:none}}
+
+/* ══════ NAV ══════ */
+.nav{position:sticky;top:0;z-index:300;background:rgba(253,240,244,.96);backdrop-filter:blur(14px);border-bottom:1px solid rgba(181,65,110,.13);padding:.65rem 1.2rem;display:flex;justify-content:center;gap:.4rem;flex-wrap:wrap;box-shadow:0 3px 18px rgba(181,65,110,.07);}
+.nav a{text-decoration:none;color:var(--txt-m);font-size:.85rem;font-weight:700;padding:.35rem .95rem;border-radius:20px;transition:all .22s;}
+.nav a:hover,.nav a.active{background:var(--rose);color:#fff;transform:translateY(-2px);}
+
+/* ══════ LAYOUT ══════ */
+.wrap{max-width:1060px;margin:0 auto;padding:4rem 1.5rem;}
+.sec-header{text-align:center;margin-bottom:2.5rem;}
+.tag{display:inline-block;background:linear-gradient(135deg,var(--rose-pale),var(--rose-muted));color:var(--rose);padding:4px 16px;border-radius:20px;font-size:.76rem;font-weight:800;letter-spacing:2px;margin-bottom:.7rem;}
+.sec-title{font-family:'Amiri',serif;font-size:clamp(2rem,5vw,3rem);color:var(--rose);line-height:1.3;}
+.sec-desc{color:var(--txt-m);font-size:.98rem;max-width:650px;margin:.7rem auto 0;line-height:2;}
+.reveal{opacity:0;transform:translateY(32px);transition:all .65s cubic-bezier(.175,.885,.32,1.275);}
+.reveal.show{opacity:1;transform:none;}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;}
+@media(max-width:620px){.g2{grid-template-columns:1fr;}}
+.band{background:var(--rose);color:#fff;text-align:center;padding:2.5rem 2rem;}
+.band h2{font-family:'Amiri',serif;font-size:clamp(1.4rem,4vw,2.2rem);margin-bottom:.3rem;}
+.band p{opacity:.82;font-size:.95rem;}
+
+/* ══════ CARD ══════ */
+.card{background:#fff;border-radius:var(--r);padding:1.6rem;box-shadow:var(--sh);border:1px solid rgba(181,65,110,.08);}
+
+/* ══════ TASK SYSTEM ══════ */
+.tlist{list-style:none;}
+.titem{display:flex;align-items:center;gap:.7rem;padding:.48rem .3rem;border-bottom:1px dashed rgba(181,65,110,.14);border-radius:8px;transition:background .2s;position:relative;}
+.titem:last-child{border-bottom:none;}
+.titem:hover{background:rgba(181,65,110,.04);}
+
+/* circle */
+.tc{width:23px;height:23px;flex-shrink:0;border:2.5px solid var(--rose-muted);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .28s;background:#fff;}
+.tc svg{opacity:0;transition:opacity .22s;}
+.titem.done .tc{background:var(--rose);border-color:var(--rose);transform:scale(1.15);box-shadow:0 0 0 4px rgba(181,65,110,.18);animation:cpop .3s ease;}
+.titem.done .tc svg{opacity:1;}
+@keyframes cpop{0%{transform:scale(1)}45%{transform:scale(1.45)}100%{transform:scale(1.15)}}
+
+/* label — editable inline */
+.tlabel{flex:1;font-size:.92rem;color:var(--txt-m);cursor:pointer;border:none;background:transparent;font-family:'Tajawal',sans-serif;outline:none;line-height:1.6;min-width:0;}
+.tlabel.editing{border-bottom:1.5px solid var(--rose);color:var(--txt);cursor:text;}
+.titem.done .tlabel{text-decoration:line-through;color:var(--txt-l);opacity:.65;}
+
+/* action buttons (edit/delete) */
+.tactions{display:flex;gap:.25rem;opacity:0;transition:opacity .2s;flex-shrink:0;}
+.titem:hover .tactions{opacity:1;}
+.tact{width:22px;height:22px;border:none;border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.7rem;transition:all .2s;background:transparent;}
+.tact-edit{color:var(--rose-l);}
+.tact-edit:hover{background:var(--rose-pale);color:var(--rose);}
+.tact-del{color:#cba0b0;}
+.tact-del:hover{background:#ffe0e8;color:#c0392b;}
+
+/* add-task row */
+.add-row{display:flex;gap:.5rem;align-items:center;margin-top:.7rem;padding-top:.6rem;border-top:1.5px dashed rgba(181,65,110,.18);}
+.add-input{flex:1;border:none;border-bottom:1.5px solid var(--rose-pale);background:transparent;font-family:'Tajawal',sans-serif;font-size:.9rem;color:var(--txt);padding:.3rem .35rem;outline:none;transition:border-color .22s;}
+.add-input:focus{border-bottom-color:var(--rose);}
+.add-input::placeholder{color:rgba(181,65,110,.35);font-style:italic;}
+.add-btn{width:28px;height:28px;border:none;border-radius:50%;background:var(--rose);color:#fff;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .22s;line-height:1;}
+.add-btn:hover{background:var(--rose-d);transform:scale(1.1);}
+
+/* item slide-in */
+@keyframes slideIn{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:none}}
+.titem.new{animation:slideIn .3s ease both;}
+
+/* ══════ SECTION BG HELPERS ══════ */
+#masrad{background:#fff;}
+#tawazun{background:linear-gradient(135deg,#fde8ef,#fff5f8);}
+#darjat{background:var(--sand);}
+#planner{background:var(--warm);}
+#tafakkur{background:linear-gradient(155deg,#3d1128 0%,#7a2545 55%,#b5416e 100%);color:#fff;}
+#tafakkur .sec-title{color:var(--rose-pale);}
+#tafakkur .sec-desc{color:rgba(255,255,255,.72);}
+#tafakkur .tag{background:rgba(255,255,255,.15);color:var(--rose-pale);}
+
+/* ══════ MASRAD CARDS ══════ */
+.mgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.2rem;}
+.mcard{border-radius:18px;overflow:hidden;box-shadow:var(--sh-sm);border:1.5px solid var(--rose-pale);transition:all .3s;}
+.mcard:hover{transform:translateY(-4px);box-shadow:var(--sh);}
+.mhead{background:linear-gradient(135deg,var(--rose-d),var(--rose-l));color:#fff;padding:.85rem 1.1rem;font-weight:800;font-size:.97rem;display:flex;align-items:center;gap:.5rem;}
+.mbody{padding:1rem 1.1rem;background:#fff;}
+
+/* ══════ PRIORITY / TAWAZUN ══════ */
+.pcard{background:#fff;border-radius:22px;padding:1.8rem;box-shadow:var(--sh);border:2px solid var(--rose-pale);position:relative;}
+.pbadge{position:absolute;top:-13px;right:1.7rem;background:var(--rose);color:#fff;padding:3px 14px;border-radius:10px;font-size:.78rem;font-weight:800;}
+.pcard h3{color:var(--rose);font-size:1.1rem;font-weight:800;margin-bottom:1rem;}
+/* focus textarea */
+.focus-area{width:100%;min-height:68px;border:none;border-bottom:2px solid var(--rose-pale);background:transparent;resize:vertical;font-family:'Tajawal',sans-serif;font-size:.93rem;color:var(--txt);line-height:2;padding:.3rem .4rem;transition:border-color .22s;outline:none;display:block;margin-top:.8rem;}
+.focus-area:focus{border-bottom-color:var(--rose);}
+.focus-area::placeholder{color:rgba(181,65,110,.33);font-style:italic;}
+/* chips */
+.chips{display:flex;flex-wrap:wrap;gap:.45rem;margin-bottom:1rem;}
+.chip{padding:.32rem .85rem;border-radius:16px;border:1.5px solid var(--rose-pale);font-size:.81rem;font-weight:600;color:var(--txt-m);cursor:pointer;transition:all .22s;background:#fff;user-select:none;}
+.chip.on{background:var(--rose);color:#fff;border-color:var(--rose);transform:scale(1.05);}
+
+/* ══════ DARJAT ══════ */
+.dgrid{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;}
+@media(max-width:620px){.dgrid{grid-template-columns:1fr;}}
+.dcard{border-radius:18px;overflow:hidden;box-shadow:var(--sh-sm);border:1.5px solid var(--rose-pale);}
+.dhead{background:linear-gradient(135deg,var(--rose-d),var(--rose));color:#fff;padding:.9rem 1.3rem;font-weight:800;font-size:.97rem;}
+.dbody{padding:1.1rem;background:#fff;}
+.asp{margin-bottom:.9rem;}
+.asp-lbl{font-size:.75rem;font-weight:800;color:var(--rose);letter-spacing:1px;margin:1rem 0 .35rem;display:flex;align-items:center;gap:.4rem;}
+.asp-lbl::after{content:'';flex:1;height:1px;background:var(--rose-pale);}
+
+/* ══════ PLANNER ══════ */
+.week-nav{display:flex;align-items:center;justify-content:center;gap:.9rem;margin-bottom:1.8rem;}
+.wbtn{width:36px;height:36px;border-radius:50%;border:2px solid var(--rose-pale);background:#fff;color:var(--rose);font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .22s;}
+.wbtn:hover{background:var(--rose);color:#fff;border-color:var(--rose);}
+.wlabel{font-family:'Amiri',serif;font-size:1.55rem;color:var(--rose);font-weight:700;min-width:145px;text-align:center;}
+.prog-wrap{background:var(--rose-pale);border-radius:10px;height:10px;overflow:hidden;margin-top:.7rem;}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--rose-l),var(--rose));border-radius:10px;transition:width .5s ease;}
+.playout{display:grid;grid-template-columns:260px 1fr;gap:1.4rem;}
+@media(max-width:760px){.playout{grid-template-columns:1fr;}}
+.ctitle{font-size:.97rem;font-weight:800;color:var(--rose);margin-bottom:.9rem;padding-bottom:.45rem;border-bottom:2px solid var(--rose-pale);}
+.days-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:.55rem;}
+@media(max-width:880px){.days-grid{grid-template-columns:repeat(4,1fr);}}
+@media(max-width:480px){.days-grid{grid-template-columns:repeat(2,1fr);}}
+.dday{background:#fff;border-radius:14px;padding:.9rem .65rem;box-shadow:var(--sh-sm);border:1.5px solid var(--rose-pale);transition:all .28s;}
+.dday:hover{border-color:var(--rose-muted);box-shadow:var(--sh);}
+.dday.today{border-color:var(--rose);box-shadow:0 0 0 3px rgba(181,65,110,.12);}
+.dname{text-align:center;font-weight:800;font-size:.85rem;color:var(--rose);padding-bottom:.45rem;margin-bottom:.55rem;border-bottom:2px solid var(--rose-pale);}
+.dday.today .dname{background:var(--rose);color:#fff;border-radius:8px;padding:.28rem;margin:-.28rem -.28rem .55rem;}
+.ftag{background:var(--rose-pale);color:var(--rose);border-radius:7px;padding:.25rem .4rem;font-size:.72rem;font-weight:700;text-align:center;margin-bottom:.45rem;}
+
+/* ══════ REFLECTION ══════ */
+.rgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;}
+@media(max-width:680px){.rgrid{grid-template-columns:1fr;}}
+.rcard{background:rgba(255,255,255,.1);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.18);border-radius:18px;padding:1.6rem;transition:all .28s;}
+.rcard:hover{background:rgba(255,255,255,.17);transform:translateY(-4px);}
+.rnum{font-size:2.4rem;font-weight:900;color:var(--rose-pale);line-height:1;margin-bottom:.4rem;}
+.rcard h4{color:#fff;font-size:1rem;margin-bottom:.6rem;}
+.rta{width:100%;min-height:75px;background:rgba(255,255,255,.08);border:none;border-bottom:1.5px solid rgba(255,255,255,.3);color:#fff;font-family:'Tajawal',sans-serif;font-size:.9rem;padding:.45rem .55rem;resize:vertical;outline:none;border-radius:8px 8px 0 0;transition:all .22s;}
+.rta:focus{background:rgba(255,255,255,.15);border-bottom-color:var(--rose-pale);}
+.rta::placeholder{color:rgba(255,255,255,.3);font-style:italic;}
+.rqlist{list-style:none;margin-top:1.4rem;}
+.rqlist li{background:rgba(255,255,255,.08);border-radius:11px;padding:.65rem .95rem;margin-bottom:.45rem;font-size:.87rem;color:rgba(255,255,255,.85);line-height:1.7;border-right:3px solid var(--rose-muted);}
+
+/* ══════ TOOLBAR ══════ */
+.toolbar{position:fixed;bottom:1.4rem;left:50%;transform:translateX(-50%);display:flex;gap:.7rem;background:rgba(45,26,34,.9);backdrop-filter:blur(14px);padding:.55rem 1.1rem;border-radius:50px;box-shadow:0 8px 35px rgba(0,0,0,.28);z-index:500;}
+.toolbar button{padding:.46rem 1rem;border-radius:24px;font-family:'Tajawal',sans-serif;font-size:.84rem;font-weight:700;border:none;cursor:pointer;transition:all .22s;display:flex;align-items:center;gap:.35rem;}
+.tb-s{background:var(--rose);color:#fff;}
+.tb-s:hover{background:var(--rose-d);}
+.tb-c,.tb-p{background:rgba(255,255,255,.12);color:rgba(255,255,255,.82);}
+.toolbar button:hover{transform:translateY(-2px);}
+
+/* ══════ TOAST ══════ */
+.toast{position:fixed;top:1.4rem;left:50%;transform:translateX(-50%) translateY(-80px);background:var(--rose-d);color:#fff;padding:.65rem 1.8rem;border-radius:30px;font-weight:700;font-size:.88rem;box-shadow:0 6px 24px rgba(0,0,0,.2);transition:transform .38s cubic-bezier(.175,.885,.32,1.275);z-index:999;}
+.toast.show{transform:translateX(-50%) translateY(0);}
+
+/* ══════ FOOTER ══════ */
+footer{background:linear-gradient(155deg,#2d1a22,#5c2340);color:rgba(255,255,255,.7);text-align:center;padding:3rem 2rem 5rem;}
+footer .fbrand{font-family:'Amiri',serif;font-size:1.65rem;color:var(--rose-pale);margin-bottom:.35rem;}
+footer .flinks{display:flex;justify-content:center;gap:1.5rem;margin:1.1rem 0;flex-wrap:wrap;}
+footer .flinks a{color:var(--rose-pale);text-decoration:none;font-size:.87rem;transition:color .22s;}
+footer .flinks a:hover{color:#fff;}
+footer .fcopy{font-size:.75rem;opacity:.42;margin-top:.7rem;}
+
+/* scrollbar */
+::-webkit-scrollbar{width:5px;} ::-webkit-scrollbar-track{background:var(--rose-bg);} ::-webkit-scrollbar-thumb{background:var(--rose-pale);border-radius:3px;}
+
+@media print{.nav,.toolbar,.hero-cta,footer{display:none!important;}body{background:#fff;}.card,.dday,.mcard,.dcard,.rcard{box-shadow:none!important;}}
+</style>
+</head>
+<body>
+
+<!-- ══════ HERO ══════ -->
+<section class="hero" id="top">
+  <div class="orb"></div>
+  <div class="badge-top">أكاديمية أساور · @asawir1441</div>
+  <div class="hero-h">
+    <span class="big">مفكرة مسؤوليتي</span>
+    <span class="sm">منهج اغتنام الأوقات · الأستاذة هدى النمر</span>
+  </div>
+  <p class="hero-p">نظام أسبوعي تفاعلي — أضف مهامك، انجزها، وعدّل كل شيء بما يناسبك</p>
+  <div class="hero-cta">
+    <a href="#planner" class="btn bp">ابدأ أسبوعك 🗓</a>
+    <a href="#masrad"  class="btn bg">استعرض المسرد</a>
+  </div>
+  <div class="hero-wave">
+    <svg viewBox="0 0 1440 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,45 C360,90 1080,0 1440,45 L1440,90 L0,90 Z" fill="#fdf0f4"/>
+    </svg>
+  </div>
+</section>
+
+<!-- ══════ NAV ══════ -->
+<nav class="nav" id="mainnav">
+  <a href="#top">الرئيسية</a>
+  <a href="#planner">📅 المخطط الأسبوعي</a>
+  <a href="#masrad">📋 المسرد</a>
+  <a href="#tawazun">⚖️ التطلعات</a>
+  <a href="#darjat">🪜 سلم الدرجات</a>
+  <a href="#tafakkur">🌙 وقفة تفكر</a>
+</nav>
+
+<!-- ══════════════════════════════════
+  ① WEEKLY PLANNER — الأهم يأتي أولاً
+══════════════════════════════════════ -->
+<section id="planner">
+<div class="wrap">
+  <div class="sec-header reveal">
+    <div class="tag">ابدأ هنا</div>
+    <h2 class="sec-title">المخطط الأسبوعي</h2>
+    <p class="sec-desc">اضغط الدائرة ● عند إتمام المهمة — اضغط مرتين على أي نص لتعديله — اضغط ＋ لإضافة مهمة جديدة</p>
+  </div>
+
+  <!-- Week nav -->
+  <div class="week-nav reveal">
+    <button class="wbtn" onclick="changeWeek(1)" title="الأسبوع السابق">‹</button>
+    <div class="wlabel" id="wlabel">الأسبوع ١</div>
+    <button class="wbtn" onclick="changeWeek(-1)" title="الأسبوع التالي">›</button>
+  </div>
+
+  <!-- Progress -->
+  <div class="card reveal" style="margin-bottom:1.6rem;padding:1.1rem 1.5rem;">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.4rem;">
+      <span style="font-weight:800;color:var(--rose);font-size:.93rem;">📊 تقدم الأسبوع</span>
+      <span id="ptxt" style="font-size:.83rem;color:var(--txt-l);">٠ من ٠ مهمة</span>
+    </div>
+    <div class="prog-wrap"><div class="prog-fill" id="pbar" style="width:0%"></div></div>
+  </div>
+
+  <div class="playout reveal">
+
+    <!-- Fixed column -->
+    <div>
+      <!-- Thawabet -->
+      <div class="card" style="margin-bottom:1.1rem;">
+        <div class="ctitle">🔒 الثوابت العينية <span style="font-size:.75rem;font-weight:400;color:var(--txt-l);">— واجب الوقت</span></div>
+        <ul class="tlist" id="fixed-list" data-ctx="planner"></ul>
+        <div class="add-row">
+          <input class="add-input" id="add-fixed" placeholder="أضف ثابتاً..." onkeydown="if(event.key==='Enter')addTask('fixed-list','add-fixed')">
+          <button class="add-btn" onclick="addTask('fixed-list','add-fixed')" title="إضافة">＋</button>
+        </div>
+      </div>
+      <!-- Variables -->
+      <div class="card">
+        <div class="ctitle">🔄 المتغيرات الكفائية <span style="font-size:.75rem;font-weight:400;color:var(--txt-l);">— قابلة للتأجيل</span></div>
+        <ul class="tlist" id="var-list" data-ctx="planner"></ul>
+        <div class="add-row">
+          <input class="add-input" id="add-var" placeholder="أضف مهمة متغيرة..." onkeydown="if(event.key==='Enter')addTask('var-list','add-var')">
+          <button class="add-btn" onclick="addTask('var-list','add-var')" title="إضافة">＋</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Days -->
+    <div class="days-grid" id="days-grid"></div>
+  </div>
+
+  <!-- Color legend -->
+  <div class="card reveal" style="margin-top:1.4rem;padding:1rem 1.4rem;">
+    <p style="font-weight:800;color:var(--rose);margin-bottom:.65rem;font-size:.88rem;">دليل الألوان</p>
+    <div style="display:flex;flex-wrap:wrap;gap:.5rem;">
+      <span style="background:#ffe0ec;padding:.28rem .75rem;border-radius:9px;font-size:.78rem;color:var(--rose);">🌸 وردي = التطلعات الحالية</span>
+      <span style="background:#ede0f5;padding:.28rem .75rem;border-radius:9px;font-size:.78rem;color:#8b5aa8;">💜 بنفسجي = الدرجات</span>
+      <span style="background:#f0f0f0;padding:.28rem .75rem;border-radius:9px;font-size:.78rem;color:#333;">⚫ أسود = الكم</span>
+      <span style="background:#fffde0;padding:.28rem .75rem;border-radius:9px;font-size:.78rem;color:#b8920a;">🟡 أصفر = الكيفية</span>
+    </div>
+  </div>
+</div>
+</section>
+
+<div class="band"><h2>تتحرك بوعي وطمأنينة</h2><p>دون بلبلة أو تشتت</p></div>
+
+<!-- ══════════════════════════════════
+  ② MASRAD
+══════════════════════════════════════ -->
+<section id="masrad">
+<div class="wrap">
+  <div class="sec-header reveal">
+    <div class="tag">المرحلة الأولى</div>
+    <h2 class="sec-title">مسرد التطلعات</h2>
+    <p class="sec-desc">دوّن كل ما يخطر في بالك — أضف، عدّل، أو احذف بحرية تامة</p>
+  </div>
+  <div class="mgrid reveal">
+
+    <div class="mcard">
+      <div class="mhead">📖 حصن العبادات والفرائض</div>
+      <div class="mbody">
+        <ul class="tlist" id="m-faraidh"></ul>
+        <div class="add-row"><input class="add-input" id="ai-faraidh" placeholder="أضف عبادة..." onkeydown="if(event.key==='Enter')addTask('m-faraidh','ai-faraidh')"><button class="add-btn" onclick="addTask('m-faraidh','ai-faraidh')">＋</button></div>
+      </div>
+    </div>
+
+    <div class="mcard">
+      <div class="mhead">🤝 المعاملات والعلاقات</div>
+      <div class="mbody">
+        <ul class="tlist" id="m-muamalat"></ul>
+        <div class="add-row"><input class="add-input" id="ai-muamalat" placeholder="أضف علاقة..." onkeydown="if(event.key==='Enter')addTask('m-muamalat','ai-muamalat')"><button class="add-btn" onclick="addTask('m-muamalat','ai-muamalat')">＋</button></div>
+      </div>
+    </div>
+
+    <div class="mcard">
+      <div class="mhead">🧠 العلوم والمعارف</div>
+      <div class="mbody">
+        <ul class="tlist" id="m-uloom"></ul>
+        <div class="add-row"><input class="add-input" id="ai-uloom" placeholder="أضف علماً..." onkeydown="if(event.key==='Enter')addTask('m-uloom','ai-uloom')"><button class="add-btn" onclick="addTask('m-uloom','ai-uloom')">＋</button></div>
+      </div>
+    </div>
+
+    <div class="mcard">
+      <div class="mhead">✂️ المهارات والحِرَف</div>
+      <div class="mbody">
+        <ul class="tlist" id="m-maharat"></ul>
+        <div class="add-row"><input class="add-input" id="ai-maharat" placeholder="أضف مهارة..." onkeydown="if(event.key==='Enter')addTask('m-maharat','ai-maharat')"><button class="add-btn" onclick="addTask('m-maharat','ai-maharat')">＋</button></div>
+      </div>
+    </div>
+
+    <div class="mcard">
+      <div class="mhead">🚀 المشروعات والمنتجات</div>
+      <div class="mbody">
+        <ul class="tlist" id="m-mashrouat"></ul>
+        <div class="add-row"><input class="add-input" id="ai-mashrouat" placeholder="أضف مشروعاً..." onkeydown="if(event.key==='Enter')addTask('m-mashrouat','ai-mashrouat')"><button class="add-btn" onclick="addTask('m-mashrouat','ai-mashrouat')">＋</button></div>
+      </div>
+    </div>
+
+    <div class="mcard">
+      <div class="mhead">🏃 الرياضة البدنية</div>
+      <div class="mbody">
+        <ul class="tlist" id="m-riyadha"></ul>
+        <div class="add-row"><input class="add-input" id="ai-riyadha" placeholder="أضف نشاطاً..." onkeydown="if(event.key==='Enter')addTask('m-riyadha','ai-riyadha')"><button class="add-btn" onclick="addTask('m-riyadha','ai-riyadha')">＋</button></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- ══════════════════════════════════
+  ③ TAWAZUN — PRIORITY SCREENING
+══════════════════════════════════════ -->
+<section id="tawazun">
+<div class="wrap">
+  <div class="sec-header reveal">
+    <div class="tag">المرحلة الثانية</div>
+    <h2 class="sec-title">قائمة التطلعات الحالية</h2>
+    <p class="sec-desc">اختر ٢–٤ مجالات فقط وزنها بالميزانين قبل الالتزام بها</p>
+  </div>
+
+  <!-- chips -->
+  <div class="card reveal" style="margin-bottom:1.6rem;">
+    <p style="font-weight:800;color:var(--rose);margin-bottom:.9rem;">🎯 مجالات الاهتمام الحالية — اختر ما بين ٢ و٤</p>
+    <div class="chips" id="chips">
+      <span class="chip" onclick="toggleChip(this)">الفرائض</span>
+      <span class="chip" onclick="toggleChip(this)">العلوم</span>
+      <span class="chip" onclick="toggleChip(this)">المعاملات</span>
+      <span class="chip" onclick="toggleChip(this)">المهارات</span>
+      <span class="chip" onclick="toggleChip(this)">المشروعات</span>
+      <span class="chip" onclick="toggleChip(this)">الرياضة</span>
+      <span class="chip" onclick="toggleChip(this)">الصحة النفسية</span>
+      <span class="chip" onclick="toggleChip(this)">العمل والمهنة</span>
+    </div>
+    <div id="chip-warn" style="display:none;color:var(--rose);font-size:.83rem;margin-bottom:.6rem;">⚠ الحد الأقصى ٤ مجالات</div>
+    <!-- custom chip -->
+    <div class="add-row" style="border-top:none;margin-top:0;padding-top:0;">
+      <input class="add-input" id="chip-input" placeholder="أضف مجالاً خاصاً بك..." onkeydown="if(event.key==='Enter')addChip()">
+      <button class="add-btn" onclick="addChip()">＋</button>
+    </div>
+  </div>
+
+  <div class="g2 reveal">
+    <div class="pcard">
+      <div class="pbadge">الميزان الأول</div>
+      <h3>🌙 الميزان الإيماني</h3>
+      <ul class="tlist" id="p-imani"></ul>
+      <div class="add-row"><input class="add-input" id="ai-imani" placeholder="أضف سؤالاً إيمانياً..." onkeydown="if(event.key==='Enter')addTask('p-imani','ai-imani')"><button class="add-btn" onclick="addTask('p-imani','ai-imani')">＋</button></div>
+      <textarea class="focus-area" placeholder="دوّن تأملاتك الإيمانية هنا..."></textarea>
+    </div>
+    <div class="pcard">
+      <div class="pbadge">الميزان الثاني</div>
+      <h3>⚖️ الميزان الواقعي</h3>
+      <ul class="tlist" id="p-waqii"></ul>
+      <div class="add-row"><input class="add-input" id="ai-waqii" placeholder="أضف معياراً واقعياً..." onkeydown="if(event.key==='Enter')addTask('p-waqii','ai-waqii')"><button class="add-btn" onclick="addTask('p-waqii','ai-waqii')">＋</button></div>
+      <textarea class="focus-area" placeholder="دوّن تقييمك الواقعي هنا..."></textarea>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ══════════════════════════════════
+  ④ DARJAT
+══════════════════════════════════════ -->
+<section id="darjat">
+<div class="wrap">
+  <div class="sec-header reveal">
+    <div class="tag">المرحلة الثالثة</div>
+    <h2 class="sec-title">سلم الدرجات</h2>
+    <p class="sec-desc">حلّل كل تطلع إلى مهام كبرى — أضف تطلعاتك الخاصة وعدّل الموجودة</p>
+  </div>
+  <div class="dgrid reveal">
+
+    <div class="dcard">
+      <div class="dhead">📖 الفرائض</div>
+      <div class="dbody">
+        <div class="asp-lbl">تطلع — القرآن</div>
+        <ul class="tlist" id="d-quran"></ul>
+        <div class="add-row"><input class="add-input" id="ai-quran" placeholder="أضف..." onkeydown="if(event.key==='Enter')addTask('d-quran','ai-quran')"><button class="add-btn" onclick="addTask('d-quran','ai-quran')">＋</button></div>
+        <div class="asp-lbl">تطلع — الذكر</div>
+        <ul class="tlist" id="d-dhikr"></ul>
+        <div class="add-row"><input class="add-input" id="ai-dhikr" placeholder="أضف..." onkeydown="if(event.key==='Enter')addTask('d-dhikr','ai-dhikr')"><button class="add-btn" onclick="addTask('d-dhikr','ai-dhikr')">＋</button></div>
+        <div class="asp-lbl">تطلع — الدعاء</div>
+        <ul class="tlist" id="d-duaa"></ul>
+        <div class="add-row"><input class="add-input" id="ai-duaa" placeholder="أضف..." onkeydown="if(event.key==='Enter')addTask('d-duaa','ai-duaa')"><button class="add-btn" onclick="addTask('d-duaa','ai-duaa')">＋</button></div>
+        <div class="asp-lbl">تطلع إضافي</div>
+        <ul class="tlist" id="d-extra1"></ul>
+        <div class="add-row"><input class="add-input" id="ai-extra1" placeholder="أضف..." onkeydown="if(event.key==='Enter')addTask('d-extra1','ai-extra1')"><button class="add-btn" onclick="addTask('d-extra1','ai-extra1')">＋</button></div>
+      </div>
+    </div>
+
+    <div class="dcard">
+      <div class="dhead">🧠 العلوم والمعارف</div>
+      <div class="dbody">
+        <div class="asp-lbl">تطلع — علوم اضطرار</div>
+        <ul class="tlist" id="d-idtirar"></ul>
+        <div class="add-row"><input class="add-input" id="ai-idtirar" placeholder="أضف..." onkeydown="if(event.key==='Enter')addTask('d-idtirar','ai-idtirar')"><button class="add-btn" onclick="addTask('d-idtirar','ai-idtirar')">＋</button></div>
+        <div class="asp-lbl">تطلع — علوم تخصص</div>
+        <ul class="tlist" id="d-takhassos"></ul>
+        <div class="add-row"><input class="add-input" id="ai-takhassos" placeholder="أضف..." onkeydown="if(event.key==='Enter')addTask('d-takhassos','ai-takhassos')"><button class="add-btn" onclick="addTask('d-takhassos','ai-takhassos')">＋</button></div>
+        <div class="asp-lbl">تطلع إضافي</div>
+        <ul class="tlist" id="d-extra2"></ul>
+        <div class="add-row"><input class="add-input" id="ai-extra2" placeholder="أضف..." onkeydown="if(event.key==='Enter')addTask('d-extra2','ai-extra2')"><button class="add-btn" onclick="addTask('d-extra2','ai-extra2')">＋</button></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- ══════════════════════════════════
+  ⑤ TAFAKKUR
+══════════════════════════════════════ -->
+<section id="tafakkur">
+<div class="wrap">
+  <div class="sec-header reveal">
+    <div class="tag">المرحلة الخامسة</div>
+    <h2 class="sec-title">وقفة تفكر</h2>
+    <p class="sec-desc">في ختام كل أسبوع قوّم أحوالك مع تطلعاتك واتساقك مع نظامك</p>
+  </div>
+
+  <div class="rgrid reveal">
+    <div class="rcard">
+      <div class="rnum">١</div>
+      <h4>ثمار الأسبوع</h4>
+      <p style="font-size:.82rem;color:rgba(255,255,255,.58);margin-bottom:.65rem;">ما الذي حققته؟</p>
+      <textarea class="rta" placeholder="دوّن ثمارك وإنجازاتك..."></textarea>
+    </div>
+    <div class="rcard">
+      <div class="rnum">٢</div>
+      <h4>وقفة تقييم</h4>
+      <p style="font-size:.82rem;color:rgba(255,255,255,.58);margin-bottom:.65rem;">ما الذي يحتاج تحسيناً؟</p>
+      <textarea class="rta" placeholder="ماذا تعلمت؟ ما الذي تغيّر؟..."></textarea>
+    </div>
+    <div class="rcard">
+      <div class="rnum">٣</div>
+      <h4>خطوة للأمام</h4>
+      <p style="font-size:.82rem;color:rgba(255,255,255,.58);margin-bottom:.65rem;">ما الذي ستغيّره؟</p>
+      <textarea class="rta" placeholder="تعديل النية أو الكم أو نوع التطلع..."></textarea>
+    </div>
+  </div>
+
+  <div class="reveal" style="margin-top:1.6rem;">
+    <p style="text-align:center;color:rgba(255,255,255,.7);font-weight:700;margin-bottom:1rem;font-size:.95rem;">أسئلة التفكر المقترحة</p>
+    <ul class="rqlist">
+      <li>التفكر في حيثيات الأداء: إلى أي مدى انضبطت بتصوّري؟ وكيف كان شعوري تجاهه؟ هل أرتضي الوجهة التي أتوجه لها؟</li>
+      <li>التفكر في المعاونات: ما الذي يمكن أن أفعله أو أمتنع عنه ليُعينني على الاتساق مع النظام الذي أتطلع له؟</li>
+      <li>التفكر في المُمانعات: ما الذي يثبّط محاولاتي للانضباط أو يعوق طاقتي في الوفاء بما خططت له؟</li>
+      <li>مخاوف دفينة: ما الذي يخيفني من الفعل أو الترك؟ ما الذي سيحصل لي لو اتخذت هذا النهج؟</li>
+      <li>أهواء منافسة: أي هوى يتنازع التطلّع الذي تعمل عليه؟ كل تطلع له هوى منافس يستحق التأمل.</li>
+    </ul>
+  </div>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="fbrand">أكاديمية أساور</div>
+  <p style="color:var(--rose-pale);font-size:.83rem;">Asawir Academy · @asawir1441</p>
+  <div class="flinks">
+    <a href="https://linktr.ee/hoda.alnimr" target="_blank">روابط الأستاذة هدى النمر</a>
+    <a href="https://hudhud0.wordpress.com/library/" target="_blank">مكتبة هدهد</a>
+  </div>
+  <p style="font-size:.78rem;opacity:.5;">مستفادة من كتاب الأسئلة الأربعة للأستاذة هدى النمر · الجزء الثاني ص ٥٩٩–٦١٢</p>
+  <div class="fcopy">جميع الحقوق محفوظة</div>
+</footer>
+
+<!-- TOOLBAR -->
+<div class="toolbar">
+  <button class="tb-s" onclick="saveAll()">💾 حفظ</button>
+  <button class="tb-c" onclick="confirmClear()">🗑 مسح</button>
+  <button class="tb-p" onclick="window.print()">🖨 طباعة</button>
+</div>
+<div class="toast" id="toast"></div>
+
+<!-- ══════════════════════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════════════════════ -->
+<script>
+'use strict';
+
+/* ─── DEFAULT DATA ─────────────────────────────────── */
+const DEFAULTS = {
+  'fixed-list':  ['الفرائض الخمس','القرآن اليومي','١٠٠ صلاة + ١٠٠ استغفار','١٠٠ تسبيح + ١٠٠ حوقلة','قيام الليل'],
+  'var-list':    ['دورة فقه — ٣ دروس','البحث المدرسي','لقاء الأصحاب','تمارين رياضية'],
+  'm-faraidh':   ['القرآن الكريم','الذكر والتسبيح','قيام الليل','الدعاء والاستغفار'],
+  'm-muamalat':  ['مع الوالدين','مع الإخوة','مع الأقارب','مع الأصحاب','مع زملاء العمل'],
+  'm-uloom':     ['علوم الاضطرار','علوم التخصص','علوم الحال والاستعداد','ثقافة عامة'],
+  'm-maharat':   ['الخياطة','الرسم','الخط العربي','النجارة'],
+  'm-mashrouat': ['تأليف كتاب','كتابة قصة أو مقال','تصميم تطبيق','تسجيل فيديو تعليمي'],
+  'm-riyadha':   ['التنزه والمشي','ركوب الدراجة','رفع الأثقال'],
+  'p-imani':     ['ما الذي أرجو به وجه الله؟','ما الذي سأندم على تركه؟'],
+  'p-waqii':     ['ما أهميته عندي؟','ما عواقب إهماله؟','إلى أي مدى أحتاجه؟'],
+  'd-quran':     ['سور المفصل من الزخرف'],
+  'd-dhikr':     ['الصلاة على النبي ﷺ','الاستغفار والتسبيح'],
+  'd-duaa':      ['الاستقامة والتقوى','صلاح العلاقة مع الأهل'],
+  'd-extra1':    [],
+  'd-idtirar':   ['فقه','سيرة','تزكية'],
+  'd-takhassos': ['كتابة بحث','إتمام دورة'],
+  'd-extra2':    [],
+};
+
+/* lists keyed by day index for planner days */
+const DAY_NAMES = ['السبت','الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة'];
+const DAY_DEFAULTS = [
+  ['درس فقه','تمارين رياضية','مسودة بحث'],
+  ['حضور ندوة','مراجعة بحث','لقاء أصحاب'],
+  ['١٦ صفحة من كتاب','درس فقه'],
+  ['تنقيح البحث','٥ صفحات من كتاب'],
+  [],[],[]
+];
+
+const jsDay = new Date().getDay();
+const TODAY = jsDay === 6 ? 0 : jsDay + 1; // sat=0
+let curWeek = 1;
+let state = {}; // { listId: [{text, done}, ...], ... }
+let daysDone = {}; // { 'w1-d0': [true/false,...], ... }
+
+/* ─── UTIL ─────────────────────────────────────────── */
+const toAr = n => String(n).replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d]);
+const svgCheck = `<svg width="12" height="10" viewBox="0 0 12 10"><polyline points="1,5 4.5,9 11,1" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>`;
+
+/* ─── BUILD TASK ITEM ───────────────────────────────── */
+function makeItem(listId, idx, text, done) {
+  const li = document.createElement('li');
+  li.className = 'titem' + (done ? ' done' : '') + ' new';
+  li.dataset.idx = idx;
+  li.innerHTML = `
+    <div class="tc" onclick="toggleItem('${listId}',${idx})">${svgCheck}</div>
+    <input class="tlabel" value="${esc(text)}" readonly
+      ondblclick="startEdit(this)"
+      onblur="finishEdit('${listId}',${idx},this)"
+      onkeydown="if(event.key==='Enter'){this.blur();}if(event.key==='Escape'){cancelEdit(this);}">
+    <div class="tactions">
+      <button class="tact tact-edit" onclick="editItem('${listId}',${idx})" title="تعديل">✎</button>
+      <button class="tact tact-del"  onclick="delItem('${listId}',${idx})"  title="حذف">✕</button>
+    </div>`;
+  // remove animation class after it runs
+  li.addEventListener('animationend', () => li.classList.remove('new'), {once:true});
+  return li;
+}
+
+function esc(t){ return t.replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
+
+/* ─── RENDER LIST ───────────────────────────────────── */
+function renderList(listId) {
+  const ul = document.getElementById(listId);
+  if (!ul) return;
+  ul.innerHTML = '';
+  (state[listId] || []).forEach((item, i) => {
+    ul.appendChild(makeItem(listId, i, item.text, item.done));
+  });
+  updateProgress();
+}
+
+/* ─── TOGGLE ────────────────────────────────────────── */
+function toggleItem(listId, idx) {
+  if (!state[listId]) return;
+  state[listId][idx].done = !state[listId][idx].done;
+  renderList(listId);
+}
+
+/* ─── ADD TASK ──────────────────────────────────────── */
+function addTask(listId, inputId) {
+  const inp = document.getElementById(inputId);
+  const txt = inp.value.trim();
+  if (!txt) return;
+  if (!state[listId]) state[listId] = [];
+  state[listId].push({text: txt, done: false});
+  inp.value = '';
+  renderList(listId);
+  inp.focus();
+}
+
+/* ─── EDIT ──────────────────────────────────────────── */
+function startEdit(inp) {
+  inp._orig = inp.value;
+  inp.removeAttribute('readonly');
+  inp.classList.add('editing');
+  inp.focus();
+  inp.select();
+}
+function finishEdit(listId, idx, inp) {
+  const txt = inp.value.trim();
+  if (txt && state[listId] && state[listId][idx] !== undefined) {
+    state[listId][idx].text = txt;
+  } else if (inp._orig) {
+    inp.value = inp._orig;
+  }
+  inp.setAttribute('readonly','');
+  inp.classList.remove('editing');
+}
+function cancelEdit(inp) {
+  if (inp._orig !== undefined) inp.value = inp._orig;
+  inp.blur();
+}
+function editItem(listId, idx) {
+  const ul = document.getElementById(listId);
+  if (!ul) return;
+  const li = ul.querySelector(`[data-idx="${idx}"]`);
+  if (!li) return;
+  startEdit(li.querySelector('.tlabel'));
+}
+
+/* ─── DELETE ────────────────────────────────────────── */
+function delItem(listId, idx) {
+  if (!state[listId]) return;
+  state[listId].splice(idx, 1);
+  renderList(listId);
+}
+
+/* ─── PROGRESS ──────────────────────────────────────── */
+function updateProgress() {
+  const plannerLists = ['fixed-list','var-list'];
+  // add day lists
+  DAY_NAMES.forEach((_,i) => plannerLists.push(`day-${curWeek}-${i}`));
+  let total = 0, done = 0;
+  plannerLists.forEach(id => {
+    (state[id] || []).forEach(item => { total++; if(item.done) done++; });
+  });
+  const pct = total ? Math.round(done/total*100) : 0;
+  const bar = document.getElementById('pbar');
+  const txt = document.getElementById('ptxt');
+  if (bar) bar.style.width = pct + '%';
+  if (txt) txt.textContent = toAr(done) + ' من ' + toAr(total) + ' مهمة · ' + toAr(pct) + '%';
+}
+
+/* ─── DAYS GRID ─────────────────────────────────────── */
+function buildDays() {
+  const grid = document.getElementById('days-grid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  DAY_NAMES.forEach((day, i) => {
+    const lid = `day-${curWeek}-${i}`;
+    const inp = `inp-day-${i}`;
+    const isToday = i === TODAY;
+    const div = document.createElement('div');
+    div.className = 'dday' + (isToday ? ' today' : '');
+    div.innerHTML = `
+      <div class="dname">${day}${isToday ? ' ✦' : ''}</div>
+      <div class="ftag">الفرائض</div>
+      <ul class="tlist" id="${lid}"></ul>
+      <div class="add-row">
+        <input class="add-input" id="${inp}" placeholder="مهمة..." style="font-size:.78rem;"
+          onkeydown="if(event.key==='Enter')addTask('${lid}','${inp}')">
+        <button class="add-btn" onclick="addTask('${lid}','${inp}')" style="width:23px;height:23px;font-size:.9rem;">＋</button>
+      </div>`;
+    grid.appendChild(div);
+    // init default if new week+day
+    if (!state[lid]) {
+      state[lid] = (DAY_DEFAULTS[i] || []).map(t => ({text:t, done:false}));
+    }
+    renderList(lid);
+  });
+}
+
+function changeWeek(dir) {
+  curWeek = Math.max(1, curWeek + dir);
+  document.getElementById('wlabel').textContent = 'الأسبوع ' + toAr(curWeek);
+  buildDays();
+  updateProgress();
+}
+
+/* ─── CHIPS ─────────────────────────────────────────── */
+function toggleChip(el) {
+  const chosen = document.querySelectorAll('#chips .chip.on');
+  const warn   = document.getElementById('chip-warn');
+  if (el.classList.contains('on')) { el.classList.remove('on'); warn.style.display='none'; return; }
+  if (chosen.length >= 4) { warn.style.display='block'; return; }
+  el.classList.add('on'); warn.style.display='none';
+}
+function addChip() {
+  const inp = document.getElementById('chip-input');
+  const txt = inp.value.trim();
+  if (!txt) return;
+  const chosen = document.querySelectorAll('#chips .chip.on');
+  const warn   = document.getElementById('chip-warn');
+  if (chosen.length >= 4) { warn.style.display='block'; return; }
+  const span = document.createElement('span');
+  span.className = 'chip on';
+  span.textContent = txt;
+  span.onclick = function(){ toggleChip(this); };
+  // add delete on right-click
+  span.oncontextmenu = function(e){ e.preventDefault(); this.remove(); };
+  document.getElementById('chips').appendChild(span);
+  inp.value = '';
+}
+
+/* ─── SAVE ──────────────────────────────────────────── */
+function saveAll() {
+  const save = {
+    state,
+    week: curWeek,
+    chips: [...document.querySelectorAll('#chips .chip.on')].map(c=>c.textContent),
+    textareas: [...document.querySelectorAll('.focus-area, .rta')].map(t=>t.value),
+  };
+  try { localStorage.setItem('mafkara_v3', JSON.stringify(save)); } catch(e) {}
+  showToast('✅ تم الحفظ بنجاح!');
+}
+
+function loadAll() {
+  let d;
+  try { d = JSON.parse(localStorage.getItem('mafkara_v3')); } catch(e) {}
+  if (!d) return;
+  if (d.state) state = d.state;
+  if (d.week)  { curWeek = d.week; document.getElementById('wlabel').textContent = 'الأسبوع ' + toAr(curWeek); }
+  // chips
+  if (d.chips) {
+    const container = document.getElementById('chips');
+    // mark existing
+    container.querySelectorAll('.chip').forEach(c => {
+      if (d.chips.includes(c.textContent)) c.classList.add('on');
+    });
+    // add custom chips not in default set
+    const defaultChips = [...container.querySelectorAll('.chip')].map(c=>c.textContent);
+    d.chips.forEach(txt => {
+      if (!defaultChips.includes(txt)) {
+        const span = document.createElement('span');
+        span.className = 'chip on';
+        span.textContent = txt;
+        span.onclick = function(){ toggleChip(this); };
+        span.oncontextmenu = function(e){ e.preventDefault(); this.remove(); };
+        container.appendChild(span);
+      }
+    });
+  }
+  // textareas
+  if (d.textareas) {
+    const tas = document.querySelectorAll('.focus-area, .rta');
+    d.textareas.forEach((v,i) => { if(tas[i]) tas[i].value = v; });
+  }
+}
+
+function confirmClear() {
+  if (!confirm('هل تريد مسح جميع البيانات والعودة للإعدادات الافتراضية؟')) return;
+  try { localStorage.removeItem('mafkara_v3'); } catch(e) {}
+  state = {};
+  initState();
+  curWeek = 1;
+  document.getElementById('wlabel').textContent = 'الأسبوع ١';
+  document.querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));
+  document.querySelectorAll('.focus-area, .rta').forEach(t=>t.value='');
+  Object.keys(DEFAULTS).forEach(id => renderList(id));
+  buildDays();
+  showToast('🗑 تم المسح');
+}
+
+/* ─── TOAST ─────────────────────────────────────────── */
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2600);
+}
+
+/* ─── INIT ──────────────────────────────────────────── */
+function initState() {
+  Object.entries(DEFAULTS).forEach(([id, items]) => {
+    if (!state[id]) state[id] = items.map(t => ({text:t, done:false}));
+  });
+}
+
+function init() {
+  initState();
+  loadAll();
+  Object.keys(DEFAULTS).forEach(id => renderList(id));
+  buildDays();
+  updateProgress();
+
+  // scroll reveal
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach((e,i) => { if(e.isIntersecting) setTimeout(()=>e.target.classList.add('show'), i*60); });
+  }, {threshold:.08});
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  // smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) t.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  });
+
+  // nav active highlight
+  const secs = document.querySelectorAll('section[id]');
+  const navAs = document.querySelectorAll('.nav a');
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    secs.forEach(s => { if (window.scrollY >= s.offsetTop - 130) cur = s.id; });
+    navAs.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#'+cur));
+  });
+
+  // auto-save every 2 min
+  setInterval(saveAll, 120000);
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
