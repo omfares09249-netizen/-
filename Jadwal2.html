@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>جدولي الشهري 🌸</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --home: #C17B5C;
+  --home-light: #FDF0E8;
+  --home-dark: #7A4A32;
+  --self: #7B9E87;
+  --self-light: #EDF5EF;
+  --self-dark: #3D6B4F;
+  --work: #6B7FB8;
+  --work-light: #EDF0FA;
+  --work-dark: #2D3F7A;
+  --bg: #F8F4F0;
+  --white: #FFFFFF;
+  --text: #1E1612;
+  --muted: #9A8A80;
+  --radius: 18px;
+}
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+body {
+  font-family: 'Tajawal', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  padding-bottom: 100px;
+}
+
+/* ===== TOP HEADER ===== */
+.top-header {
+  background: linear-gradient(135deg, #1E1612, #3A2818);
+  padding: 28px 20px 20px;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+.top-header h1 { font-size: 1.4rem; font-weight: 900; color: white; }
+.top-header p { font-size: 0.82rem; color: rgba(255,255,255,0.55); margin-top: 4px; }
+.day-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 30px;
+  padding: 6px 16px;
+  margin-top: 12px;
+  font-size: 0.88rem;
+  color: white;
+  font-weight: 600;
+}
+.day-badge span { color: #E8A882; font-weight: 800; }
+
+/* ===== MONTH GRID ===== */
+.month-section { padding: 20px 16px 8px; }
+.month-title {
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: var(--muted);
+  margin-bottom: 12px;
+  padding-right: 4px;
+}
+.days-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+}
+.day-btn {
+  aspect-ratio: 1;
+  border-radius: 12px;
+  border: none;
+  background: white;
+  font-family: 'Tajawal', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2px;
+}
+.day-btn.active {
+  background: linear-gradient(135deg, #1E1612, #3A2818);
+  color: white;
+  box-shadow: 0 4px 14px rgba(30,22,18,0.35);
+  transform: scale(1.05);
+}
+.day-btn.has-data::after {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--self);
+  position: absolute;
+  bottom: 5px;
+}
+.day-btn.full-day::after { background: #F0C060; }
+.day-dots {
+  display: flex; gap: 2px;
+  position: absolute;
+  bottom: 4px;
+}
+.day-dots span {
+  width: 4px; height: 4px;
+  border-radius: 50%;
+}
+
+/* ===== TABS ===== */
+.tabs {
+  display: flex;
+  gap: 8px;
+  padding: 16px 16px 0;
+  position: sticky;
+  top: 105px;
+  z-index: 90;
+  background: var(--bg);
+  padding-bottom: 12px;
+}
+.tab {
+  flex: 1;
+  padding: 10px 4px;
+  border-radius: 12px;
+  border: none;
+  font-family: 'Tajawal', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s;
+  background: white;
+  color: var(--muted);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+.tab.active-tab { color: white; box-shadow: 0 4px 14px rgba(0,0,0,0.2); }
+.tab:nth-child(1).active-tab { background: var(--home); }
+.tab:nth-child(2).active-tab { background: var(--self); }
+.tab:nth-child(3).active-tab { background: var(--work); }
+.tab:nth-child(4).active-tab { background: #1E1612; }
+
+/* ===== TASKS ===== */
+.tasks-container { padding: 0 16px; }
+.section-card {
+  display: none;
+  animation: fadeIn 0.3s ease;
+}
+.section-card.visible { display: block; }
+@keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+
+.section-header-card {
+  border-radius: var(--radius) var(--radius) 0 0;
+  padding: 20px 22px 16px;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+.section-header-card::before {
+  content: attr(data-icon);
+  position: absolute;
+  left: 16px; bottom: -8px;
+  font-size: 5rem;
+  opacity: 0.12;
+}
+.home-card .section-header-card { background: linear-gradient(135deg, #C17B5C, #E8A882); }
+.self-card .section-header-card { background: linear-gradient(135deg, #7B9E87, #A8C8B0); }
+.work-card .section-header-card { background: linear-gradient(135deg, #4A5F9E, #6B7FB8); }
+
+.section-header-card h2 { font-size: 1.2rem; font-weight: 900; }
+.section-header-card p { font-size: 0.82rem; opacity: 0.82; margin-top: 3px; }
+
+.tasks-body {
+  background: white;
+  border-radius: 0 0 var(--radius) var(--radius);
+  padding: 12px;
+  margin-bottom: 16px;
+}
+
+.group-label {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: var(--muted);
+  padding: 10px 8px 6px;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 14px;
+  border-radius: 12px;
+  margin-bottom: 6px;
+  background: var(--bg);
+  transition: all 0.2s;
+  cursor: pointer;
+  border: 1.5px solid transparent;
+}
+.task-item:active { transform: scale(0.98); }
+.task-item.checked { opacity: 0.45; }
+.task-item.checked .t-name { text-decoration: line-through; }
+
+.home-card .task-item:hover, .home-card .task-item:focus-within { border-color: rgba(193,123,92,0.3); }
+.self-card .task-item:hover, .self-card .task-item:focus-within { border-color: rgba(123,158,135,0.3); }
+.work-card .task-item:hover, .work-card .task-item:focus-within { border-color: rgba(107,127,184,0.3); }
+
+.t-time {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 9px;
+  border-radius: 7px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  min-width: 72px;
+  text-align: center;
+}
+.home-card .t-time { background: var(--home-light); color: var(--home-dark); }
+.self-card .t-time { background: var(--self-light); color: var(--self-dark); }
+.work-card .t-time { background: var(--work-light); color: var(--work-dark); }
+
+.t-text { flex: 1; }
+.t-name { font-size: 0.93rem; font-weight: 600; color: var(--text); line-height: 1.3; }
+.t-sub { font-size: 0.72rem; color: var(--muted); margin-top: 2px; font-weight: 400; }
+
+.check-circle {
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  border: 2px solid #ddd;
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+  font-size: 13px;
+  font-weight: bold;
+  color: white;
+}
+.home-card .task-item.checked .check-circle { background: var(--home); border-color: var(--home); }
+.self-card .task-item.checked .check-circle { background: var(--self); border-color: var(--self); }
+.work-card .task-item.checked .check-circle { background: var(--work); border-color: var(--work); }
+
+/* ===== PROGRESS ===== */
+.progress-footer {
+  padding: 0 12px 16px;
+  background: white;
+  border-radius: 0 0 var(--radius) var(--radius);
+  margin-top: -12px;
+  padding-top: 12px;
+}
+.prog-bar-wrap { background: var(--bg); border-radius: 10px; height: 8px; overflow: hidden; margin-bottom: 6px; }
+.prog-bar { height: 100%; border-radius: 10px; width: 0%; transition: width 0.4s ease; }
+.home-card .prog-bar { background: linear-gradient(90deg, var(--home), #E8A882); }
+.self-card .prog-bar { background: linear-gradient(90deg, var(--self), #A8C8B0); }
+.work-card .prog-bar { background: linear-gradient(90deg, var(--work), #96ABDA); }
+.prog-labels { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--muted); }
+
+/* ===== STATS ===== */
+.stats-section {
+  margin: 0 16px 16px;
+  background: linear-gradient(135deg, #1E1612, #3A2818);
+  border-radius: var(--radius);
+  padding: 20px;
+  color: white;
+}
+.stats-title { font-size: 0.8rem; font-weight: 700; letter-spacing: 2px; opacity: 0.6; margin-bottom: 14px; }
+.stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.stat-box {
+  background: rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 12px 8px;
+  text-align: center;
+}
+.stat-num { font-size: 1.6rem; font-weight: 900; }
+.stat-label { font-size: 0.7rem; opacity: 0.6; margin-top: 2px; }
+.stat-box:nth-child(1) .stat-num { color: var(--home); }
+.stat-box:nth-child(2) .stat-num { color: var(--self); }
+.stat-box:nth-child(3) .stat-num { color: #F0C060; }
+
+/* ===== BOTTOM NAV ===== */
+.bottom-nav {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: white;
+  border-top: 1px solid rgba(0,0,0,0.08);
+  display: flex;
+  padding: 10px 20px 20px;
+  gap: 8px;
+  z-index: 200;
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
+}
+.nav-btn {
+  flex: 1;
+  padding: 11px 8px;
+  border-radius: 12px;
+  border: none;
+  font-family: 'Tajawal', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s;
+  background: var(--bg);
+  color: var(--muted);
+}
+.nav-btn.active { color: white; }
+.nav-btn:nth-child(1).active { background: var(--home); }
+.nav-btn:nth-child(2).active { background: var(--self); }
+.nav-btn:nth-child(3).active { background: var(--work); }
+.nav-btn:nth-child(4).active { background: #1E1612; }
+
+/* ===== REPORT ===== */
+.report-card {
+  margin: 0 16px 16px;
+  background: white;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+}
+.report-header {
+  background: linear-gradient(135deg, #1E1612, #3A2818);
+  padding: 20px 22px;
+  color: white;
+}
+.report-header h2 { font-size: 1.2rem; font-weight: 900; }
+.report-header p { font-size: 0.8rem; opacity: 0.6; margin-top: 3px; }
+.report-body { padding: 20px; }
+.report-section-title {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: var(--muted);
+  margin: 20px 0 12px;
+}
+.report-section-title:first-child { margin-top: 0; }
+
+/* Donut charts */
+.donuts-row { display: flex; gap: 12px; justify-content: space-between; }
+.donut-wrap { flex: 1; text-align: center; }
+.donut-wrap svg { width: 80px; height: 80px; }
+.donut-label { font-size: 0.72rem; font-weight: 700; margin-top: 6px; color: var(--text); }
+.donut-pct { font-size: 1rem; font-weight: 900; }
+
+/* Heatmap */
+.heatmap { display: grid; grid-template-columns: repeat(6, 1fr); gap: 5px; }
+.heat-cell {
+  aspect-ratio: 1;
+  border-radius: 6px;
+  background: #F0EBE6;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--muted);
+  transition: all 0.2s;
+}
+.heat-cell.l1 { background: rgba(193,123,92,0.2); color: var(--home-dark); }
+.heat-cell.l2 { background: rgba(193,123,92,0.45); color: white; }
+.heat-cell.l3 { background: rgba(193,123,92,0.7); color: white; }
+.heat-cell.l4 { background: var(--home); color: white; }
+
+/* Weekly bars */
+.week-bars { display: flex; gap: 10px; align-items: flex-end; height: 100px; }
+.week-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.week-bar-wrap { flex: 1; width: 100%; background: #F0EBE6; border-radius: 6px; display: flex; align-items: flex-end; overflow: hidden; }
+.week-bar { width: 100%; border-radius: 6px; transition: height 0.5s ease; background: linear-gradient(180deg, var(--work), var(--home)); min-height: 4px; }
+.week-label { font-size: 0.65rem; color: var(--muted); font-weight: 700; }
+.week-pct { font-size: 0.7rem; font-weight: 800; color: var(--text); }
+
+/* Best/worst */
+.insight-row { display: flex; gap: 10px; margin-bottom: 8px; }
+.insight-box {
+  flex: 1; padding: 14px; border-radius: 12px; text-align: center;
+}
+.insight-box.best { background: rgba(123,158,135,0.12); border: 1px solid rgba(123,158,135,0.25); }
+.insight-box.worst { background: rgba(193,123,92,0.1); border: 1px solid rgba(193,123,92,0.2); }
+.insight-num { font-size: 1.6rem; font-weight: 900; }
+.insight-box.best .insight-num { color: var(--self); }
+.insight-box.worst .insight-num { color: var(--home); }
+.insight-lbl { font-size: 0.7rem; color: var(--muted); margin-top: 3px; font-weight: 600; }
+
+/* Category breakdown */
+.cat-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.cat-icon { font-size: 1.2rem; width: 28px; text-align: center; }
+.cat-info { flex: 1; }
+.cat-name { font-size: 0.82rem; font-weight: 700; color: var(--text); }
+.cat-bar-wrap { background: #F0EBE6; border-radius: 6px; height: 6px; margin-top: 4px; overflow: hidden; }
+.cat-bar { height: 100%; border-radius: 6px; transition: width 0.5s; }
+.cat-pct-lbl { font-size: 0.75rem; font-weight: 800; min-width: 36px; text-align: left; }
+
+/* Motivational report */
+.report-quote {
+  margin-top: 16px;
+  padding: 16px;
+  background: linear-gradient(135deg, #1E1612, #3A2818);
+  border-radius: 14px;
+  color: white;
+  text-align: center;
+  font-size: 0.88rem;
+  line-height: 1.7;
+}
+.report-quote strong { display: block; font-size: 1.1rem; margin-top: 6px; }
+.quote-card {
+  margin: 0 16px 20px;
+  padding: 18px 20px;
+  border-radius: var(--radius);
+  background: linear-gradient(135deg, rgba(193,123,92,0.1), rgba(107,127,184,0.1));
+  border: 1px solid rgba(193,123,92,0.2);
+  text-align: center;
+  font-size: 0.88rem;
+  color: var(--home-dark);
+  font-weight: 500;
+  line-height: 1.7;
+}
+.quote-card strong { display: block; font-size: 1rem; margin-top: 6px; color: var(--text); }
+</style>
+</head>
+<body>
+
+<div class="top-header">
+  <h1>جدولي الشهري 🌸</h1>
+  <p>طريق المنارة الشامخة</p>
+  <div class="day-badge">اليوم: <span id="today-label">—</span></div>
+</div>
+
+<!-- MONTH GRID -->
+<div class="month-section">
+  <div class="month-title">▸ أيام الشهر</div>
+  <div class="days-grid" id="days-grid"></div>
+</div>
+
+<!-- STATS -->
+<div class="stats-section">
+  <div class="stats-title">إحصائيات الشهر</div>
+  <div class="stats-grid">
+    <div class="stat-box"><div class="stat-num" id="stat-days">0</div><div class="stat-label">يوم مكتمل</div></div>
+    <div class="stat-box"><div class="stat-num" id="stat-tasks">0</div><div class="stat-label">مهمة أُنجزت</div></div>
+    <div class="stat-box"><div class="stat-num" id="stat-streak">0</div><div class="stat-label">أيام متتالية</div></div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <button class="tab active-tab" onclick="switchTab(0)">🏡 المنزل</button>
+  <button class="tab" onclick="switchTab(1)">🌿 شخصي</button>
+  <button class="tab" onclick="switchTab(2)">✍️ كتابة</button>
+  <button class="tab" onclick="switchTab(3)">📊 تقرير</button>
+</div>
+
+<!-- TASKS -->
+<div class="tasks-container">
+
+  <!-- HOME -->
+  <div class="section-card home-card visible" id="card-0">
+    <div class="section-header-card" data-icon="🏡">
+      <h2>مهام المنزل والأطفال</h2>
+      <p>روتين يومي منظم يريح العقل</p>
+    </div>
+    <div class="tasks-body">
+      <div class="group-label">▸ الصباح</div>
+      <div class="task-item" data-cat="0" data-id="0"><span class="t-time">٦:٣٠ ص</span><div class="t-text"><div class="t-name">الاستيقاظ وتجهيز الأطفال</div><div class="t-sub">حمام، سواك، تغيير الملابس</div></div><div class="check-circle"></div></div>
+      <div class="task-item" data-cat="0" data-id="1"><span class="t-time">٧:٠٠ ص</span><div class="t-text"><div class="t-name">إعداد وجبة الحليب</div><div class="t-sub">إطعام الأطفال والرضاعة</div></div><div class="check-circle"></div></div>
+      <div class="task-item" data-cat="0" data-id="2"><span class="t-time">٩:٣٠ ص</span><div class="t-text"><div class="t-name">وجبة البيض والفطور</div><div class="t-sub">إعداد وجبة متكاملة</div></div><div class="check-circle"></div></div>
+      <div class="task-item" data-cat="0" data-id="3"><span class="t-time">١٠:٠٠ ص</span><div class="t-text"><div class="t-name">وقت اللعب الحر</div><div class="t-sub">إشراف خفيف مع حرية للأطفال</div></div><div class="check-circle"></div></div>
+      <div class="group-label">▸ الظهر</div>
+      <div class="task-item" data-cat="0" data-id="4"><span class="t-time">١٢:٠٠ م</span><div class="t-text"><div class="t-name">تجهيز الغداء</div><div class="t-sub">وجبة بسيطة غير معقدة</div></div><div class="check-circle"></div></div>
+      <div class="task-item" data-cat="0" data-id="5"><span class="t-time">١٢:٣٠ م</span><div class="t-text"><div class="t-name">نوم القيلولة للأطفال</div><div class="t-sub">تهيئة جو النوم</div></div><div class="check-circle"></div></div>
+      <div class="task-item" data-cat="0" data-id="6"><span class="t-time">٣:٣٠ م</span><div class="t-text"><div class="t-name">الغداء العائلي وتنظيف المطبخ</div></div><div class="check-circle"></div></div>
+      <div class="group-label">▸ المساء</div>
+      <div class="task-item" data-cat="0" data-id="7"><span class="t-time">٤:٠٠ م</span><div class="t-text"><div class="t-name">حمام الأطفال والعناية</div><div class="t-sub">تغيير ملابس المساء</div></div><div class="check-circle"></div></div>
+      <div class="task-item" data-cat="0" data-id="8"><span class="t-time">٦:٣٠ م</span><div class="t-text"><div class="t-name">ترتيب المنزل المسائي</div><div class="t-sub">١٥ دقيقة فقط — لا كمال!</div></div><div class="check-circle"></div></div>
+      <div class="task-item" data-cat="0" data-id="9"><span class="t-time">٧:٣٠ م</span><div class="t-text"><div class="t-name">قصة قبل النوم</div><div class="t-sub">ثم نوم الأطفال ٨:٠٠ م</div></div><div class="check-circle"></div></div>
+    </div>
+    <div class="progress-footer home-card">
+      <div class="prog-bar-wrap"><div class="prog-bar" id="prog-0"></div></div>
+      <div class="prog-labels"><span id="cnt-0">٠ من ١٠</span><span id="pct-0">٠٪</span></div>
+    </div>
+  </div>
+
+  <!-- SELF -->
+  <div class="section-card self-card" id="card-1">
+    <div class="section-header-card" data-icon="🌿">
+      <h2>مهامي الشخصية</h2>
+      <p>الاهتمام بنفسك ضرورة لا رفاهية</p>
+    </div>
+    <div class="tasks-body">
+      <div class="group-label">▸ يومياً</div>
+      <div class="task-item" data-cat="1" data-id="0"><span class="t-time">٦:٣٠ ص</span><div class="t-text"><div class="t-name">دقيقتان نية اليوم</div><div class="t-sub">قبل الأطفال — ماذا أريد من يومي؟</div></div><div class="check-circle"></div></div>
+      <div class="task-item" data-cat="1" data-id="1"><span class="t-time">أثناء الرضاعة</span><div class="t-text"><div class="t-name">بودكاست أو كورس صوتي</div><div class="t-sub">بدل التصفح العشوائي</div></div><div class="check-circle"></div></div>
+      <div class="task-item" data-cat="1" data-id="2"><span class="t-time">١٢:٣٠ م</span><div class="t-text"><div class="t-name">نوم حقيقي ٢٠ دقيقة</div><div class="t-sub">هاتف بعيد — جسمك يشكرك</div></div><div class="check-circle"></div></div>
+      <div class="task-item" data-cat="1" data-id="3"><span class="t-time">٦:٣٠ م</span><div class="t-text"><div class="t-name">استحمام والعناية بالجسم</div><div class="t-sub">روتين البشرة — وقتك الخاص</div></div><div class="check-circle"></div></div>
+      <div class="task-item" data-cat="1" data-id="4"><span class="t-time">٨:٠٠ م</span><div class="t-text"><div class="t-name">٣٠ دقيقة حرية كاملة</div><div class="t-sub">أي شيء تريدينه أنتِ فقط</div></div><div class="check-circle"></div></div>
+      <div class="task-item" data-cat="1" data-id="5"><span class="t-time">يومياً</span><div class="t-text"><div class="t-name">١٠ دقائق رياضة خفيفة</div><div class="t-sub">تمدد أو مشي — أي حركة تحسب</div></div><div class="check-circle"></div></div>
+      <div class="group-label">▸ أسبوعياً</div>
+      <div class="task-item" data-cat="1" data-id="6"><span class="t-time">أسبوعياً</span><div class="t-text"><div class="t-name">خروج وحدك ولو ساعتين</div><div class="t-sub">كافيه، تسوق، مشي — ضرورة</div></div><div class="check-circle"></div></div>
+    </div>
+    <div class="progress-footer self-card">
+      <div class="prog-bar-wrap"><div class="prog-bar" id="prog-1"></div></div>
+      <div class="prog-labels"><span id="cnt-1">٠ من ٧</span><span id="pct-1">٠٪</span></div>
+    </div>
+  </div>
+
+  <!-- WORK -->
+  <div class="section-card work-card" id="card-2">
+    <div class="section-header-card" data-icon="✍️">
+      <h2>مهام الكتابة والتطوير</h2>
+      <p>طريق المنارة الشامخة 🌟</p>
+    </div>
+    <div class="tasks-body">
+      <div class="group-label">▸ يومياً</div>
+      <div class="task-item" data-cat="2" data-id="0"><span class="t-time">١٢:٥٠ م</span><div class="t-text"><div class="t-name">١٠ دقائق عصف ذهني</div><div class="t-sub">أفكار حرة بلا حكم على النفس</div></div><div class="check-circle"></div></div>
+      <div class="task-item" data-cat="2" data-id="1"><span class="t-time">١:٠٠ م</span><div class="t-text"><div class="t-name">٣٠ دقيقة كتابة أو تطوير مهارة</div><div class="t-sub">مع إزعاج الأطفال — هذا طبيعي!</div></div><div class="check-circle"></div></div>
+      <div class="task-item" data-cat="2" data-id="2"><span class="t-time">١:٣٠ م</span><div class="t-text"><div class="t-name">متابعة كورس أو محتوى تعليمي</div><div class="t-sub">٢٠ دقيقة — بودكاست أو فيديو</div></div><div class="check-circle"></div></div>
+      <div class="task-item" data-cat="2" data-id="3"><span class="t-time">٨:١٥ م</span><div class="t-text"><div class="t-name">كتابة إعلانات المنصة</div><div class="t-sub">بعد نوم الأطفال — وقت الإنتاج</div></div><div class="check-circle"></div></div>
+      <div class="group-label">▸ أسبوعياً</div>
+      <div class="task-item" data-cat="2" data-id="4"><span class="t-time">أسبوعياً</span><div class="t-text"><div class="t-name">مراجعة الأهداف الأسبوعية</div><div class="t-sub">ماذا أنجزت؟ ما الخطوة التالية؟</div></div><div class="check-circle"></div></div>
+      <div class="task-item" data-cat="2" data-id="5"><span class="t-time">أسبوعياً</span><div class="t-text"><div class="t-name">نشر محتوى على منصة واحدة</div><div class="t-sub">خطوة صغيرة منتظمة تبني الحضور</div></div><div class="check-circle"></div></div>
+      <div class="group-label">▸ شهرياً</div>
+      <div class="task-item" data-cat="2" data-id="6"><span class="t-time">شهرياً</span><div class="t-text"><div class="t-name">تقييم التقدم نحو الهدف الكبير</div><div class="t-sub">أين أنا من المنارة؟</div></div><div class="check-circle"></div></div>
+    </div>
+    <div class="progress-footer work-card">
+      <div class="prog-bar-wrap"><div class="prog-bar" id="prog-2"></div></div>
+      <div class="prog-labels"><span id="cnt-2">٠ من ٧</span><span id="pct-2">٠٪</span></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- REPORT -->
+<div class="section-card" id="card-3">
+  <div class="report-card">
+    <div class="report-header">
+      <h2>📊 تقرير الشهر</h2>
+      <p id="report-subtitle">تحليل إنجازاتك الشهرية</p>
+    </div>
+    <div class="report-body">
+
+      <div class="report-section-title">▸ نسبة الإنجاز لكل قسم</div>
+      <div class="donuts-row">
+        <div class="donut-wrap">
+          <svg viewBox="0 0 36 36">
+            <circle cx="18" cy="18" r="15.9" fill="none" stroke="#F0EBE6" stroke-width="3"/>
+            <circle cx="18" cy="18" r="15.9" fill="none" stroke="#C17B5C" stroke-width="3"
+              stroke-dasharray="0 100" stroke-linecap="round" transform="rotate(-90 18 18)"
+              id="donut-home" style="transition:stroke-dasharray 0.8s ease"/>
+            <text x="18" y="20.5" text-anchor="middle" font-size="7" font-weight="bold" fill="#1E1612" id="donut-home-txt">٠٪</text>
+          </svg>
+          <div class="donut-label" style="color:#C17B5C">🏡 المنزل</div>
+        </div>
+        <div class="donut-wrap">
+          <svg viewBox="0 0 36 36">
+            <circle cx="18" cy="18" r="15.9" fill="none" stroke="#F0EBE6" stroke-width="3"/>
+            <circle cx="18" cy="18" r="15.9" fill="none" stroke="#7B9E87" stroke-width="3"
+              stroke-dasharray="0 100" stroke-linecap="round" transform="rotate(-90 18 18)"
+              id="donut-self" style="transition:stroke-dasharray 0.8s ease"/>
+            <text x="18" y="20.5" text-anchor="middle" font-size="7" font-weight="bold" fill="#1E1612" id="donut-self-txt">٠٪</text>
+          </svg>
+          <div class="donut-label" style="color:#7B9E87">🌿 شخصي</div>
+        </div>
+        <div class="donut-wrap">
+          <svg viewBox="0 0 36 36">
+            <circle cx="18" cy="18" r="15.9" fill="none" stroke="#F0EBE6" stroke-width="3"/>
+            <circle cx="18" cy="18" r="15.9" fill="none" stroke="#6B7FB8" stroke-width="3"
+              stroke-dasharray="0 100" stroke-linecap="round" transform="rotate(-90 18 18)"
+              id="donut-work" style="transition:stroke-dasharray 0.8s ease"/>
+            <text x="18" y="20.5" text-anchor="middle" font-size="7" font-weight="bold" fill="#1E1612" id="donut-work-txt">٠٪</text>
+          </svg>
+          <div class="donut-label" style="color:#6B7FB8">✍️ كتابة</div>
+        </div>
+      </div>
+
+      <div class="report-section-title">▸ خريطة الإنجاز اليومي</div>
+      <div class="heatmap" id="heatmap"></div>
+
+      <div class="report-section-title">▸ مقارنة الأسابيع</div>
+      <div class="week-bars" id="week-bars">
+        <div class="week-col"><div class="week-bar-wrap"><div class="week-bar" id="wbar-0" style="height:0%"></div></div><div class="week-pct" id="wpct-0">٠٪</div><div class="week-label">أ١</div></div>
+        <div class="week-col"><div class="week-bar-wrap"><div class="week-bar" id="wbar-1" style="height:0%"></div></div><div class="week-pct" id="wpct-1">٠٪</div><div class="week-label">أ٢</div></div>
+        <div class="week-col"><div class="week-bar-wrap"><div class="week-bar" id="wbar-2" style="height:0%"></div></div><div class="week-pct" id="wpct-2">٠٪</div><div class="week-label">أ٣</div></div>
+        <div class="week-col"><div class="week-bar-wrap"><div class="week-bar" id="wbar-3" style="height:0%"></div></div><div class="week-pct" id="wpct-3">٠٪</div><div class="week-label">أ٤</div></div>
+      </div>
+
+      <div class="report-section-title">▸ أفضل وأصعب يوم</div>
+      <div class="insight-row">
+        <div class="insight-box best"><div class="insight-num" id="best-day">-</div><div class="insight-lbl">🏆 أفضل يوم</div></div>
+        <div class="insight-box worst"><div class="insight-num" id="worst-day">-</div><div class="insight-lbl">💪 يحتاج تحسين</div></div>
+      </div>
+
+      <div class="report-section-title">▸ تفصيل الإنجاز</div>
+      <div class="cat-row">
+        <div class="cat-icon">🏡</div>
+        <div class="cat-info">
+          <div class="cat-name">المنزل والأطفال</div>
+          <div class="cat-bar-wrap"><div class="cat-bar" id="cat-bar-0" style="width:0%;background:#C17B5C"></div></div>
+        </div>
+        <div class="cat-pct-lbl" id="cat-pct-0">٠٪</div>
+      </div>
+      <div class="cat-row">
+        <div class="cat-icon">🌿</div>
+        <div class="cat-info">
+          <div class="cat-name">المهام الشخصية</div>
+          <div class="cat-bar-wrap"><div class="cat-bar" id="cat-bar-1" style="width:0%;background:#7B9E87"></div></div>
+        </div>
+        <div class="cat-pct-lbl" id="cat-pct-1">٠٪</div>
+      </div>
+      <div class="cat-row">
+        <div class="cat-icon">✍️</div>
+        <div class="cat-info">
+          <div class="cat-name">الكتابة والتطوير</div>
+          <div class="cat-bar-wrap"><div class="cat-bar" id="cat-bar-2" style="width:0%;background:#6B7FB8"></div></div>
+        </div>
+        <div class="cat-pct-lbl" id="cat-pct-2">٠٪</div>
+      </div>
+
+      <div class="report-quote" id="report-quote">
+        <p>أكملي يومك الأول وستظهر هنا رسالة خاصة بك 🌟</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- QUOTE -->
+<div class="quote-card">
+  المنارة لا تُبنى في يوم واحد<br>لكنها تبدأ بقرار واحد في لحظة واحدة
+  <strong>أنتِ قررتِ اليوم 🌟</strong>
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <button class="nav-btn active" onclick="switchTab(0)">🏡 المنزل</button>
+  <button class="nav-btn" onclick="switchTab(1)">🌿 شخصي</button>
+  <button class="nav-btn" onclick="switchTab(2)">✍️ كتابة</button>
+  <button class="nav-btn" onclick="switchTab(3)">📊 تقرير</button>
+</div>
+
+<script>
+// ===== HELPERS =====
+function toAr(n){ return n.toString().replace(/\d/g,d=>'٠١٢٣٤٥٦٧٨٩'[d]); }
+
+const TOTALS = [10, 7, 7];
+const KEYS = ['home','self','work'];
+
+// ===== STATE =====
+// data[day][cat] = Set of checked task ids
+let currentDay = 1;
+let data = {};
+
+function getKey(day, cat){ return `day${day}_cat${cat}`; }
+
+function loadData(){
+  for(let d=1;d<=30;d++){
+    data[d] = {};
+    for(let c=0;c<3;c++){
+      try {
+        const raw = localStorage.getItem(getKey(d,c));
+        data[d][c] = raw ? new Set(JSON.parse(raw)) : new Set();
+      } catch(e){ data[d][c] = new Set(); }
+    }
+  }
+}
+
+function saveDay(day, cat){
+  try {
+    localStorage.setItem(getKey(day,cat), JSON.stringify([...data[day][cat]]));
+  } catch(e){}
+}
+
+// ===== INIT TODAY =====
+function initToday(){
+  const now = new Date();
+  const dayOfMonth = now.getDate();
+  currentDay = Math.min(dayOfMonth, 30);
+  const months = ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+  document.getElementById('today-label').textContent = toAr(dayOfMonth) + ' ' + months[now.getMonth()];
+}
+
+// ===== DAYS GRID =====
+function buildGrid(){
+  const grid = document.getElementById('days-grid');
+  grid.innerHTML = '';
+  for(let d=1;d<=30;d++){
+    const btn = document.createElement('button');
+    btn.className = 'day-btn';
+    btn.textContent = toAr(d);
+    btn.onclick = () => selectDay(d);
+
+    // dots
+    const dots = document.createElement('div');
+    dots.className = 'day-dots';
+    const colors = ['#C17B5C','#7B9E87','#6B7FB8'];
+    let hasAny = false;
+    for(let c=0;c<3;c++){
+      if(data[d] && data[d][c] && data[d][c].size > 0){
+        const dot = document.createElement('span');
+        dot.style.background = colors[c];
+        dots.appendChild(dot);
+        hasAny = true;
+      }
+    }
+    if(hasAny){ btn.textContent = ''; btn.appendChild(document.createTextNode(toAr(d))); btn.appendChild(dots); }
+
+    if(d === currentDay) btn.classList.add('active');
+    grid.appendChild(btn);
+  }
+}
+
+function selectDay(d){
+  currentDay = d;
+  document.querySelectorAll('.day-btn').forEach((btn,i)=>{
+    btn.classList.toggle('active', i+1 === d);
+  });
+  renderTasks();
+  updateStats();
+}
+
+// ===== RENDER TASKS =====
+function renderTasks(){
+  for(let c=0;c<3;c++){
+    const items = document.querySelectorAll(`[data-cat="${c}"]`);
+    const checked = data[currentDay][c];
+    items.forEach(item => {
+      const id = parseInt(item.dataset.id);
+      const isChecked = checked.has(id);
+      item.classList.toggle('checked', isChecked);
+      item.querySelector('.check-circle').textContent = isChecked ? '✓' : '';
+    });
+    updateProgress(c);
+  }
+}
+
+// ===== TOGGLE TASK =====
+document.querySelectorAll('.task-item').forEach(item => {
+  item.addEventListener('click', () => {
+    const cat = parseInt(item.dataset.cat);
+    const id = parseInt(item.dataset.id);
+    const checked = data[currentDay][cat];
+    if(checked.has(id)) checked.delete(id);
+    else checked.add(id);
+    saveDay(currentDay, cat);
+    renderTasks();
+    updateStats();
+    buildGrid();
+  });
+});
+
+// ===== PROGRESS =====
+function updateProgress(cat){
+  const checked = data[currentDay][cat].size;
+  const total = TOTALS[cat];
+  const pct = Math.round(checked/total*100);
+  document.getElementById(`prog-${cat}`).style.width = pct+'%';
+  document.getElementById(`cnt-${cat}`).textContent = toAr(checked)+' من '+toAr(total);
+  document.getElementById(`pct-${cat}`).textContent = toAr(pct)+'٪';
+}
+
+// ===== STATS =====
+function updateStats(){
+  let completeDays = 0, totalTasks = 0, streak = 0;
+  const today = new Date().getDate();
+
+  for(let d=1;d<=30;d++){
+    let dayTotal = 0, dayDone = 0;
+    for(let c=0;c<3;c++){
+      dayTotal += TOTALS[c];
+      dayDone += (data[d][c] ? data[d][c].size : 0);
+      totalTasks += (data[d][c] ? data[d][c].size : 0);
+    }
+    if(dayDone >= dayTotal * 0.8) completeDays++;
+  }
+
+  // streak
+  for(let d=today;d>=1;d--){
+    let done = 0, total = 0;
+    for(let c=0;c<3;c++){
+      total += TOTALS[c];
+      done += (data[d][c] ? data[d][c].size : 0);
+    }
+    if(done >= total * 0.5) streak++;
+    else break;
+  }
+
+  document.getElementById('stat-days').textContent = toAr(completeDays);
+  document.getElementById('stat-tasks').textContent = toAr(totalTasks);
+  document.getElementById('stat-streak').textContent = toAr(streak)+'🔥';
+}
+
+// ===== TABS =====
+let activeTab = 0;
+function switchTab(idx){
+  activeTab = idx;
+  document.querySelectorAll('.section-card').forEach((c,i) => c.classList.toggle('visible', i===idx));
+  document.querySelectorAll('.tab').forEach((t,i) => t.classList.toggle('active-tab', i===idx));
+  document.querySelectorAll('.nav-btn').forEach((t,i) => t.classList.toggle('active', i===idx));
+  if(idx === 3) buildReport();
+}
+
+// ===== REPORT =====
+function buildReport(){
+  const today = new Date().getDate();
+  const totalPerDay = TOTALS.reduce((a,b)=>a+b,0);
+
+  // Donut charts
+  let catTotals = [0,0,0], catDone = [0,0,0];
+  let bestDay = 0, bestDayPct = 0, worstDay = 0, worstDayPct = 101;
+  let workedDays = 0;
+
+  for(let d=1;d<=30;d++){
+    let dayDone = 0;
+    for(let c=0;c<3;c++){
+      const done = data[d][c] ? data[d][c].size : 0;
+      catDone[c] += done;
+      catTotals[c] += TOTALS[c];
+      dayDone += done;
+    }
+    if(dayDone > 0) workedDays++;
+    const pct = Math.round(dayDone/totalPerDay*100);
+    if(pct > bestDayPct){ bestDayPct = pct; bestDay = d; }
+    if(d <= today && pct < worstDayPct && dayDone > 0){ worstDayPct = pct; worstDay = d; }
+  }
+
+  // Update donuts
+  const donutIds = ['home','self','work'];
+  for(let c=0;c<3;c++){
+    const pct = catTotals[c] > 0 ? Math.round(catDone[c]/catTotals[c]*100) : 0;
+    const circ = Math.round(pct * 100) / 100;
+    document.getElementById(`donut-${donutIds[c]}`).setAttribute('stroke-dasharray', `${circ} ${100-circ}`);
+    document.getElementById(`donut-${donutIds[c]}-txt`).textContent = toAr(pct)+'٪';
+    document.getElementById(`cat-bar-${c}`).style.width = pct+'%';
+    document.getElementById(`cat-pct-${c}`).textContent = toAr(pct)+'٪';
+  }
+
+  // Heatmap
+  const hm = document.getElementById('heatmap');
+  hm.innerHTML = '';
+  for(let d=1;d<=30;d++){
+    let done = 0;
+    for(let c=0;c<3;c++) done += data[d][c] ? data[d][c].size : 0;
+    const pct = done/totalPerDay;
+    const cell = document.createElement('div');
+    cell.className = 'heat-cell';
+    if(pct === 0) cell.className += '';
+    else if(pct < 0.3) cell.className += ' l1';
+    else if(pct < 0.6) cell.className += ' l2';
+    else if(pct < 0.85) cell.className += ' l3';
+    else cell.className += ' l4';
+    cell.textContent = toAr(d);
+    if(d === today) cell.style.outline = '2px solid #C17B5C';
+    hm.appendChild(cell);
+  }
+
+  // Weekly bars
+  const weeks = [[1,7],[8,14],[15,21],[22,30]];
+  weeks.forEach((w,i)=>{
+    let done=0, total=0;
+    for(let d=w[0];d<=w[1];d++){
+      for(let c=0;c<3;c++){
+        total += TOTALS[c];
+        done += data[d][c] ? data[d][c].size : 0;
+      }
+    }
+    const pct = total>0 ? Math.round(done/total*100) : 0;
+    document.getElementById(`wbar-${i}`).style.height = pct+'%';
+    document.getElementById(`wpct-${i}`).textContent = toAr(pct)+'٪';
+  });
+
+  // Best/worst
+  document.getElementById('best-day').textContent = bestDay > 0 ? 'يوم '+toAr(bestDay) : '-';
+  document.getElementById('worst-day').textContent = worstDay > 0 ? 'يوم '+toAr(worstDay) : '-';
+
+  // Smart message
+  const totalDone = catDone.reduce((a,b)=>a+b,0);
+  const totalPossible = today * totalPerDay;
+  const overallPct = totalPossible > 0 ? Math.round(totalDone/totalPossible*100) : 0;
+  let msg = '';
+  if(totalDone === 0) msg = '<p>ابدئي اليوم وستظهر هنا رسالتك الخاصة 🌸</p>';
+  else if(overallPct >= 80) msg = '<p>أنتِ تبنين المنارة فعلاً! إنجازك هذا الشهر مذهل</p><strong>استمري — أنتِ تفعلينها! 🌟</strong>';
+  else if(overallPct >= 50) msg = '<p>أكثر من نصف الطريق وصلتِ! كل يوم تنجزين فيه مهمة واحدة هو انتصار</p><strong>أنتِ أقوى مما تتخيلين 💙</strong>';
+  else if(overallPct >= 20) msg = '<p>البداية دائماً هي الأصعب، وأنتِ بدأتِ فعلاً</p><strong>غداً يوم جديد وفرصة جديدة 🌸</strong>';
+  else msg = '<p>كل خطوة صغيرة تحسب، لا تستهيني بأي مهمة تنجزينها</p><strong>المنارة تبدأ بحجر واحد 💙</strong>';
+  document.getElementById('report-quote').innerHTML = msg;
+
+  // Subtitle
+  document.getElementById('report-subtitle').textContent = `إنجاز ${toAr(workedDays)} يوم من أصل ${toAr(today)} يوم مضى`;
+}
+
+// ===== BOOT =====
+loadData();
+initToday();
+buildGrid();
+renderTasks();
+updateStats();
+</script>
+</body>
+</html>
