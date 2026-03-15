@@ -520,7 +520,7 @@ body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--text);min
 <div class="modal-overlay" id="goal-modal">
   <div class="modal-sheet">
     <div class="modal-handle"></div>
-    <div class="modal-title">أضيفي هدفاً جديداً 🎯</div>
+    <div class="modal-title">أضف هدفاً جديداً 🎯</div>
     <input class="modal-input" id="gm-name" placeholder="اسم الهدف...">
     <input class="modal-input" id="gm-target" type="number" placeholder="الهدف الكمي (مثال: 10)">
     <input class="modal-input" id="gm-unit" placeholder="الوحدة (مثال: مقالة، يوم، ساعة)">
@@ -539,7 +539,7 @@ body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--text);min
   </div>
   <div class="s-star">🌟</div>
   <div class="s-title">منارة</div>
-  <div class="s-tagline">طريقك للتميز</div>
+  <div class="s-tagline">طريقك نحو التميز</div>
   <div class="s-loader"><div class="s-loader-fill"></div></div>
   <div class="s-version">النسخة الاحترافية ✦ v2.0</div>
 </div>
@@ -549,62 +549,71 @@ body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--text);min
   <div class="ob-hero">
     <span class="ob-hero-star">🌟</span>
     <h1>منارة</h1>
-    <p>رفيقتك اليومية نحو التميز</p>
+    <p>رفيقك اليومي نحو التميز</p>
   </div>
-  <div class="ob-steps">
+    <div class="ob-steps">
     <div class="ob-dot active" id="dot-0"></div>
     <div class="ob-dot" id="dot-1"></div>
     <div class="ob-dot" id="dot-2"></div>
+    <div class="ob-dot" id="dot-3"></div>
   </div>
   <div class="ob-body">
-    <!-- Step 1 -->
+    <!-- Step 1: Name -->
     <div class="ob-step show" id="ob-step-0">
-      <div class="ob-q">🌸 ما اسمك الكريم؟</div>
-      <div class="ob-hint">سنناديكِ به كل يوم</div>
-      <input class="ob-input" id="ob-name" type="text" placeholder="اكتبي اسمك هنا...">
-      <div class="ob-q" style="margin-top:20px">👶 كم عدد أطفالك؟</div>
-      <div class="ob-chips" id="kids-chips">
-        <button class="ob-chip" onclick="selKids(this,'١')">١</button>
-        <button class="ob-chip" onclick="selKids(this,'٢')">٢</button>
-        <button class="ob-chip" onclick="selKids(this,'٣')">٣</button>
-        <button class="ob-chip" onclick="selKids(this,'٤')">٤</button>
-        <button class="ob-chip" onclick="selKids(this,'٥+')">٥+</button>
-      </div>
+      <div class="ob-q">👋 ما اسمك الكريم؟</div>
+      <div class="ob-hint">سنناديك به كل يوم</div>
+      <input class="ob-input" id="ob-name" type="text" placeholder="اكتب اسمك هنا...">
       <button class="ob-btn" onclick="obNext(1)">التالي →</button>
     </div>
-    <!-- Step 2 -->
+    <!-- Step 2: Category -->
     <div class="ob-step" id="ob-step-1">
-      <div class="ob-q">✨ ما حالتك الآن؟</div>
-      <div class="ob-hint">اختاري ما يصفك أكثر</div>
-      <div class="ob-chips" id="state-chips">
-        <button class="ob-chip" onclick="selChip(this,'state')">🌪️ مرهقة جداً</button>
-        <button class="ob-chip" onclick="selChip(this,'state')">⚡ مليئة بالطاقة</button>
-        <button class="ob-chip" onclick="selChip(this,'state')">🌱 أريد التغيير</button>
-        <button class="ob-chip" onclick="selChip(this,'state')">🎯 جاهزة للإنجاز</button>
+      <div class="ob-q">🎭 ما الذي يصفك أكثر؟</div>
+      <div class="ob-hint">سنخصص التطبيق حسب اختيارك</div>
+      <div class="ob-chips" id="cat-chips" style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <button class="ob-chip cat-chip" onclick="selCategory(this,'student')" style="padding:14px;text-align:center;border-radius:14px">📚<br><span style="font-size:0.85rem;font-weight:800;display:block;margin-top:4px">طالب / طالبة</span></button>
+        <button class="ob-chip cat-chip" onclick="selCategory(this,'employee')" style="padding:14px;text-align:center;border-radius:14px">💼<br><span style="font-size:0.85rem;font-weight:800;display:block;margin-top:4px">موظف / موظفة</span></button>
+        <button class="ob-chip cat-chip" onclick="selCategory(this,'freelancer')" style="padding:14px;text-align:center;border-radius:14px">💻<br><span style="font-size:0.85rem;font-weight:800;display:block;margin-top:4px">عمل حر</span></button>
+        <button class="ob-chip cat-chip" onclick="selCategory(this,'mother')" style="padding:14px;text-align:center;border-radius:14px">🏡<br><span style="font-size:0.85rem;font-weight:800;display:block;margin-top:4px">ربة منزل / أم</span></button>
+        <button class="ob-chip cat-chip" onclick="selCategory(this,'entrepreneur')" style="padding:14px;text-align:center;border-radius:14px">🚀<br><span style="font-size:0.85rem;font-weight:800;display:block;margin-top:4px">صاحب مشروع</span></button>
+        <button class="ob-chip cat-chip" onclick="selCategory(this,'other')" style="padding:14px;text-align:center;border-radius:14px">✨<br><span style="font-size:0.85rem;font-weight:800;display:block;margin-top:4px">أخرى</span></button>
       </div>
-      <div class="ob-q" style="margin-top:20px">🏆 ما هدفك الأكبر هذا الشهر؟</div>
-      <div class="ob-hint">اكتبي حلمك بلا حدود</div>
-      <input class="ob-input" id="ob-goal" placeholder="مثال: أصبح كاتبة محتوى بارزة...">
       <button class="ob-btn" onclick="obNext(2)">التالي →</button>
     </div>
-    <!-- Step 3 -->
+    <!-- Step 3: State + Goal -->
     <div class="ob-step" id="ob-step-2">
+      <div class="ob-q">✨ ما حالتك الآن؟</div>
+      <div class="ob-hint">اختر ما يصفك أكثر</div>
+      <div class="ob-chips" id="state-chips">
+        <button class="ob-chip" onclick="selChip(this,'state')">🌪️ مرهق جداً</button>
+        <button class="ob-chip" onclick="selChip(this,'state')">⚡ مليء بالطاقة</button>
+        <button class="ob-chip" onclick="selChip(this,'state')">🌱 أريد التغيير</button>
+        <button class="ob-chip" onclick="selChip(this,'state')">🎯 جاهز للإنجاز</button>
+      </div>
+      <div class="ob-q" style="margin-top:20px">🏆 ما هدفك الأكبر هذا الشهر؟</div>
+      <div class="ob-hint">اكتب حلمك بلا حدود</div>
+      <input class="ob-input" id="ob-goal" placeholder="مثال: أنهي مشروع التخرج...">
+      <button class="ob-btn" onclick="obNext(3)">التالي →</button>
+    </div>
+    <!-- Step 4: Interest -->
+    <div class="ob-step" id="ob-step-3">
       <div class="ob-q">🎯 ما مجال اهتمامك؟</div>
-      <div class="ob-hint">اختاري أو أضيفي مجالك الخاص</div>
+      <div class="ob-hint">اختر أو أضف مجالك الخاص</div>
       <div class="ob-chips" id="interest-chips">
         <button class="ob-chip" onclick="selChip(this,'interest')">✍️ كتابة المحتوى</button>
         <button class="ob-chip" onclick="selChip(this,'interest')">🎨 التصميم</button>
         <button class="ob-chip" onclick="selChip(this,'interest')">📊 تحليل البيانات</button>
-        <button class="ob-chip" onclick="selChip(this,'interest')">🎤 التدريب</button>
+        <button class="ob-chip" onclick="selChip(this,'interest')">🎤 التدريب والتعليم</button>
         <button class="ob-chip" onclick="selChip(this,'interest')">📱 التسويق</button>
-        <button class="ob-chip" onclick="selChip(this,'interest')">📚 التأليف</button>
+        <button class="ob-chip" onclick="selChip(this,'interest')">💻 البرمجة</button>
+        <button class="ob-chip" onclick="selChip(this,'interest')">📚 القراءة والتأليف</button>
+        <button class="ob-chip" onclick="selChip(this,'interest')">🏋️ الرياضة والصحة</button>
         <button class="ob-chip" onclick="showCustomInterest(this)">✏️ مجال آخر</button>
       </div>
       <div id="custom-interest-wrap" style="display:none;flex;gap:8px;margin-bottom:8px;margin-top:4px;">
-        <input class="ob-input" id="custom-interest" placeholder="اكتبي مجالك هنا..." style="flex:1;margin-bottom:0">
+        <input class="ob-input" id="custom-interest" placeholder="اكتب مجالك هنا..." style="flex:1;margin-bottom:0">
         <button onclick="addCustomInterest()" style="padding:12px 16px;border-radius:12px;border:none;background:var(--gold);color:white;font-family:'Tajawal',sans-serif;font-weight:800;cursor:pointer;white-space:nowrap">✓ تأكيد</button>
       </div>
-      <button class="ob-btn" onclick="finishOB()">ابدئي رحلتك 🚀</button>
+      <button class="ob-btn" onclick="finishOB()">ابدأ رحلتك 🚀</button>
     </div>
   </div>
 </div>
@@ -614,7 +623,7 @@ body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--text);min
   <div class="app-header">
     <div class="header-row">
       <div class="header-left">
-        <div class="hi">أهلاً وسهلاً،</div>
+        <div class="hi">أهلاً وسهلاً 👋</div>
         <div class="name" id="hdr-name">منارتي 🌟</div>
       </div>
       <div class="header-right">
@@ -755,7 +764,7 @@ body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--text);min
       </div>
       <div class="settings-row" onclick="editKids()">
         <div class="sr-icon">👶</div>
-        <div class="sr-info"><div class="sr-title">عدد الأطفال</div><div class="sr-sub" id="set-kids-val">—</div></div>
+        <div class="sr-info"><div class="sr-title">الفئة</div><div class="sr-sub" id="set-kids-val">—</div></div>
         <div class="sr-arrow">›</div>
       </div>
       <div class="settings-row" onclick="editGoal()">
@@ -804,118 +813,257 @@ const ld = (k,d) => { try{const r=localStorage.getItem(k);return r?JSON.parse(r)
 function toast(msg){ const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000); }
 
 // ===== DEFAULT TASKS =====
-const DEFAULT_TASKS = {
-  0:[
-    {id:0,time:'٦:٣٠ ص',name:'الاستيقاظ وتجهيز الأطفال',sub:'حمام، سواك، تغيير الملابس'},
-    {id:1,time:'٧:٠٠ ص',name:'إعداد وجبة الحليب',sub:'إطعام الأطفال والرضاعة'},
-    {id:2,time:'٩:٣٠ ص',name:'وجبة البيض والفطور',sub:'إعداد وجبة متكاملة'},
-    {id:3,time:'١٠:٠٠ ص',name:'وقت اللعب الحر',sub:'إشراف خفيف'},
-    {id:4,time:'١٢:٠٠ م',name:'تجهيز الغداء',sub:'وجبة بسيطة'},
-    {id:5,time:'١٢:٣٠ م',name:'نوم القيلولة للأطفال',sub:'تهيئة جو النوم'},
-    {id:6,time:'٣:٣٠ م',name:'الغداء العائلي والتنظيف',sub:''},
-    {id:7,time:'٤:٠٠ م',name:'حمام الأطفال والعناية',sub:''},
-    {id:8,time:'٦:٣٠ م',name:'ترتيب المنزل المسائي',sub:'١٥ دقيقة فقط'},
-    {id:9,time:'٧:٣٠ م',name:'قصة قبل النوم',sub:'ثم نوم الأطفال'},
-  ],
-  1:[
-    {id:0,time:'٦:٣٠ ص',name:'دقيقتان نية اليوم',sub:'ماذا أريد من يومي؟'},
-    {id:1,time:'أثناء الرضاعة',name:'بودكاست أو كورس صوتي',sub:'بدل التصفح العشوائي'},
-    {id:2,time:'١٢:٣٠ م',name:'نوم حقيقي ٢٠ دقيقة',sub:'هاتف بعيد'},
-    {id:3,time:'٦:٣٠ م',name:'استحمام والعناية بالجسم',sub:'وقتك الخاص'},
-    {id:4,time:'٨:٠٠ م',name:'٣٠ دقيقة حرية كاملة',sub:'أي شيء تريدينه'},
-    {id:5,time:'يومياً',name:'١٠ دقائق رياضة خفيفة',sub:'تمدد أو مشي'},
-    {id:6,time:'أسبوعياً',name:'خروج وحدك ولو ساعتين',sub:'ضرورة وليست رفاهية'},
-  ],
-  2:[
-    {id:0,time:'يومياً',name:'خطوة واحدة نحو هدف الشهر',sub:'أي خطوة صغيرة تحسب'},
-    {id:1,time:'يومياً',name:'مراجعة هدف الشهر',sub:'هل أنا على المسار الصحيح؟'},
-    {id:2,time:'أسبوعياً',name:'تقييم الأسبوع',sub:'ماذا أنجزت؟ ما العقبات؟'},
-    {id:3,time:'أسبوعياً',name:'تخطيط الأسبوع القادم',sub:'٣ أهداف صغيرة للأسبوع'},
-    {id:4,time:'أسبوعياً',name:'مشاركة إنجاز واحد',sub:'احتفلي بتقدمك مع شخص تثقين به'},
-    {id:5,time:'شهرياً',name:'مراجعة هدف الشهر كاملاً',sub:'ما الذي نجح؟ ما الذي أغيره؟'},
-    {id:6,time:'شهرياً',name:'تحديد هدف الشهر القادم',sub:'بناءً على ما تعلمتِه هذا الشهر'},
-  ]
+// ===== CATEGORY TASKS =====
+const CATEGORY_TASKS = {
+  student: {
+    cats: ['📚 الدراسة', '🌿 شخصي', '🎯 هدف الشهر'],
+    tasks: {
+      0:[
+        {id:0,time:'٦:٣٠ ص',name:'مراجعة خطة اليوم',sub:'ما المواد التي سأدرسها؟'},
+        {id:1,time:'٨:٠٠ ص',name:'حصة دراسية أولى',sub:'٥٠ دقيقة تركيز كامل'},
+        {id:2,time:'١٠:٠٠ ص',name:'حصة دراسية ثانية',sub:'مع استراحة ١٠ دقائق'},
+        {id:3,time:'١٢:٠٠ م',name:'مراجعة ما تعلمته',sub:'اكتب الملخص بيدك'},
+        {id:4,time:'٢:٠٠ م',name:'حل الواجبات والتمارين',sub:''},
+        {id:5,time:'٤:٠٠ م',name:'قراءة المادة القادمة',sub:'تحضير مسبق'},
+        {id:6,time:'٨:٠٠ م',name:'مراجعة ليلية خفيفة',sub:'٢٠ دقيقة فقط'},
+      ],
+      1:[
+        {id:0,time:'الصباح',name:'نية اليوم — ماذا أريد؟',sub:'دقيقتان قبل الهاتف'},
+        {id:1,time:'يومياً',name:'٣٠ دقيقة رياضة',sub:'المشي أو أي نشاط بدني'},
+        {id:2,time:'يومياً',name:'وجبة صحية واحدة على الأقل',sub:'جسمك وقود عقلك'},
+        {id:3,time:'يومياً',name:'٨ ساعات نوم',sub:'النوم يعزز الحفظ'},
+        {id:4,time:'أسبوعياً',name:'نشاط اجتماعي',sub:'وقت مع الأصدقاء أو العائلة'},
+        {id:5,time:'يومياً',name:'ابتعد عن الهاتف وقت الدراسة',sub:'أغلق الإشعارات'},
+      ],
+      2:[
+        {id:0,time:'يومياً',name:'خطوة نحو هدف الشهر',sub:'ولو خطوة صغيرة'},
+        {id:1,time:'أسبوعياً',name:'مراجعة الأهداف الأسبوعية',sub:'ما أنجزت؟ ما تبقى؟'},
+        {id:2,time:'أسبوعياً',name:'تخطيط الأسبوع القادم',sub:'٣ أولويات فقط'},
+        {id:3,time:'شهرياً',name:'تقييم شهري شامل',sub:'ما تعلمته هذا الشهر؟'},
+      ]
+    }
+  },
+  employee: {
+    cats: ['💼 العمل', '🌿 شخصي', '🎯 هدف الشهر'],
+    tasks: {
+      0:[
+        {id:0,time:'الصباح',name:'مراجعة مهام اليوم',sub:'رتّب الأولويات قبل البدء'},
+        {id:1,time:'٩:٠٠ ص',name:'أهم مهمة في اليوم',sub:'ابدأ بها وأنت في أفضل حالاتك'},
+        {id:2,time:'١١:٠٠ ص',name:'رد على الرسائل والبريد',sub:'مرة في الصباح ومرة في المساء'},
+        {id:3,time:'١:٠٠ م',name:'استراحة الغداء الكاملة',sub:'ابتعد عن الشاشة'},
+        {id:4,time:'٢:٠٠ م',name:'اجتماعات ومتابعة',sub:''},
+        {id:5,time:'٤:٠٠ م',name:'إنهاء المهام المتبقية',sub:''},
+        {id:6,time:'نهاية اليوم',name:'قائمة مهام الغد',sub:'اخرج من العمل وذهنك مرتاح'},
+      ],
+      1:[
+        {id:0,time:'الصباح',name:'نية اليوم',sub:'ما الذي يجعل يومك ناجحاً؟'},
+        {id:1,time:'يومياً',name:'٣٠ دقيقة رياضة',sub:'قبل أو بعد العمل'},
+        {id:2,time:'يومياً',name:'وقت حر لا يتعلق بالعمل',sub:'هواية أو قراءة أو مشي'},
+        {id:3,time:'أسبوعياً',name:'وقت مع العائلة أو الأصدقاء',sub:'أولوية لا تقبل التأجيل'},
+        {id:4,time:'يومياً',name:'نوم منتظم',sub:'نفس وقت النوم والاستيقاظ'},
+      ],
+      2:[
+        {id:0,time:'يومياً',name:'خطوة نحو التطور المهني',sub:'مقال، كورس، مهارة جديدة'},
+        {id:1,time:'أسبوعياً',name:'مراجعة التقدم في الهدف',sub:''},
+        {id:2,time:'شهرياً',name:'تقييم شهري',sub:'ما الذي أريد تحقيقه الشهر القادم؟'},
+      ]
+    }
+  },
+  freelancer: {
+    cats: ['💻 المشاريع', '🌿 شخصي', '🎯 هدف الشهر'],
+    tasks: {
+      0:[
+        {id:0,time:'الصباح',name:'تحديد مهام اليوم',sub:'٣ مهام أساسية فقط'},
+        {id:1,time:'٩:٠٠ ص',name:'جلسة عمل عميق',sub:'٩٠ دقيقة بدون مقاطعة'},
+        {id:2,time:'١١:٣٠ ص',name:'رد على العملاء',sub:''},
+        {id:3,time:'١:٠٠ م',name:'استراحة كاملة',sub:'خارج مكان العمل'},
+        {id:4,time:'٢:٠٠ م',name:'جلسة عمل ثانية',sub:'٩٠ دقيقة'},
+        {id:5,time:'٤:٠٠ م',name:'تسويق وتواصل',sub:'نشر محتوى أو تواصل مع عملاء محتملين'},
+        {id:6,time:'نهاية اليوم',name:'تسجيل ساعات العمل',sub:'تتبع الوقت يحسن الإنتاجية'},
+      ],
+      1:[
+        {id:0,time:'الصباح',name:'فصل واضح: وقت عمل / وقت راحة',sub:'العمل الحر يحتاج حدوداً'},
+        {id:1,time:'يومياً',name:'خروج من المنزل',sub:'مقهى أو حديقة — غيّر البيئة'},
+        {id:2,time:'يومياً',name:'رياضة أو مشي',sub:''},
+        {id:3,time:'أسبوعياً',name:'تواصل مع شخص من مجالك',sub:'لا تعمل بعزلة'},
+      ],
+      2:[
+        {id:0,time:'يومياً',name:'خطوة نحو هدف الشهر',sub:''},
+        {id:1,time:'أسبوعياً',name:'مراجعة الدخل والمشاريع',sub:''},
+        {id:2,time:'شهرياً',name:'تقييم وتخطيط الشهر القادم',sub:''},
+      ]
+    }
+  },
+  mother: {
+    cats: ['🏡 المنزل', '🌿 شخصي', '🎯 هدف الشهر'],
+    tasks: {
+      0:[
+        {id:0,time:'٦:٣٠ ص',name:'الاستيقاظ وتجهيز الأطفال',sub:'حمام، سواك، تغيير الملابس'},
+        {id:1,time:'٧:٠٠ ص',name:'إعداد وجبة الفطور',sub:'إطعام الأطفال'},
+        {id:2,time:'١٠:٠٠ ص',name:'وقت اللعب والنشاط',sub:'إشراف خفيف'},
+        {id:3,time:'١٢:٠٠ م',name:'تجهيز الغداء',sub:'وجبة متكاملة'},
+        {id:4,time:'١٢:٣٠ م',name:'نوم القيلولة للأطفال',sub:'تهيئة جو النوم'},
+        {id:5,time:'٣:٣٠ م',name:'الغداء العائلي والتنظيف',sub:''},
+        {id:6,time:'٦:٣٠ م',name:'ترتيب المنزل المسائي',sub:'١٥ دقيقة فقط'},
+        {id:7,time:'٧:٣٠ م',name:'قصة قبل النوم',sub:'ثم نوم الأطفال'},
+      ],
+      1:[
+        {id:0,time:'٦:٣٠ ص',name:'دقيقتان نية اليوم',sub:'ماذا أريد من يومي؟'},
+        {id:1,time:'١٢:٣٠ م',name:'نوم حقيقي ٢٠ دقيقة',sub:'هاتف بعيد'},
+        {id:2,time:'يومياً',name:'١٠ دقائق رياضة خفيفة',sub:'تمدد أو مشي'},
+        {id:3,time:'٨:٠٠ م',name:'٣٠ دقيقة وقت شخصي',sub:'أي شيء تريدينه'},
+        {id:4,time:'أسبوعياً',name:'خروج وحدك ولو ساعتين',sub:'ضرورة وليست رفاهية'},
+      ],
+      2:[
+        {id:0,time:'يومياً',name:'خطوة واحدة نحو هدف الشهر',sub:'أي خطوة صغيرة تحسب'},
+        {id:1,time:'أسبوعياً',name:'تقييم الأسبوع',sub:'ماذا أنجزت؟ ما العقبات؟'},
+        {id:2,time:'شهرياً',name:'مراجعة هدف الشهر',sub:'ما الذي نجح؟ ما الذي أغيره؟'},
+      ]
+    }
+  },
+  entrepreneur: {
+    cats: ['🚀 المشروع', '🌿 شخصي', '🎯 هدف الشهر'],
+    tasks: {
+      0:[
+        {id:0,time:'الصباح',name:'مراجعة أهداف اليوم',sub:'ما الذي يحرك المشروع للأمام؟'},
+        {id:1,time:'٩:٠٠ ص',name:'أهم مهمة استراتيجية',sub:'ابدأ بها فوراً'},
+        {id:2,time:'١١:٠٠ ص',name:'اجتماعات أو متابعة الفريق',sub:''},
+        {id:3,time:'١:٠٠ م',name:'رد على العملاء والشركاء',sub:''},
+        {id:4,time:'٣:٠٠ م',name:'تطوير المنتج أو الخدمة',sub:''},
+        {id:5,time:'٥:٠٠ م',name:'مراجعة الأرقام والمؤشرات',sub:''},
+        {id:6,time:'نهاية اليوم',name:'تسجيل الإنجازات والعقبات',sub:'يوميات المشروع'},
+      ],
+      1:[
+        {id:0,time:'يومياً',name:'ساعة لا يُمس فيها العمل',sub:'عقلك يحتاج راحة'},
+        {id:1,time:'يومياً',name:'رياضة أو تمرين',sub:'الجسم السليم — العقل السليم'},
+        {id:2,time:'أسبوعياً',name:'قراءة كتاب أو مقالات',sub:''},
+        {id:3,time:'أسبوعياً',name:'وقت مع من تحب',sub:'العلاقات وقود النجاح'},
+      ],
+      2:[
+        {id:0,time:'يومياً',name:'خطوة نحو رؤية الشهر',sub:''},
+        {id:1,time:'أسبوعياً',name:'مراجعة KPIs',sub:'أرقام لا أماني'},
+        {id:2,time:'شهرياً',name:'تخطيط الشهر القادم',sub:''},
+      ]
+    }
+  },
+  other: {
+    cats: ['⭐ مهامي', '🌿 شخصي', '🎯 هدف الشهر'],
+    tasks: {
+      0:[
+        {id:0,time:'الصباح',name:'مراجعة خطة اليوم',sub:''},
+        {id:1,time:'الصباح',name:'المهمة الأهم اليوم',sub:'ركز عليها أولاً'},
+        {id:2,time:'الظهر',name:'مراجعة التقدم',sub:'هل أنا على المسار؟'},
+        {id:3,time:'المساء',name:'إنهاء المهام المتبقية',sub:''},
+        {id:4,time:'نهاية اليوم',name:'تسجيل إنجازات اليوم',sub:'مهما كانت صغيرة'},
+      ],
+      1:[
+        {id:0,time:'يومياً',name:'نية اليوم',sub:'دقيقتان قبل الانطلاق'},
+        {id:1,time:'يومياً',name:'رياضة أو حركة',sub:'١٥ دقيقة على الأقل'},
+        {id:2,time:'يومياً',name:'وقت شخصي',sub:'شيء تحبه بعيداً عن المهام'},
+        {id:3,time:'أسبوعياً',name:'مراجعة الأسبوع',sub:''},
+      ],
+      2:[
+        {id:0,time:'يومياً',name:'خطوة نحو هدف الشهر',sub:''},
+        {id:1,time:'أسبوعياً',name:'تقييم الأسبوع',sub:''},
+        {id:2,time:'شهرياً',name:'تخطيط الشهر القادم',sub:''},
+      ]
+    }
+  }
 };
 
+// Default fallback
+const DEFAULT_TASKS = CATEGORY_TASKS.other.tasks;
+
+// Universal quotes - gender neutral
 const QUOTES = [
-  {q:'اللهم اجعلني منارة لمن حولي، أضيء دربهم وأكون عوناً لهم',a:'دعاء الأم المنجزة'},
-  {q:'لا تنتظري الظروف المثالية لتبدئي — ابدئي وستصنعين ظروفك بيديك',a:'منارة 🌟'},
-  {q:'المرأة التي تتعلم كل يوم لا تتوقف عن النمو أبداً',a:'منارة 🌟'},
-  {q:'كل مهمة تكتمل اليوم هي حجر في أساس منارتك الشامخة',a:'منارة 🌟'},
-  {q:'أنتِ لا تحتاجين وقتاً أكثر — تحتاجين اختيارات أذكى وأوضح',a:'منارة 🌟'},
-  {q:'أمٌّ سعيدة تصنع بيتاً سعيداً وأطفالاً يحملون النور',a:'منارة 🌟'},
-  {q:'لا يمكنك سكب من كوب فارغ — اعتني بنفسك لتعطي أكثر',a:'منارة 🌟'},
-  {q:'الجبال الشاهقة تبدأ من حجر واحد — ابدئي بخطوتك الصغيرة اليوم',a:'منارة 🌟'},
-  {q:'كل يوم تستيقظين فيه وتحاولين هو انتصار يستحق الاحتفال',a:'منارة 🌟'},
-  {q:'أنتِ تبنين مستقبلاً لنفسك ولأطفالك في آنٍ واحد — هذا عظيم',a:'منارة 🌟'},
-  {q:'الأم مدرسة إذا أعددتِها أعددتِ شعباً طيب الأعراق',a:'حافظ إبراهيم'},
-  {q:'التعب الذي تشعرين به اليوم هو ثمن النجاح الذي ستحتفلين به غداً',a:'منارة 🌟'},
-  {q:'لا تقارني نفسك بغيرك — قارني نفسك بنفسك أمس',a:'منارة 🌟'},
-  {q:'الإنجاز لا يأتي دفعة واحدة — يأتي مهمة صغيرة بعد مهمة',a:'منارة 🌟'},
-  {q:'أقوى النساء هي التي تنجز في ظروف صعبة وتبتسم لأطفالها',a:'منارة 🌟'},
-  {q:'وقت القيلولة ليس كسلاً — هو استثمار في طاقتك وإنتاجيتك',a:'منارة 🌟'},
-  {q:'الكتابة التي تكتبينها اليوم ستُلهم أماً أخرى في مكان ما غداً',a:'منارة 🌟'},
-  {q:'لا تنتظري الإذن من أحد لتحققي حلمك — أنتِ تملكين كل ما تحتاجين',a:'منارة 🌟'},
-  {q:'عقلك اللامع لا يحتاج هدوءاً مثالياً ليبدع — يحتاج إرادتك فقط',a:'منارة 🌟'},
-  {q:'كل صباح هو فرصة جديدة لتكوني الأم والمرأة التي تريدين أن تكونيها',a:'منارة 🌟'},
-  {q:'الإرهاق علامة أنكِ تجتهدين — لكن تذكري: الراحة جزء من الطريق',a:'منارة 🌟'},
-  {q:'حلمك ليس رفاهية — هو ضرورة لك ولمن تحبين',a:'منارة 🌟'},
-  {q:'النجاح لا يُقاس بالكمال — يُقاس بالاستمرار رغم كل العقبات',a:'منارة 🌟'},
-  {q:'أطفالك يتعلمون من كل خطوة تخطينها نحو أحلامك — أنتِ نموذجهم',a:'منارة 🌟'},
-  {q:'يوم لا تنجزين فيه شيئاً هو يوم تعلمتِ شيئاً — كلاهما تقدم',a:'منارة 🌟'},
-  {q:'التخطيط لخمس دقائق يوفر ساعة من الفوضى',a:'منارة 🌟'},
-  {q:'أنتِ لستِ مجرد أم — أنتِ إنسانة كاملة بأحلام وطموحات تستحق التحقيق',a:'منارة 🌟'},
-  {q:'كل مرة قاومتِ فيها إغراء التصفح واخترتِ العمل — أنتِ تبنين شخصيتك',a:'منارة 🌟'},
-  {q:'الوقت لا يعود — لكن القرار الصحيح الآن يصنع الفارق للأبد',a:'منارة 🌟'},
-  {q:'منارتك الشامخة في الآفاق تبدأ من هذا اليوم، هذه اللحظة، هذا القرار',a:'منارة 🌟'},
+  {q:'اللهم اجعلني منارة لمن حولي، أضيء دربهم وأكون عوناً لهم', a:'دعاء المنجز'},
+  {q:'لا تنتظر الظروف المثالية لتبدأ — ابدأ وستصنع ظروفك بيديك', a:'منارة 🌟'},
+  {q:'من يتعلم كل يوم لا يتوقف عن النمو أبداً', a:'منارة 🌟'},
+  {q:'كل مهمة تكتمل اليوم هي حجر في أساس منارتك الشامخة', a:'منارة 🌟'},
+  {q:'أنت لا تحتاج وقتاً أكثر — تحتاج اختيارات أذكى وأوضح', a:'منارة 🌟'},
+  {q:'الشخص السعيد في عمله يصنع أثراً يدوم', a:'منارة 🌟'},
+  {q:'لا يمكنك السكب من كوب فارغ — اعتنِ بنفسك لتعطي أكثر', a:'منارة 🌟'},
+  {q:'الجبال الشاهقة تبدأ من حجر واحد — ابدأ بخطوتك الصغيرة اليوم', a:'منارة 🌟'},
+  {q:'كل يوم تستيقظ فيه وتحاول هو انتصار يستحق الاحتفال', a:'منارة 🌟'},
+  {q:'أنت تبني مستقبلاً لنفسك ولمن حولك — هذا عظيم', a:'منارة 🌟'},
+  {q:'النجاح ليس خطاً نهائياً — هو رحلة من اللحظات الصغيرة', a:'منارة 🌟'},
+  {q:'التعب الذي تشعر به اليوم هو ثمن النجاح الذي ستحتفل به غداً', a:'منارة 🌟'},
+  {q:'لا تقارن نفسك بغيرك — قارن نفسك بنفسك أمس', a:'منارة 🌟'},
+  {q:'الإنجاز لا يأتي دفعة واحدة — يأتي مهمة صغيرة بعد مهمة', a:'منارة 🌟'},
+  {q:'أقوى الناس من ينجز في ظروف صعبة ويبتسم رغمها', a:'منارة 🌟'},
+  {q:'الراحة ليست كسلاً — هي استثمار في طاقتك وإنتاجيتك', a:'منارة 🌟'},
+  {q:'ما تبنيه اليوم سيلهم شخصاً ما في مكان ما غداً', a:'منارة 🌟'},
+  {q:'لا تنتظر الإذن من أحد لتحقق حلمك — أنت تملك كل ما تحتاج', a:'منارة 🌟'},
+  {q:'عقلك اللامع لا يحتاج هدوءاً مثالياً ليبدع — يحتاج إرادتك فقط', a:'منارة 🌟'},
+  {q:'كل صباح هو فرصة جديدة لتكون الشخص الذي تريد أن تكونه', a:'منارة 🌟'},
+  {q:'الإرهاق علامة أنك تجتهد — لكن تذكر: الراحة جزء من الطريق', a:'منارة 🌟'},
+  {q:'حلمك ليس رفاهية — هو ضرورة لك ولمن تحب', a:'منارة 🌟'},
+  {q:'النجاح لا يُقاس بالكمال — يُقاس بالاستمرار رغم كل العقبات', a:'منارة 🌟'},
+  {q:'من حولك يتعلمون من كل خطوة تخطوها نحو أحلامك — أنت نموذجهم', a:'منارة 🌟'},
+  {q:'يوم لا تنجز فيه شيئاً هو يوم تعلمت شيئاً — كلاهما تقدم', a:'منارة 🌟'},
+  {q:'التخطيط لخمس دقائق يوفر ساعة من الفوضى', a:'منارة 🌟'},
+  {q:'أنت لست مجرد دورك الوظيفي — أنت إنسان كامل بأحلام وطموحات', a:'منارة 🌟'},
+  {q:'كل مرة قاومت فيها إغراء التصفح واخترت العمل — أنت تبني شخصيتك', a:'منارة 🌟'},
+  {q:'الوقت لا يعود — لكن القرار الصحيح الآن يصنع الفارق للأبد', a:'منارة 🌟'},
+  {q:'منارتك الشامخة في الآفاق تبدأ من هذا اليوم، هذه اللحظة، هذا القرار', a:'منارة 🌟'},
 ];
 
 const TIPS = [
-  {ic:'💤',t:'نومك ليس رفاهية',b:'٢٠ دقيقة نوم وسط اليوم تضاعف إنتاجيتك وتحسن مزاجك بشكل ملحوظ.'},
-  {ic:'📵',t:'أوقات بدون هاتف',b:'خصصي ٣٠ دقيقة يومياً بعيداً عن الشاشات — عقلك يحتاج راحة حقيقية.'},
-  {ic:'🎧',t:'التعلم في كل لحظة',b:'استغلي وقت الرضاعة والطبخ لسماع البودكاست — الوقت موجود!'},
-  {ic:'🌿',t:'تحركي كل يوم',b:'١٠ دقائق مشي تقلل التوتر وترفع طاقتك طوال اليوم.'},
-  {ic:'✍️',t:'سجّلي أفكارك فوراً',b:'احتفظي بدفتر صغير لتسجيل كل فكرة إبداعية تخطر ببالك.'},
-  {ic:'🏆',t:'احتفلي بالصغائر',b:'كل مهمة أكملتِها هي انتصار حقيقي — لا تنتظري الإنجاز الكبير.'},
-  {ic:'💬',t:'تحدثي مع شخص يفهمك',b:'حديث مع صديقة مخلصة يشحن طاقتك ويغير يومك كاملاً.'},
-  {ic:'🌟',t:'رؤيتك أكبر من يومك',b:'في أصعب الأيام تذكري: أنتِ تبنين منارة — كل يوم هو حجر في أساسها.'},
+  {ic:'💤',t:'النوم ليس رفاهية',b:'٧-٨ ساعات نوم تضاعف الإنتاجية والتركيز بشكل ملحوظ.'},
+  {ic:'📵',t:'أوقات بدون هاتف',b:'خصص ٣٠ دقيقة يومياً بعيداً عن الشاشات — عقلك يحتاج راحة حقيقية.'},
+  {ic:'🎧',t:'التعلم في كل لحظة',b:'استغل وقت التنقل والانتظار لسماع البودكاست — الوقت موجود!'},
+  {ic:'🌿',t:'تحرك كل يوم',b:'١٠ دقائق مشي تقلل التوتر وترفع طاقتك طوال اليوم.'},
+  {ic:'✍️',t:'سجّل أفكارك فوراً',b:'احتفظ بدفتر صغير لتسجيل كل فكرة إبداعية تخطر ببالك.'},
+  {ic:'🏆',t:'احتفل بالصغائر',b:'كل مهمة أكملتها هي انتصار حقيقي — لا تنتظر الإنجاز الكبير.'},
+  {ic:'💬',t:'تحدث مع شخص يفهمك',b:'حديث مع شخص مخلص يشحن طاقتك ويغير يومك كاملاً.'},
+  {ic:'🌟',t:'رؤيتك أكبر من يومك',b:'في أصعب الأيام تذكر: أنت تبني منارة — كل يوم هو حجر في أساسها.'},
 ];
 
 // ===== STATE =====
 let curPage=0, curCat=0, curDay=new Date().getDate();
-let userName='', kidsNum='', userGoal='', interest='';
+let userName='', userCategory='other', userGoal='', interest='';
 let taskDefs = ld('m_taskdefs', JSON.parse(JSON.stringify(DEFAULT_TASKS)));
 let taskData = ld('m_taskdata', {});
 let goals = ld('m_goals', []);
-let editingTask = null; // {cat, id, isNew}
+let editingTask = null;
 let quoteIdx = Math.floor(Math.random()*QUOTES.length);
 let timerInterval=null, timerSecs=0, timerRunning=false;
 
-// ensure taskData structure
 for(let d=1;d<=30;d++){
   if(!taskData[d]) taskData[d]={};
   for(let c=0;c<3;c++) if(!taskData[d][c]) taskData[d][c]=[];
 }
 
 // ===== ONBOARDING =====
-let obKids='', obState='';
-function selKids(el,v){ document.querySelectorAll('#kids-chips .ob-chip').forEach(c=>c.classList.remove('sel')); el.classList.add('sel'); obKids=v; }
+let obCategory='other';
+function selCategory(el, cat){
+  document.querySelectorAll('.cat-chip').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel');
+  obCategory = cat;
+}
 function selChip(el,group){ el.closest('.ob-chips').querySelectorAll('.ob-chip').forEach(c=>c.classList.remove('sel')); el.classList.add('sel'); }
 function obNext(step){
   if(step===1){
     const n=document.getElementById('ob-name').value.trim();
-    if(!n){toast('من فضلك أدخلي اسمك 🌸');return;}
+    if(!n){toast('من فضلك أدخل اسمك 🌟');return;}
+  }
+  if(step===2){
+    if(!obCategory){toast('اختر الفئة التي تناسبك 🎭');return;}
   }
   document.querySelectorAll('.ob-step').forEach((s,i)=>s.classList.toggle('show',i===step));
   document.querySelectorAll('.ob-dot').forEach((d,i)=>d.classList.toggle('active',i===step));
 }
 function finishOB(){
   userName=document.getElementById('ob-name').value.trim()||'منارتي';
-  kidsNum=obKids||'—';
+  userCategory=obCategory||'other';
   userGoal=document.getElementById('ob-goal').value.trim()||'أصبح منارة في مجالي';
   const intEl=document.querySelector('#interest-chips .sel');
   interest=intEl?intEl.textContent:'✍️ كتابة المحتوى';
-  sv('m_name',userName); sv('m_kids',kidsNum); sv('m_goal',userGoal); sv('m_interest',interest);
+  sv('m_name',userName); sv('m_category',userCategory); sv('m_goal',userGoal); sv('m_interest',interest);
+  // Set category-specific tasks as defaults
+  const catData = CATEGORY_TASKS[userCategory] || CATEGORY_TASKS.other;
+  taskDefs = JSON.parse(JSON.stringify(catData.tasks));
+  sv('m_taskdefs', taskDefs);
   if(userGoal) goals.push({title:userGoal,target:30,done:0,icon:'🌟'}); sv('m_goals',goals);
   document.getElementById('onboarding').classList.remove('show');
   launchApp();
@@ -930,19 +1078,32 @@ function launchApp(){
   document.getElementById('hdr-name').textContent=userName+' 🌟';
   document.getElementById('hdr-date').textContent=days[now.getDay()]+' '+ar(now.getDate())+' '+months[now.getMonth()];
   document.getElementById('set-name-val').textContent=userName;
-  document.getElementById('set-kids-val').textContent=kidsNum+' أطفال';
+  // Update cat tab labels based on category
+  const catData = CATEGORY_TASKS[userCategory] || CATEGORY_TASKS.other;
+  const catTabs = document.querySelectorAll('.cat-tab');
+  catData.cats.forEach((name, i) => { if(catTabs[i]) catTabs[i].textContent = name; });
+  const catLabels = ['▸ الإنجاز حسب القسم', ...catData.cats];
   document.getElementById('set-goal-val').textContent=userGoal;
   buildDayStrip(); renderTasks(); renderHomeTips(); renderGoals();
   renderInspireSection(); updateHomeStats(); updateProgress();
+  updateCatSettingsLabel();
+}
+
+function updateCatSettingsLabel(){
+  const catNames = {student:'طالب / طالبة', employee:'موظف / موظفة', freelancer:'عمل حر', mother:'ربة منزل / أم', entrepreneur:'صاحب مشروع', other:'أخرى'};
+  const el = document.getElementById('set-kids-val');
+  if(el) el.textContent = catNames[userCategory] || '—';
+  const title = document.querySelector('[onclick="editKids()"] .sr-title');
+  if(title) title.textContent = 'الفئة';
 }
 
 // ===== SPLASH =====
 function init(){
   userName=ld('m_name','');
-  kidsNum=ld('m_kids','');
+  userCategory=ld('m_category','other');
   userGoal=ld('m_goal','');
   interest=ld('m_interest','');
-  taskDefs=ld('m_taskdefs',JSON.parse(JSON.stringify(DEFAULT_TASKS)));
+  taskDefs=ld('m_taskdefs',JSON.parse(JSON.stringify((CATEGORY_TASKS[userCategory]||CATEGORY_TASKS.other).tasks)));
   goals=ld('m_goals',[]);
   taskData=ld('m_taskdata',{});
   for(let d=1;d<=30;d++){if(!taskData[d])taskData[d]={};for(let c=0;c<3;c++)if(!taskData[d][c])taskData[d][c]=[];}
@@ -1276,7 +1437,7 @@ function timerReset(){clearInterval(timerInterval);timerRunning=false;timerSecs=
 
 // ===== SETTINGS =====
 function editName(){const v=prompt('اسمك الجديد:',userName);if(v){userName=v.trim();sv('m_name',userName);document.getElementById('hdr-name').textContent=userName+' 🌟';document.getElementById('set-name-val').textContent=userName;toast('تم التحديث ✅');}}
-function editKids(){const v=prompt('عدد الأطفال:',kidsNum);if(v){kidsNum=v.trim();sv('m_kids',kidsNum);document.getElementById('set-kids-val').textContent=kidsNum+' أطفال';}}
+function editKids(){ toast('لتغيير الفئة احذف البيانات وأعد التسجيل 🔄'); }
 function editGoal(){const v=prompt('هدفك الأكبر:',userGoal);if(v){userGoal=v.trim();sv('m_goal',userGoal);document.getElementById('set-goal-val').textContent=userGoal;toast('تم التحديث ✅');}}
 function showCustomInterest(el){
   // deselect all chips
@@ -1320,7 +1481,7 @@ function buildReportHTML(forPrint=false){
     if(done>=totalPerDay*0.4)streak++;else break;
   }
   const overall=Math.round(totalDone/(d*totalPerDay)*100)||0;
-  const catNames=['🏡 المنزل والأطفال','🌿 المهام الشخصية','🎯 هدف الشهر'];
+  const catNames=(CATEGORY_TASKS[userCategory]||CATEGORY_TASKS.other).cats;
   const catColors=['#C17B5C','#7B9E87','#6B7FB8'];
   const catBg=['#FDF0E8','#EDF5EF','#EDF0FA'];
 
