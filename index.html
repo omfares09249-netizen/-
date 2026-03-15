@@ -516,6 +516,26 @@ body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--text);min
   </div>
 </div>
 
+<!-- DAY DETAILS MODAL -->
+<div class="modal-overlay" id="day-modal">
+  <div class="modal-sheet" style="max-height:80vh;overflow-y:auto">
+    <div class="modal-handle"></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+      <div class="modal-title" id="day-modal-title" style="margin-bottom:0">يوم ١</div>
+      <div id="day-modal-pct" style="font-size:1.3rem;font-weight:900;color:var(--gold)">٠٪</div>
+    </div>
+    <!-- Progress bars per cat -->
+    <div id="day-modal-prog" style="margin-bottom:14px"></div>
+    <!-- Tasks list -->
+    <div id="day-modal-tasks"></div>
+    <!-- Go to day button -->
+    <button id="day-modal-go" class="modal-btn primary" style="margin-top:12px;width:100%" onclick="goToDay()">
+      📝 انتقل لهذا اليوم وسجّل مهامك
+    </button>
+    <button class="modal-btn secondary" style="margin-top:8px;width:100%" onclick="closeDayModal()">إغلاق</button>
+  </div>
+</div>
+
 <!-- GOAL MODAL -->
 <div class="modal-overlay" id="goal-modal">
   <div class="modal-sheet">
@@ -575,7 +595,15 @@ body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--text);min
         <button class="ob-chip cat-chip" onclick="selCategory(this,'freelancer')" style="padding:14px;text-align:center;border-radius:14px">💻<br><span style="font-size:0.85rem;font-weight:800;display:block;margin-top:4px">عمل حر</span></button>
         <button class="ob-chip cat-chip" onclick="selCategory(this,'mother')" style="padding:14px;text-align:center;border-radius:14px">🏡<br><span style="font-size:0.85rem;font-weight:800;display:block;margin-top:4px">ربة منزل / أم</span></button>
         <button class="ob-chip cat-chip" onclick="selCategory(this,'entrepreneur')" style="padding:14px;text-align:center;border-radius:14px">🚀<br><span style="font-size:0.85rem;font-weight:800;display:block;margin-top:4px">صاحب مشروع</span></button>
-        <button class="ob-chip cat-chip" onclick="selCategory(this,'other')" style="padding:14px;text-align:center;border-radius:14px">✨<br><span style="font-size:0.85rem;font-weight:800;display:block;margin-top:4px">أخرى</span></button>
+        <button class="ob-chip cat-chip" id="other-cat-chip" onclick="showOtherCatInput(this)" style="padding:14px;text-align:center;border-radius:14px">✨<br><span style="font-size:0.85rem;font-weight:800;display:block;margin-top:4px">أخرى</span></button>
+      </div>
+      <div id="other-cat-wrap" style="display:none;margin-top:10px;margin-bottom:4px">
+        <div style="font-size:0.78rem;color:rgba(255,255,255,0.5);margin-bottom:6px">اكتب ما يصفك وسيُخصَّص التطبيق لك:</div>
+        <div style="display:flex;gap:8px">
+          <input id="other-cat-input" class="ob-input" placeholder="مثال: ممرضة، مدرب رياضي، فنان..." style="flex:1;margin-bottom:0">
+          <button onclick="confirmOtherCat()" style="padding:12px 14px;border-radius:12px;border:none;background:var(--gold);color:white;font-family:'Tajawal',sans-serif;font-weight:800;cursor:pointer;white-space:nowrap">✓ تأكيد</button>
+        </div>
+      </div>
       </div>
       <button class="ob-btn" onclick="obNext(2)">التالي →</button>
     </div>
@@ -1036,10 +1064,33 @@ for(let d=1;d<=30;d++){
 
 // ===== ONBOARDING =====
 let obCategory='other';
+let obCustomCatLabel='';
+function showOtherCatInput(el){
+  document.querySelectorAll('.cat-chip').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel');
+  obCategory='other';
+  const wrap=document.getElementById('other-cat-wrap');
+  wrap.style.display='block';
+  document.getElementById('other-cat-input').focus();
+}
+function confirmOtherCat(){
+  const val=document.getElementById('other-cat-input').value.trim();
+  if(!val){toast('اكتب ما يصفك أولاً 🌟');return;}
+  // Save custom label and use 'other' tasks but with custom cat name
+  obCategory='other';
+  obCustomCatLabel=val;
+  // Update the chip display
+  const chip=document.getElementById('other-cat-chip');
+  chip.innerHTML=`✨<br><span style="font-size:0.78rem;font-weight:800;display:block;margin-top:4px">${val}</span>`;
+  document.getElementById('other-cat-wrap').style.display='none';
+  toast('تم الحفظ ✅');
+}
 function selCategory(el, cat){
   document.querySelectorAll('.cat-chip').forEach(c=>c.classList.remove('sel'));
   el.classList.add('sel');
   obCategory = cat;
+  obCustomCatLabel = '';
+  document.getElementById('other-cat-wrap').style.display='none';
 }
 function selChip(el,group){ el.closest('.ob-chips').querySelectorAll('.ob-chip').forEach(c=>c.classList.remove('sel')); el.classList.add('sel'); }
 function obNext(step){
@@ -1060,6 +1111,7 @@ function finishOB(){
   const intEl=document.querySelector('#interest-chips .sel');
   interest=intEl?intEl.textContent:'✍️ كتابة المحتوى';
   sv('m_name',userName); sv('m_category',userCategory); sv('m_goal',userGoal); sv('m_interest',interest);
+  if(obCustomCatLabel) sv('m_custom_cat', obCustomCatLabel);
   // Set category-specific tasks as defaults
   const catData = CATEGORY_TASKS[userCategory] || CATEGORY_TASKS.other;
   taskDefs = JSON.parse(JSON.stringify(catData.tasks));
@@ -1091,10 +1143,14 @@ function launchApp(){
 
 function updateCatSettingsLabel(){
   const catNames = {student:'طالب / طالبة', employee:'موظف / موظفة', freelancer:'عمل حر', mother:'ربة منزل / أم', entrepreneur:'صاحب مشروع', other:'أخرى'};
+  const customLabel = ld('m_custom_cat','');
   const el = document.getElementById('set-kids-val');
-  if(el) el.textContent = catNames[userCategory] || '—';
-  const title = document.querySelector('[onclick="editKids()"] .sr-title');
-  if(title) title.textContent = 'الفئة';
+  if(el) el.textContent = customLabel || catNames[userCategory] || '—';
+  // Update cat tabs label for 'other' category with custom name
+  if(userCategory==='other' && customLabel){
+    const catData = CATEGORY_TASKS.other;
+    catData.cats[0] = '⭐ '+customLabel;
+  }
 }
 
 // ===== SPLASH =====
@@ -1348,7 +1404,11 @@ function buildReport(){
     const pct=done/totalPerDay;
     const cell=document.createElement('div');
     cell.className='hcell'+(pct===0?'':pct<0.3?' l1':pct<0.6?' l2':pct<0.85?' l3':' l4')+(d===today?' td':'');
-    cell.textContent=ar(d);hm.appendChild(cell);
+    cell.textContent=ar(d);
+    cell.style.cursor='pointer';
+    cell.title='اضغط لعرض مهام اليوم';
+    cell.onclick=()=>openDayModal(d);
+    hm.appendChild(cell);
   }
   [[1,7],[8,14],[15,21],[22,30]].forEach(([s,e],i)=>{
     let done=0,tot=0;
@@ -1671,6 +1731,86 @@ function switchPage(idx){
   document.querySelectorAll('.page').forEach((p,i)=>p.classList.toggle('act',i===idx));
   document.querySelectorAll('.nav-btn').forEach((t,i)=>t.classList.toggle('act',i===idx));
   if(idx===3)buildReport();
+}
+
+// ===== DAY DETAILS MODAL =====
+let selectedDayForModal = 1;
+function openDayModal(d){
+  selectedDayForModal = d;
+  const now = new Date();
+  const today = now.getDate();
+  const isFuture = d > today;
+  const days=['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+  const dayName = days[new Date(now.getFullYear(),now.getMonth(),d).getDay()];
+  const totalPerDay = Object.values(taskDefs).reduce((s,arr)=>s+arr.length,0)||1;
+  let totalDone=0;
+  for(let c=0;c<3;c++) totalDone+=(taskData[d][c]||[]).length;
+  const overallPct = Math.round(totalDone/totalPerDay*100);
+
+  document.getElementById('day-modal-title').textContent = dayName+' '+ar(d);
+  document.getElementById('day-modal-pct').textContent = isFuture ? '—' : ar(overallPct)+'٪';
+
+  // Progress per category
+  const catData = CATEGORY_TASKS[userCategory]||CATEGORY_TASKS.other;
+  const catColors = ['var(--rose)','var(--sage)','var(--gold)'];
+  let progHTML = '';
+  for(let c=0;c<3;c++){
+    const total = (taskDefs[c]||[]).length||1;
+    const done = (taskData[d][c]||[]).length;
+    const pct = Math.round(done/total*100);
+    progHTML += `<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+      <span style="font-size:0.8rem;min-width:80px;color:var(--muted)">${catData.cats[c]||'—'}</span>
+      <div style="flex:1;background:var(--bg);border-radius:6px;height:8px;overflow:hidden">
+        <div style="height:100%;width:${isFuture?0:pct}%;background:${catColors[c]};border-radius:6px;transition:width 0.5s"></div>
+      </div>
+      <span style="font-size:0.75rem;font-weight:800;min-width:32px;color:${catColors[c]}">${isFuture?'—':ar(pct)+'٪'}</span>
+    </div>`;
+  }
+  document.getElementById('day-modal-prog').innerHTML = progHTML;
+
+  // Tasks list
+  let tasksHTML = '';
+  if(isFuture){
+    tasksHTML = `<div style="text-align:center;padding:16px;color:var(--muted);font-size:0.85rem">📅 يوم مستقبلي — لم يحن وقته بعد</div>`;
+    document.getElementById('day-modal-go').style.display='none';
+  } else {
+    document.getElementById('day-modal-go').style.display='block';
+    for(let c=0;c<3;c++){
+      const defs = taskDefs[c]||[];
+      const checked = new Set((taskData[d][c]||[]).map(Number));
+      const catColor = ['#C17B5C','#7B9E87','#C9963A'][c];
+      if(defs.length===0) continue;
+      tasksHTML += `<div style="font-size:0.68rem;font-weight:800;letter-spacing:1.5px;color:var(--muted);margin:10px 0 6px">${catData.cats[c]||''}</div>`;
+      defs.forEach(t=>{
+        const done = checked.has(t.id);
+        tasksHTML += `<div style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;background:${done?'rgba(123,158,135,0.1)':'white'};margin-bottom:6px;border:1px solid var(--light)">
+          <div style="width:22px;height:22px;border-radius:50%;border:2px solid ${done?catColor:'var(--light)'};background:${done?catColor:'transparent'};display:flex;align-items:center;justify-content:center;flex-shrink:0">
+            ${done?'<span style="color:white;font-size:11px;font-weight:900">✓</span>':''}
+          </div>
+          <div style="flex:1">
+            <div style="font-size:0.85rem;font-weight:${done?'600':'700'};${done?'text-decoration:line-through;opacity:0.5':''}">${t.name}</div>
+            ${t.sub?`<div style="font-size:0.7rem;color:var(--muted);margin-top:2px">${t.sub}</div>`:''}
+          </div>
+          <span style="font-size:0.68rem;background:var(--bg);padding:3px 7px;border-radius:6px;color:var(--muted)">${t.time}</span>
+        </div>`;
+      });
+    }
+    if(!tasksHTML) tasksHTML = `<div style="text-align:center;padding:16px;color:var(--muted);font-size:0.85rem">لم تُسجَّل أي مهام لهذا اليوم</div>`;
+  }
+  document.getElementById('day-modal-tasks').innerHTML = tasksHTML;
+  document.getElementById('day-modal').classList.add('show');
+}
+function closeDayModal(){
+  document.getElementById('day-modal').classList.remove('show');
+}
+function goToDay(){
+  closeDayModal();
+  curDay = selectedDayForModal;
+  switchPage(1);
+  buildDayStrip();
+  renderTasks();
+  updateProgress();
+  toast('اليوم '+ar(selectedDayForModal)+' — سجّل مهامك الآن 📝');
 }
 
 // ===== CALENDAR MODAL =====
