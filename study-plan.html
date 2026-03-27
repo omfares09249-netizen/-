@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>خطتي — طبيبة مختبر 🔬</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+
+:root {
+  --bg: #07070f;
+  --s1: #0e0e1c;
+  --s2: #151525;
+  --s3: #1c1c30;
+  --border: #252540;
+  --border2: #1a1a30;
+  --p: #818cf8;
+  --p2: #a78bfa;
+  --g: #34d399;
+  --r: #f87171;
+  --y: #fbbf24;
+  --o: #fb923c;
+  --b: #60a5fa;
+  --pk: #f472b6;
+  --txt: #e2e2f0;
+  --txt2: #8888aa;
+  --txt3: #444466;
+}
+
+body {
+  font-family: 'Tajawal', sans-serif;
+  background: var(--bg);
+  color: var(--txt);
+  min-height: 100vh;
+  padding-bottom: 100px;
+}
+
+/* Ambient background */
+body::before {
+  content:'';
+  position:fixed;
+  top:-200px; right:-200px;
+  width:500px; height:500px;
+  background: radial-gradient(circle, rgba(129,140,248,0.08) 0%, transparent 70%);
+  pointer-events:none;
+  z-index:0;
+}
+body::after {
+  content:'';
+  position:fixed;
+  bottom:-200px; left:-200px;
+  width:500px; height:500px;
+  background: radial-gradient(circle, rgba(52,211,153,0.06) 0%, transparent 70%);
+  pointer-events:none;
+  z-index:0;
+}
+
+.wrap { max-width:680px; margin:0 auto; padding:0 14px; position:relative; z-index:1; }
+
+/* ─── HEADER ─── */
+.hero {
+  padding: 36px 0 24px;
+  text-align:center;
+  animation: fadeDown .7s ease;
+}
+
+.hero-tag {
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  background: rgba(129,140,248,0.12);
+  border: 1px solid rgba(129,140,248,0.3);
+  color: var(--p);
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:2px;
+  padding:5px 14px;
+  border-radius:30px;
+  margin-bottom:16px;
+  font-family:'JetBrains Mono', monospace;
+}
+
+.hero h1 {
+  font-size:26px;
+  font-weight:900;
+  line-height:1.25;
+  margin-bottom:8px;
+  background: linear-gradient(135deg, #fff 0%, var(--p) 60%, var(--pk) 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+
+.hero-sub { color:var(--txt2); font-size:13px; line-height:1.6; }
+
+/* ─── COUNTDOWN ─── */
+.countdown {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin:20px 0;
+  animation: fadeUp .7s ease .1s both;
+}
+
+.cd-box {
+  background: var(--s2);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:14px 10px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+
+.cd-box::after {
+  content:'';
+  position:absolute;
+  top:0; left:0; right:0;
+  height:2px;
+}
+.cd-box:nth-child(1)::after { background: linear-gradient(90deg, var(--p), var(--p2)); }
+.cd-box:nth-child(2)::after { background: linear-gradient(90deg, var(--y), var(--o)); }
+.cd-box:nth-child(3)::after { background: linear-gradient(90deg, var(--g), var(--b)); }
+
+.cd-num {
+  font-family:'JetBrains Mono', monospace;
+  font-size:28px;
+  font-weight:700;
+  display:block;
+  line-height:1;
+  margin-bottom:4px;
+}
+.cd-box:nth-child(1) .cd-num { color:var(--p); }
+.cd-box:nth-child(2) .cd-num { color:var(--y); }
+.cd-box:nth-child(3) .cd-num { color:var(--g); }
+
+.cd-label { font-size:11px; color:var(--txt2); }
+
+/* ─── PROGRESS ─── */
+.progress-card {
+  background: var(--s2);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:18px 20px;
+  margin-bottom:20px;
+  animation: fadeUp .7s ease .2s both;
+}
+
+.pc-top {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:12px;
+}
+
+.pc-title { font-size:12px; color:var(--txt2); font-weight:600; letter-spacing:1.5px; }
+.pc-pct {
+  font-family:'JetBrains Mono', monospace;
+  font-size:13px;
+  color:var(--g);
+  font-weight:700;
+}
+
+.track {
+  background:var(--border2);
+  border-radius:10px;
+  height:10px;
+  overflow:hidden;
+  margin-bottom:10px;
+}
+
+.fill {
+  height:100%;
+  border-radius:10px;
+  background: linear-gradient(90deg, var(--p) 0%, var(--pk) 50%, var(--g) 100%);
+  transition: width .8s cubic-bezier(.34,1.56,.64,1);
+  position:relative;
+}
+
+.fill::after {
+  content:'';
+  position:absolute;
+  top:0; left:0; right:0; bottom:0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  animation: shimmer 2s infinite;
+}
+
+.pc-mini {
+  display:flex;
+  justify-content:space-between;
+  font-size:11px;
+  color:var(--txt3);
+  font-family:'JetBrains Mono', monospace;
+}
+
+/* ─── MONTH SECTIONS ─── */
+.month-block {
+  margin-bottom:32px;
+  animation: fadeUp .7s ease both;
+}
+
+.month-head {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:16px 18px;
+  border-radius:18px;
+  margin-bottom:14px;
+  border:1px solid;
+  position:relative;
+  overflow:hidden;
+}
+
+.month-head::before {
+  content:'';
+  position:absolute;
+  top:0; right:0;
+  width:80px; height:100%;
+  opacity:.4;
+}
+
+.m1 { background:rgba(129,140,248,0.08); border-color:rgba(129,140,248,0.25); }
+.m1::before { background: radial-gradient(circle at right center, rgba(129,140,248,0.3), transparent); }
+.m2 { background:rgba(251,191,36,0.08); border-color:rgba(251,191,36,0.25); }
+.m2::before { background: radial-gradient(circle at right center, rgba(251,191,36,0.3), transparent); }
+.m3 { background:rgba(52,211,153,0.08); border-color:rgba(52,211,153,0.25); }
+.m3::before { background: radial-gradient(circle at right center, rgba(52,211,153,0.3), transparent); }
+
+.month-emoji {
+  font-size:24px;
+  width:44px; height:44px;
+  border-radius:12px;
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0;
+  background:rgba(255,255,255,0.06);
+}
+
+.month-info { flex:1; }
+.month-name { font-size:16px; font-weight:800; }
+.m1 .month-name { color:var(--p); }
+.m2 .month-name { color:var(--y); }
+.m3 .month-name { color:var(--g); }
+
+.month-desc { font-size:12px; color:var(--txt2); margin-top:3px; }
+
+.month-stat {
+  text-align:left;
+  font-family:'JetBrains Mono', monospace;
+  font-size:11px;
+  color:var(--txt3);
+  white-space:nowrap;
+}
+
+/* ─── WEEK LABEL ─── */
+.week-lbl {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin:18px 0 10px;
+}
+
+.week-lbl span {
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:2px;
+  color:var(--txt3);
+  font-family:'JetBrains Mono', monospace;
+  white-space:nowrap;
+}
+
+.week-lbl::after {
+  content:'';
+  flex:1;
+  height:1px;
+  background:var(--border2);
+}
+
+/* ─── DAY CARDS ─── */
+.day-card {
+  background: var(--s2);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:14px 16px;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  cursor:pointer;
+  transition: transform .2s ease, border-color .2s ease, background .2s ease, box-shadow .2s ease;
+  margin-bottom:8px;
+  position:relative;
+  overflow:hidden;
+  user-select:none;
+}
+
+.day-card:active { transform:scale(.97); }
+
+.day-card.done {
+  border-color:rgba(52,211,153,0.3);
+  background: linear-gradient(135deg, rgba(52,211,153,0.05), var(--s2));
+}
+
+.day-card.done::after {
+  content:'';
+  position:absolute;
+  top:0; left:0; right:0;
+  height:1px;
+  background:linear-gradient(90deg, transparent, rgba(52,211,153,0.4), transparent);
+}
+
+.day-card.today {
+  border-color:var(--p);
+  background: linear-gradient(135deg, rgba(129,140,248,0.08), var(--s2));
+  box-shadow: 0 0 0 1px rgba(129,140,248,0.2), 0 8px 24px rgba(129,140,248,0.12);
+}
+
+.today-badge {
+  display:none;
+  position:absolute;
+  top:0; left:0;
+  background: linear-gradient(135deg, var(--p), var(--pk));
+  font-size:9px;
+  font-weight:700;
+  letter-spacing:1px;
+  color:white;
+  padding:3px 10px;
+  border-radius:0 0 10px 0;
+  font-family:'JetBrains Mono', monospace;
+}
+.day-card.today .today-badge { display:block; }
+
+/* Checkbox */
+.chk {
+  width:28px; height:28px;
+  border-radius:8px;
+  border:2px solid var(--border);
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0;
+  transition: all .25s ease;
+  font-size:14px;
+}
+
+.day-card.done .chk {
+  background: var(--g);
+  border-color: var(--g);
+  box-shadow: 0 0 12px rgba(52,211,153,0.4);
+}
+
+.day-card.today:not(.done) .chk {
+  border-color:var(--p);
+  box-shadow: 0 0 8px rgba(129,140,248,0.3);
+}
+
+/* Day number */
+.day-num {
+  font-family:'JetBrains Mono', monospace;
+  font-size:11px;
+  color:var(--txt3);
+  flex-shrink:0;
+  width:28px;
+  text-align:center;
+}
+
+.day-card.today .day-num { color:var(--p); }
+.day-card.done .day-num { color:var(--g); }
+
+/* Day content */
+.day-content { flex:1; min-width:0; }
+
+.day-subject {
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:1px;
+  margin-bottom:3px;
+}
+
+.day-topic {
+  font-size:14px;
+  font-weight:600;
+  color:var(--txt);
+  line-height:1.3;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.day-card.done .day-topic { 
+  color:var(--txt2);
+  text-decoration:line-through;
+  text-decoration-color:var(--txt3);
+}
+
+.day-meta {
+  font-size:11px;
+  color:var(--txt3);
+  margin-top:3px;
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+
+.day-date {
+  font-family:'JetBrains Mono', monospace;
+}
+
+/* Subject color dots */
+.dot {
+  width:6px; height:6px;
+  border-radius:50%;
+  flex-shrink:0;
+}
+
+/* Strategy tag */
+.strat-tag {
+  font-size:10px;
+  padding:2px 8px;
+  border-radius:6px;
+  font-weight:700;
+  flex-shrink:0;
+  letter-spacing:.5px;
+  display:none;
+}
+.day-card.today .strat-tag { display:inline-block; }
+.day-card.done .strat-tag { display:none; }
+
+/* ─── EXAM CARD ─── */
+.exam-card {
+  background: linear-gradient(135deg, rgba(248,113,113,0.12), rgba(251,146,60,0.08));
+  border:1px solid rgba(248,113,113,0.4);
+  border-radius:18px;
+  padding:20px;
+  text-align:center;
+  margin-bottom:32px;
+  position:relative;
+  overflow:hidden;
+}
+
+.exam-card::before {
+  content:'🎯';
+  position:absolute;
+  top:-10px; right:-10px;
+  font-size:60px;
+  opacity:.1;
+}
+
+.exam-card h3 {
+  color:var(--r);
+  font-size:18px;
+  font-weight:800;
+  margin-bottom:6px;
+}
+.exam-card p { color:var(--txt2); font-size:13px; }
+
+/* ─── MOTIVATIONAL TOAST ─── */
+.toast {
+  position:fixed;
+  bottom:24px;
+  left:50%;
+  transform:translateX(-50%) translateY(100px);
+  background: linear-gradient(135deg, var(--s3), var(--s2));
+  border:1px solid var(--g);
+  border-radius:14px;
+  padding:12px 20px;
+  font-size:13px;
+  font-weight:600;
+  color:var(--g);
+  box-shadow: 0 8px 32px rgba(52,211,153,0.2);
+  transition: transform .4s cubic-bezier(.34,1.56,.64,1);
+  z-index:999;
+  white-space:nowrap;
+  pointer-events:none;
+}
+
+.toast.show { transform:translateX(-50%) translateY(0); }
+
+/* ─── BOTTOM BAR ─── */
+.bottom-bar {
+  position:fixed;
+  bottom:0; left:0; right:0;
+  background: rgba(7,7,15,0.9);
+  backdrop-filter:blur(20px);
+  border-top:1px solid var(--border);
+  padding:12px 20px 16px;
+  z-index:100;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.bb-done {
+  font-size:13px;
+  color:var(--txt2);
+}
+
+.bb-done strong {
+  color:var(--g);
+  font-family:'JetBrains Mono', monospace;
+  font-size:15px;
+}
+
+.bb-streak {
+  display:flex;
+  align-items:center;
+  gap:6px;
+  background:rgba(251,191,36,0.1);
+  border:1px solid rgba(251,191,36,0.2);
+  border-radius:10px;
+  padding:6px 12px;
+  font-size:12px;
+  color:var(--y);
+  font-weight:700;
+}
+
+.reset-btn {
+  font-size:11px;
+  color:var(--txt3);
+  background:none;
+  border:1px solid var(--border2);
+  border-radius:8px;
+  padding:5px 10px;
+  cursor:pointer;
+  font-family:'Tajawal', sans-serif;
+  transition:all .2s;
+}
+.reset-btn:hover { color:var(--r); border-color:var(--r); }
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeDown {
+  from { opacity:0; transform:translateY(-20px); }
+  to { opacity:1; transform:translateY(0); }
+}
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(20px); }
+  to { opacity:1; transform:translateY(0); }
+}
+@keyframes shimmer {
+  0% { transform:translateX(-100%); }
+  100% { transform:translateX(100%); }
+}
+@keyframes pop {
+  0% { transform:scale(1); }
+  50% { transform:scale(1.15); }
+  100% { transform:scale(1); }
+}
+
+.pop { animation:pop .3s ease; }
+
+/* Subject colors */
+.qc { color:#f472b6; }
+.res { color:#fb923c; }
+.gp { color:#818cf8; }
+.nh { color:#60a5fa; }
+.ah { color:#a78bfa; }
+.cy { color:#34d399; }
+.rv { color:#fbbf24; }
+
+.dot-qc { background:#f472b6; }
+.dot-res { background:#fb923c; }
+.dot-gp { background:#818cf8; }
+.dot-nh { background:#60a5fa; }
+.dot-ah { background:#a78bfa; }
+.dot-cy { background:#34d399; }
+.dot-rv { background:#fbbf24; }
+
+.tag-qc { background:rgba(244,114,182,0.15); color:#f472b6; }
+.tag-res { background:rgba(251,146,60,0.15); color:#fb923c; }
+.tag-gp { background:rgba(129,140,248,0.15); color:#818cf8; }
+.tag-nh { background:rgba(96,165,250,0.15); color:#60a5fa; }
+.tag-ah { background:rgba(167,139,250,0.15); color:#a78bfa; }
+.tag-cy { background:rgba(52,211,153,0.15); color:#34d399; }
+.tag-rv { background:rgba(251,191,36,0.15); color:#fbbf24; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-tag">🔬 STUDY PLAN 2025</div>
+    <h1>خطتي للنجاح<br>طبيبة مختبر 🧬</h1>
+    <p class="hero-sub">28 مارس → 3 يونيو &nbsp;·&nbsp; 67 يوماً &nbsp;·&nbsp; 6 مواد</p>
+  </div>
+
+  <!-- COUNTDOWN -->
+  <div class="countdown">
+    <div class="cd-box">
+      <span class="cd-num" id="daysLeft">67</span>
+      <div class="cd-label">يوم متبقي</div>
+    </div>
+    <div class="cd-box">
+      <span class="cd-num" id="doneDays">0</span>
+      <div class="cd-label">يوم مكتمل</div>
+    </div>
+    <div class="cd-box">
+      <span class="cd-num" id="streakCount">0</span>
+      <div class="cd-label">🔥 سلسلة</div>
+    </div>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-card">
+    <div class="pc-top">
+      <span class="pc-title">التقدم الإجمالي</span>
+      <span class="pc-pct" id="pctText">0%</span>
+    </div>
+    <div class="track">
+      <div class="fill" id="mainFill" style="width:0%"></div>
+    </div>
+    <div class="pc-mini">
+      <span id="doneCount">0 / 67 يوم</span>
+      <span>الامتحان: 3 يونيو 🎯</span>
+    </div>
+  </div>
+
+  <!-- PLAN CONTENT -->
+  <div id="planContent"></div>
+
+  <!-- EXAM CARD -->
+  <div class="exam-card">
+    <h3>🎯 يوم الامتحان</h3>
+    <p>الثلاثاء 3 يونيو 2025</p>
+    <p style="margin-top:6px; color:#f87171; font-weight:700;">أنتِ جاهزة! 💪</p>
+  </div>
+
+</div>
+
+<!-- BOTTOM BAR -->
+<div class="bottom-bar">
+  <div class="bb-done">أنجزتِ <strong id="bbDone">0</strong> يوم</div>
+  <div class="bb-streak">🔥 <span id="bbStreak">0</span> أيام متتالية</div>
+  <button class="reset-btn" onclick="resetAll()">إعادة</button>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ─── PLAN DATA ───
+const months = [
+  {
+    id:'m1', cls:'m1', emoji:'😤', name:'الشهر الأول',
+    desc:'QC + Research — الأصعب أولاً!',
+    color:'var(--p)',
+    weeks: [
+      {
+        label:'الأسبوع 1 — أساسيات QC',
+        days:[
+          {date:'28 مارس', subj:'QC', scls:'qc', topic:'Quality Concepts & Introduction', strat:'فاينمان'},
+          {date:'29 مارس', subj:'QC', scls:'qc', topic:'QMS — نظام إدارة الجودة', strat:'زوايا'},
+          {date:'30 مارس', subj:'QC', scls:'qc', topic:'Specimen Management', strat:'تمارين'},
+          {date:'31 مارس', subj:'QC', scls:'qc', topic:'Quality Control (Analytical)', strat:'بطاقات'},
+          {date:'1 أبريل', subj:'QC', scls:'qc', topic:'Post-Analytical Phase', strat:'MCQ'},
+          {date:'2 أبريل', subj:'QC', scls:'qc', topic:'External Quality Assessment', strat:'سقراط'},
+          {date:'3 أبريل', subj:'QC', scls:'qc', topic:'مراجعة + اختبار الأسبوع 🔥', strat:'اختبار'},
+        ]
+      },
+      {
+        label:'الأسبوع 2 — QC متقدم',
+        days:[
+          {date:'4 أبريل', subj:'QC', scls:'qc', topic:'Westgard Rules', strat:'فاينمان'},
+          {date:'5 أبريل', subj:'QC', scls:'qc', topic:'Method Validation', strat:'زوايا'},
+          {date:'6 أبريل', subj:'QC', scls:'qc', topic:'Qualitative & Semiquantitative QC', strat:'بطاقات'},
+          {date:'7 أبريل', subj:'QC', scls:'qc', topic:'Laboratory Results Reliability', strat:'MCQ'},
+          {date:'8 أبريل', subj:'QC', scls:'qc', topic:'Laboratory Errors Assessment', strat:'تمارين'},
+          {date:'9 أبريل', subj:'QC', scls:'qc', topic:'مراجعة شاملة QC ✅', strat:'اختبار'},
+          {date:'10 أبريل', subj:'QC', scls:'qc', topic:'اختبار نهائي QC — 20 MCQ 🎯', strat:'اختبار'},
+        ]
+      },
+      {
+        label:'الأسبوع 3 — Research Methodology',
+        days:[
+          {date:'11 أبريل', subj:'Research', scls:'res', topic:'Definition, Purpose & Characteristics', strat:'فاينمان'},
+          {date:'12 أبريل', subj:'Research', scls:'res', topic:'Research Types', strat:'زوايا'},
+          {date:'13 أبريل', subj:'Research', scls:'res', topic:'Study Design', strat:'جدول مقارنة'},
+          {date:'14 أبريل', subj:'Research', scls:'res', topic:'Research Differences', strat:'بطاقات'},
+          {date:'15 أبريل', subj:'Research', scls:'res', topic:'Research Process', strat:'سقراط'},
+          {date:'16 أبريل', subj:'Research', scls:'res', topic:'Research Variables', strat:'تمارين'},
+          {date:'17 أبريل', subj:'Research', scls:'res', topic:'مراجعة نصف المادة 🔥', strat:'اختبار'},
+        ]
+      },
+      {
+        label:'الأسبوع 4 — Research متقدم',
+        days:[
+          {date:'18 أبريل', subj:'Research', scls:'res', topic:'Sampling Process', strat:'فاينمان'},
+          {date:'19 أبريل', subj:'Research', scls:'res', topic:'Research Data', strat:'بطاقات'},
+          {date:'20 أبريل', subj:'Research', scls:'res', topic:'Research Proposal', strat:'تطبيق'},
+          {date:'21 أبريل', subj:'Research', scls:'res', topic:'Research Report', strat:'تمارين'},
+          {date:'22 أبريل', subj:'Research', scls:'res', topic:'مراجعة شاملة Research ✅', strat:'مراجعة'},
+          {date:'23 أبريل', subj:'Research', scls:'res', topic:'اختبار نهائي Research — 20 MCQ 🎯', strat:'اختبار'},
+          {date:'24 أبريل', subj:'مراجعة', scls:'rv', topic:'مراجعة QC + Research معاً 💪', strat:'بطاقات'},
+        ]
+      },
+    ]
+  },
+  {
+    id:'m2', cls:'m2', emoji:'🔬', name:'الشهر الثاني',
+    desc:'General Pathology + Normal Histology',
+    color:'var(--y)',
+    weeks:[
+      {
+        label:'الأسبوع 5 — General Pathology (جزء 1)',
+        days:[
+          {date:'25 أبريل', subj:'Gen. Path.', scls:'gp', topic:'Core of Pathology', strat:'فاينمان'},
+          {date:'26 أبريل', subj:'Gen. Path.', scls:'gp', topic:'Cell Injury', strat:'زوايا'},
+          {date:'27 أبريل', subj:'Gen. Path.', scls:'gp', topic:'Cell Adaptive Mechanisms', strat:'بطاقات'},
+          {date:'28 أبريل', subj:'Gen. Path.', scls:'gp', topic:'Necrosis and Apoptosis', strat:'سقراط'},
+          {date:'29 أبريل', subj:'Gen. Path.', scls:'gp', topic:'Inflammation (حاد)', strat:'فاينمان'},
+          {date:'30 أبريل', subj:'Gen. Path.', scls:'gp', topic:'Inflammation (مزمن + Granuloma)', strat:'تمارين'},
+          {date:'1 مايو', subj:'Gen. Path.', scls:'gp', topic:'مراجعة + اختبار نصفي 🔥', strat:'اختبار'},
+        ]
+      },
+      {
+        label:'الأسبوع 6 — General Pathology (جزء 2)',
+        days:[
+          {date:'2 مايو', subj:'Gen. Path.', scls:'gp', topic:'Healing and Repair', strat:'زوايا'},
+          {date:'3 مايو', subj:'Gen. Path.', scls:'gp', topic:'Neoplasia (جزء 1)', strat:'فاينمان'},
+          {date:'4 مايو', subj:'Gen. Path.', scls:'gp', topic:'Neoplasia (جزء 2)', strat:'MCQ'},
+          {date:'5 مايو', subj:'Gen. Path.', scls:'gp', topic:'Hemodynamic Disorders', strat:'بطاقات'},
+          {date:'6 مايو', subj:'Gen. Path.', scls:'gp', topic:'مراجعة شاملة Gen. Path. ✅', strat:'مراجعة'},
+          {date:'7 مايو', subj:'Gen. Path.', scls:'gp', topic:'اختبار نهائي Gen. Path. 🎯', strat:'اختبار'},
+          {date:'8 مايو', subj:'Histology', scls:'nh', topic:'Epithelial Tissue', strat:'فاينمان'},
+        ]
+      },
+      {
+        label:'الأسبوع 7 — Normal Histology',
+        days:[
+          {date:'9 مايو', subj:'Histology', scls:'nh', topic:'Connective Tissue', strat:'زوايا'},
+          {date:'10 مايو', subj:'Histology', scls:'nh', topic:'Muscular Tissue', strat:'بطاقات'},
+          {date:'11 مايو', subj:'Histology', scls:'nh', topic:'Nervous Tissue', strat:'سقراط'},
+          {date:'12 مايو', subj:'Histology', scls:'nh', topic:'Adipose Tissue + Blood', strat:'تمارين'},
+          {date:'13 مايو', subj:'Histology', scls:'nh', topic:'Cartilage + Bone', strat:'فاينمان'},
+          {date:'14 مايو', subj:'Histology', scls:'nh', topic:'مراجعة + اختبار Histology 🎯', strat:'اختبار'},
+          {date:'15 مايو', subj:'مراجعة', scls:'rv', topic:'مراجعة Gen. Path. + Histology 💪', strat:'بطاقات'},
+        ]
+      },
+    ]
+  },
+  {
+    id:'m3', cls:'m3', emoji:'🧪', name:'الشهر الثالث',
+    desc:'Cytology + Adv. Histopath. + مراجعة شاملة',
+    color:'var(--g)',
+    weeks:[
+      {
+        label:'الأسبوع 8 — Gynecology Cytology',
+        days:[
+          {date:'16 مايو', subj:'GYN Cyto.', scls:'cy', topic:'Basic + GYN Cytology', strat:'فاينمان'},
+          {date:'17 مايو', subj:'GYN Cyto.', scls:'cy', topic:'Cytology Interpretation', strat:'تمارين'},
+          {date:'18 مايو', subj:'GYN Cyto.', scls:'cy', topic:'Cervical Screening Programme', strat:'زوايا'},
+          {date:'19 مايو', subj:'GYN Cyto.', scls:'cy', topic:'Adequacy of Smear', strat:'بطاقات'},
+          {date:'20 مايو', subj:'GYN Cyto.', scls:'cy', topic:'Cervical Cancer', strat:'MCQ'},
+          {date:'21 مايو', subj:'GYN Cyto.', scls:'cy', topic:'Breast Essentials + Breast Ca', strat:'فاينمان'},
+          {date:'22 مايو', subj:'GYN Cyto.', scls:'cy', topic:'مراجعة GYN Cytology 🎯', strat:'اختبار'},
+        ]
+      },
+      {
+        label:'الأسبوع 9 — Non-GYN + Adv. Histopathology',
+        days:[
+          {date:'23 مايو', subj:'Non-GYN', scls:'cy', topic:'Cytology of Serous Fluids', strat:'زوايا'},
+          {date:'24 مايو', subj:'Non-GYN', scls:'cy', topic:'Oral Cavity + Respiratory', strat:'بطاقات'},
+          {date:'25 مايو', subj:'Adv. Histo.', scls:'ah', topic:'Introduction + IHC 1-2', strat:'فاينمان'},
+          {date:'26 مايو', subj:'Adv. Histo.', scls:'ah', topic:'IHC 3-4-5-6', strat:'بطاقات'},
+          {date:'27 مايو', subj:'Adv. Histo.', scls:'ah', topic:'EHC + DIF + Frozen Sections', strat:'زوايا'},
+          {date:'28 مايو', subj:'Adv. Histo.', scls:'ah', topic:'Microorganism + Lipids + QC', strat:'MCQ'},
+          {date:'29 مايو', subj:'مراجعة', scls:'rv', topic:'مراجعة شاملة — كل المواد 🔥', strat:'بطاقات'},
+        ]
+      },
+      {
+        label:'الأسبوع 10 — المراجعة النهائية 🎯',
+        days:[
+          {date:'30 مايو', subj:'مراجعة', scls:'rv', topic:'QC + Research — نقاط الضعف 💪', strat:'مراجعة'},
+          {date:'31 مايو', subj:'مراجعة', scls:'rv', topic:'Gen. Path. + Histology — المهم 💪', strat:'مراجعة'},
+          {date:'1 يونيو', subj:'مراجعة', scls:'rv', topic:'Cytology + Adv. Histo. — المهم 💪', strat:'مراجعة'},
+          {date:'2 يونيو', subj:'مراجعة', scls:'rv', topic:'راحة + مراجعة خفيفة جداً 🌙', strat:'راحة'},
+        ]
+      },
+    ]
+  }
+];
+
+// ─── STATE ───
+const KEY = 'studyplan_v3';
+let done = JSON.parse(localStorage.getItem(KEY) || '[]');
+
+function save() { localStorage.setItem(KEY, JSON.stringify(done)); }
+
+// Calculate total days index
+let totalDays = 0;
+months.forEach(m => m.weeks.forEach(w => totalDays += w.days.length));
+
+// Today
+const today = new Date();
+const startDate = new Date('2025-03-28');
+const examDate = new Date('2025-06-03');
+const daysLeft = Math.max(0, Math.ceil((examDate - today) / 86400000));
+
+// ─── RENDER ───
+function render() {
+  const content = document.getElementById('planContent');
+  let html = '';
+  let globalIdx = 0;
+
+  months.forEach((m, mi) => {
+    html += `<div class="month-block" style="animation-delay:${0.3 + mi*0.1}s">`;
+    html += `
+      <div class="month-head ${m.cls}">
+        <div class="month-emoji">${m.emoji}</div>
+        <div class="month-info">
+          <div class="month-name">${m.name}</div>
+          <div class="month-desc">${m.desc}</div>
+        </div>
+        <div class="month-stat">${countMonthDone(m)} / ${countMonthTotal(m)}</div>
+      </div>`;
+
+    m.weeks.forEach((w, wi) => {
+      html += `<div class="week-lbl"><span>${w.label}</span></div>`;
+      html += `<div class="days-grid">`;
+
+      w.days.forEach((d, di) => {
+        const idx = globalIdx;
+        const isDone = done.includes(idx);
+        const isToday = isThisToday(d.date);
+        let cls = '';
+        if (isDone) cls = 'done';
+        else if (isToday) cls = 'today';
+
+        html += `
+          <div class="day-card ${cls}" onclick="toggle(${idx})" id="dc${idx}">
+            <div class="today-badge">اليوم ✦</div>
+            <div class="chk">${isDone ? '✓' : ''}</div>
+            <div class="day-num">${String(idx+1).padStart(2,'0')}</div>
+            <div class="day-content">
+              <div class="day-subject ${d.scls}">${d.subj}</div>
+              <div class="day-topic">${d.topic}</div>
+              <div class="day-meta">
+                <div class="dot dot-${d.scls}"></div>
+                <span class="day-date">${d.date}</span>
+              </div>
+            </div>
+            <span class="strat-tag tag-${d.scls}">${d.strat}</span>
+          </div>`;
+        globalIdx++;
+      });
+
+      html += `</div>`;
+    });
+
+    html += `</div>`;
+  });
+
+  content.innerHTML = html;
+  updateStats();
+}
+
+function countMonthDone(m) {
+  let idx = 0, done_count = 0;
+  months.forEach(mm => {
+    mm.weeks.forEach(w => {
+      w.days.forEach(d => {
+        if (mm.id === m.id && done.includes(idx)) done_count++;
+        idx++;
+      });
+    });
+  });
+  return done_count;
+}
+
+function countMonthTotal(m) {
+  let total = 0;
+  m.weeks.forEach(w => total += w.days.length);
+  return total;
+}
+
+function isThisToday(dateStr) {
+  const map = {
+    'يناير':0,'فبراير':1,'مارس':2,'أبريل':3,'مايو':4,'يونيو':5,
+    'يوليو':6,'أغسطس':7,'سبتمبر':8,'أكتوبر':9,'نوفمبر':10,'ديسمبر':11
+  };
+  const parts = dateStr.split(' ');
+  if (parts.length < 2) return false;
+  const day = parseInt(parts[0]);
+  const month = map[parts[1]];
+  if (month === undefined) return false;
+  const d = new Date(2025, month, day);
+  return d.toDateString() === today.toDateString();
+}
+
+// ─── TOGGLE ───
+const msgs = [
+  '🎉 رائع! يوم آخر منجز!',
+  '🔥 أنتِ لا تُوقف!',
+  '✨ ممتاز! استمري!',
+  '💪 هذا هو الإتقان!',
+  '🌟 يوم آخر نحو هدفكِ!',
+  '🧬 طبيبة مختبر في الطريق!',
+  '⚡ شيء رائع يحدث هنا!',
+];
+
+function toggle(idx) {
+  const card = document.getElementById(`dc${idx}`);
+  if (done.includes(idx)) {
+    done = done.filter(i => i !== idx);
+    card.classList.remove('done');
+    card.querySelector('.chk').textContent = '';
+  } else {
+    done.push(idx);
+    card.classList.add('done');
+    card.classList.remove('today');
+    card.querySelector('.chk').textContent = '✓';
+    card.querySelector('.chk').classList.add('pop');
+    setTimeout(() => card.querySelector('.chk').classList.remove('pop'), 400);
+    showToast(msgs[Math.floor(Math.random() * msgs.length)]);
+  }
+  save();
+  updateStats();
+  render();
+}
+
+function updateStats() {
+  const count = done.length;
+  const pct = Math.round((count / totalDays) * 100);
+  document.getElementById('mainFill').style.width = pct + '%';
+  document.getElementById('pctText').textContent = pct + '%';
+  document.getElementById('doneCount').textContent = `${count} / ${totalDays} يوم`;
+  document.getElementById('doneDays').textContent = count;
+  document.getElementById('daysLeft').textContent = daysLeft;
+  document.getElementById('bbDone').textContent = count;
+
+  // Streak
+  const streak = calcStreak();
+  document.getElementById('streakCount').textContent = streak;
+  document.getElementById('bbStreak').textContent = streak;
+}
+
+function calcStreak() {
+  const sorted = [...done].sort((a,b)=>a-b);
+  if (!sorted.length) return 0;
+  let streak = 1, max = 1;
+  for (let i = 1; i < sorted.length; i++) {
+    if (sorted[i] === sorted[i-1] + 1) { streak++; max = Math.max(max, streak); }
+    else streak = 1;
+  }
+  return done.length ? max : 0;
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+function resetAll() {
+  if (confirm('هل تريدين إعادة تعيين كل التقدم؟')) {
+    done = [];
+    save();
+    render();
+  }
+}
+
+// ─── INIT ───
+render();
+
+// Scroll to today
+setTimeout(() => {
+  const todayCard = document.querySelector('.day-card.today');
+  if (todayCard) todayCard.scrollIntoView({ behavior:'smooth', block:'center' });
+}, 600);
+</script>
+</body>
+</html>
