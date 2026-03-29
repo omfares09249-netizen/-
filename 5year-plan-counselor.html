@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>خطتك — المستشارة الأسرية</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #fdf8f2;
+  --warm: #f5ede0;
+  --border: #e8d9c4;
+  --gold: #b8860b;
+  --gold2: #d4a843;
+  --rose: #8b3a52;
+  --teal: #2a7a6f;
+  --sand: #c4935a;
+  --text: #2c1810;
+  --muted: #7a6050;
+  --white: #fff;
+  --shadow: 0 4px 24px rgba(44,24,16,0.08);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Tajawal', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  background-image:
+    radial-gradient(ellipse 80% 60% at 10% 5%, rgba(184,134,11,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 90% 90%, rgba(139,58,82,0.05) 0%, transparent 60%);
+}
+
+.container { max-width: 860px; margin: 0 auto; padding: 40px 20px 80px; }
+
+/* ── HERO ── */
+.hero {
+  text-align: center;
+  padding: 48px 20px 40px;
+  margin-bottom: 40px;
+  animation: fadeUp 0.8s ease both;
+}
+.hero .badge {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--gold), var(--sand));
+  color: white;
+  padding: 6px 22px;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+.hero h1 {
+  font-family: 'Amiri', serif;
+  font-size: clamp(2rem, 6vw, 3.2rem);
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+.hero h1 em {
+  font-style: normal;
+  color: var(--rose);
+}
+.hero p {
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.8;
+  max-width: 520px;
+  margin: 0 auto 24px;
+}
+.hero .vision-box {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-right: 4px solid var(--gold);
+  border-radius: 14px;
+  padding: 20px 24px;
+  text-align: right;
+  max-width: 600px;
+  margin: 0 auto;
+  box-shadow: var(--shadow);
+}
+.hero .vision-box .label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--gold);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.hero .vision-box p {
+  font-size: 0.97rem;
+  color: var(--text);
+  line-height: 1.7;
+  margin: 0;
+}
+.hero .vision-box strong { color: var(--rose); }
+
+/* ── REALITY CARD ── */
+.reality {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 28px;
+  margin-bottom: 36px;
+  box-shadow: var(--shadow);
+  animation: fadeUp 0.7s 0.1s ease both;
+}
+.reality h2 {
+  font-family: 'Amiri', serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--rose);
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.assets-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.asset {
+  background: var(--warm);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-size: 0.87rem;
+  line-height: 1.6;
+  color: var(--muted);
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.asset .dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--teal);
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+.asset strong { color: var(--text); display: block; font-size: 0.82rem; margin-bottom: 2px; }
+
+.challenge {
+  background: rgba(139,58,82,0.06);
+  border: 1px solid rgba(139,58,82,0.2);
+  border-right: 3px solid var(--rose);
+  border-radius: 10px;
+  padding: 14px 16px;
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+.challenge strong { color: var(--rose); }
+
+/* ── SECTION LABEL ── */
+.sec-label {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 44px 0 20px;
+  animation: fadeUp 0.6s ease both;
+}
+.sec-label h2 {
+  font-family: 'Amiri', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+  white-space: nowrap;
+}
+.sec-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ── YEAR CARDS ── */
+.year {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  overflow: hidden;
+  margin-bottom: 14px;
+  box-shadow: var(--shadow);
+  animation: fadeUp 0.6s ease both;
+}
+.year:nth-child(1){animation-delay:.15s}
+.year:nth-child(2){animation-delay:.25s}
+.year:nth-child(3){animation-delay:.35s}
+.year:nth-child(4){animation-delay:.45s}
+.year:nth-child(5){animation-delay:.55s}
+
+.year-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 22px;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.2s;
+}
+.year-head:hover { background: var(--warm); }
+
+.year-num {
+  width: 54px; height: 54px;
+  border-radius: 14px;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  font-family: 'Amiri', serif;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.yn1 { background: rgba(184,134,11,0.12); color: var(--gold); border: 1.5px solid rgba(184,134,11,0.3); }
+.yn2 { background: rgba(42,122,111,0.1); color: var(--teal); border: 1.5px solid rgba(42,122,111,0.3); }
+.yn3 { background: rgba(139,58,82,0.1); color: var(--rose); border: 1.5px solid rgba(139,58,82,0.3); }
+.yn4 { background: rgba(196,147,90,0.12); color: var(--sand); border: 1.5px solid rgba(196,147,90,0.3); }
+.yn5 { background: rgba(44,24,16,0.08); color: var(--text); border: 1.5px solid rgba(44,24,16,0.2); }
+
+.year-num .ny { font-size: 1.3rem; line-height: 1; }
+.year-num .nl { font-size: 0.6rem; opacity: 0.7; }
+
+.year-info { flex: 1; }
+.year-info .dates { font-size: 0.73rem; color: var(--muted); margin-bottom: 4px; letter-spacing: 0.5px; }
+.year-info h3 { font-family: 'Amiri', serif; font-size: 1.1rem; font-weight: 700; color: var(--text); }
+.year-info .sub { font-size: 0.82rem; color: var(--muted); margin-top: 3px; }
+
+.year-icon { font-size: 1.6rem; flex-shrink: 0; }
+.year-arr { color: var(--muted); font-size: 1rem; flex-shrink: 0; transition: transform 0.3s; }
+.year-arr.open { transform: rotate(180deg); }
+
+.year-body {
+  border-top: 1px solid var(--border);
+  padding: 26px 24px;
+  display: none;
+  background: var(--warm);
+}
+.year-body.open { display: block; animation: slideDown 0.3s ease; }
+
+/* ── PILLARS ── */
+.pillar { margin-bottom: 22px; }
+.pillar:last-child { margin-bottom: 0; }
+.pillar-title {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-weight: 700;
+  color: var(--muted);
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.tasks { display: flex; flex-direction: column; gap: 8px; }
+.task {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: var(--white);
+  border-radius: 10px;
+  padding: 11px 14px;
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: var(--muted);
+  border: 1px solid var(--border);
+}
+.task .bullet {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 7px;
+}
+.bg { background: var(--gold); }
+.bt { background: var(--teal); }
+.br { background: var(--rose); }
+.bs { background: var(--sand); }
+.task strong { color: var(--text); }
+.tag-p { display: inline-block; background: rgba(139,58,82,0.1); color: var(--rose); font-size: 0.7rem; font-weight: 700; padding: 1px 8px; border-radius: 5px; margin-left: 6px; }
+.tag-s { display: inline-block; background: rgba(42,122,111,0.1); color: var(--teal); font-size: 0.7rem; font-weight: 700; padding: 1px 8px; border-radius: 5px; margin-left: 6px; }
+
+.result-box {
+  margin-top: 18px;
+  border-radius: 12px;
+  padding: 15px 18px;
+  font-size: 0.88rem;
+  line-height: 1.7;
+  border-right: 3px solid;
+}
+.rb-gold { background: rgba(184,134,11,0.07); border-color: var(--gold); color: #7a5800; }
+.rb-teal { background: rgba(42,122,111,0.07); border-color: var(--teal); color: #1a5048; }
+.rb-rose { background: rgba(139,58,82,0.07); border-color: var(--rose); color: #6b2040; }
+.rb-sand { background: rgba(196,147,90,0.1); border-color: var(--sand); color: #7a4a10; }
+.rb-dark { background: rgba(44,24,16,0.06); border-color: var(--text); color: var(--text); }
+.result-box b { display: block; font-size: 0.73rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; opacity: 0.6; }
+
+/* ── HUSBAND STRATEGY ── */
+.husband-box {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 26px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow);
+  animation: fadeUp 0.6s 0.2s ease both;
+}
+.husband-box h3 {
+  font-family: 'Amiri', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--rose);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.strategies { display: flex; flex-direction: column; gap: 10px; }
+.strat {
+  background: var(--warm);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 13px 16px;
+  font-size: 0.87rem;
+  line-height: 1.7;
+  color: var(--muted);
+}
+.strat strong { color: var(--text); display: block; margin-bottom: 3px; }
+
+/* ── MOTHER FORMULA ── */
+.formula {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 26px;
+  margin-bottom: 14px;
+  box-shadow: var(--shadow);
+  animation: fadeUp 0.6s 0.25s ease both;
+}
+.formula h3 {
+  font-family: 'Amiri', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--teal);
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.formula-rows { display: flex; flex-direction: column; gap: 9px; }
+.frow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--warm);
+  border-radius: 11px;
+  padding: 12px 15px;
+  border: 1px solid var(--border);
+}
+.frow .ftime {
+  font-family: 'Amiri', serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--teal);
+  flex-shrink: 0;
+  min-width: 100px;
+  text-align: center;
+  background: rgba(42,122,111,0.08);
+  padding: 5px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(42,122,111,0.2);
+}
+.frow .fdesc { font-size: 0.86rem; color: var(--muted); line-height: 1.6; }
+.frow .fdesc strong { color: var(--text); }
+
+/* ── FOOTER ── */
+.footer {
+  text-align: center;
+  margin-top: 56px;
+  padding: 40px 28px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  animation: fadeUp 0.7s 0.5s ease both;
+}
+.footer p {
+  font-family: 'Amiri', serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.7;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+.footer p em { font-style: normal; color: var(--rose); }
+.footer span { color: var(--muted); font-size: 0.87rem; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media(max-width:600px) {
+  .assets-grid { grid-template-columns: 1fr; }
+  .year-head { padding: 16px; gap: 12px; }
+  .year-num { width: 46px; height: 46px; }
+  .year-body { padding: 20px 16px; }
+  .frow { flex-direction: column; align-items: flex-start; }
+  .frow .ftime { min-width: unset; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="badge">✦ خطتك الشخصية · السودان ✦</div>
+    <h1>من أم لثلاثة<br>إلى <em>مستشارة تُغيّر مجتمعاً</em></h1>
+    <p>خطة مبنية على واقعك الحقيقي — موهبتك + تخصصك + ظروفك + طموحك</p>
+    <div class="vision-box">
+      <div class="label">رؤيتك بعد ٥ سنوات</div>
+      <p>
+        <strong>أول مستشارة أسرية متخصصة في السودان</strong> تجمع بين الخلفية الطبية العلمية، والمرجعية الدينية، وعلم المناظرة والإقناع — تساعد الأسر السودانية عبر جلسات خاصة ومحتوى رقمي مؤثر.
+      </p>
+    </div>
+  </div>
+
+  <!-- REALITY -->
+  <div class="reality">
+    <h2>💎 ما تملكينه الآن — نقاط قوتك الحقيقية</h2>
+    <div class="assets-grid">
+      <div class="asset"><div class="dot"></div><div><strong>موهبة الإقناع العلمي</strong>٣ سنوات في برنامج الجدل والمناظرة — مهارة نادرة</div></div>
+      <div class="asset"><div class="dot"></div><div><strong>خلفية دينية قوية</strong>مرجعية موثوقة في مجتمعك المحافظ</div></div>
+      <div class="asset"><div class="dot"></div><div><strong>محتوى تربوي ودخل فعلي</strong>٣ أشهر بدأتِ فيها وتجنين منها بالفعل</div></div>
+      <div class="asset"><div class="dot"></div><div><strong>تجربة ميدانية حقيقية</strong>أنقذتِ أسرة بساعة واحدة — بدون شهادة رسمية</div></div>
+      <div class="asset"><div class="dot"></div><div><strong>خلفية طبية علمية</strong>تخصص مختبرات = مصداقية ومنهجية علمية</div></div>
+      <div class="asset"><div class="dot"></div><div><strong>تجربة الأمومة الحقيقية</strong>أم لـ ٣ أطفال دون الخامسة = فهم عميق لمعاناة الأسر</div></div>
+    </div>
+    <div class="challenge">
+      <strong>التحدي الأساسي:</strong> زوج لا يدعم + ٣ أطفال صغار + وقت محدود + مجتمع محافظ.
+      الخطة مبنية على هذا الواقع — لا تتجاهله.
+    </div>
+  </div>
+
+  <!-- YEARS -->
+  <div class="sec-label"><h2>📅 خطة السنوات الخمس</h2></div>
+
+  <!-- YEAR 1 -->
+  <div class="year">
+    <div class="year-head" onclick="toggle(this)">
+      <div class="year-num yn1"><div class="ny">١</div><div class="nl">السنة</div></div>
+      <div class="year-info">
+        <div class="dates">مارس ٢٠٢٦ — مارس ٢٠٢٧</div>
+        <h3>التخرج + الأساس الصامت</h3>
+        <div class="sub">أنهي الجامعة · طوّري المحتوى · ابني بهدوء دون ضجيج</div>
+      </div>
+      <span class="year-icon">🌱</span>
+      <span class="year-arr">▼</span>
+    </div>
+    <div class="year-body open">
+
+      <div class="pillar">
+        <div class="pillar-title">🎓 الجامعة — الأولوية القصوى</div>
+        <div class="tasks">
+          <div class="task"><div class="bullet bg"></div><span><span class="tag-p">أولوية</span> أنهي التخرج بنجاح — هذه الشهادة تفتح باب المصداقية أمامك</span></div>
+          <div class="task"><div class="bullet bg"></div><span>مشروع التخرج يسير حسب خطة الـ ٧٧ يوماً الموضوعة</span></div>
+        </div>
+      </div>
+
+      <div class="pillar">
+        <div class="pillar-title">✍️ المحتوى — الدخل والبناء</div>
+        <div class="tasks">
+          <div class="task"><div class="bullet bt"></div><span><span class="tag-p">أولوية</span> طوّري محتواك التربوي/الأسري تدريجياً — هذا دخلك ومنصتك معاً</span></div>
+          <div class="task"><div class="bullet bt"></div><span>ابدئي تخصيص المحتوى في قضايا الزواج والأسرة — هذا ما يميزك</span></div>
+          <div class="task"><div class="bullet bt"></div><span>اقرئي كتاباً واحداً شهرياً في علم النفس الأسري أو الإرشاد</span></div>
+        </div>
+      </div>
+
+      <div class="pillar">
+        <div class="pillar-title">🧠 استراتيجية الزوج — بذكاء لا مواجهة</div>
+        <div class="tasks">
+          <div class="task"><div class="bullet br"></div><span>لا تطلبي إذناً — اعمل بهدوء وأرِيه النتائج أولاً</span></div>
+          <div class="task"><div class="bullet br"></div><span>المحتوى الرقمي لا يحتاج خروجاً من البيت — ابدئي من هنا</span></div>
+          <div class="task"><div class="bullet br"></div><span>الدخل المادي هو أقوى حجة — حين يرى الأرقام يتغير الموقف</span></div>
+        </div>
+      </div>
+
+      <div class="result-box rb-gold">
+        <b>✓ نهاية السنة الأولى</b>
+        شهادة جامعية ✅ + محتوى متخصص في الأسرة + دخل متزايد + مكتبة علمية بـ ١٢ كتاب
+      </div>
+    </div>
+  </div>
+
+  <!-- YEAR 2 -->
+  <div class="year">
+    <div class="year-head" onclick="toggle(this)">
+      <div class="year-num yn2"><div class="ny">٢</div><div class="nl">السنة</div></div>
+      <div class="year-info">
+        <div class="dates">مارس ٢٠٢٧ — مارس ٢٠٢٨</div>
+        <h3>التأهيل الرسمي + بناء الصوت</h3>
+        <div class="sub">شهادة معتمدة في الإرشاد · جمهور متخصص · أول خطوة رسمية</div>
+      </div>
+      <span class="year-icon">📚</span>
+      <span class="year-arr">▼</span>
+    </div>
+    <div class="year-body">
+
+      <div class="pillar">
+        <div class="pillar-title">🏅 التأهيل الرسمي في الإرشاد الأسري</div>
+        <div class="tasks">
+          <div class="task"><div class="bullet bt"></div><span><span class="tag-p">أولوية</span> ابحثي عن دورات معتمدة عبر الإنترنت في الإرشاد الأسري وعلم النفس التطبيقي — كثير منها لا يتعارض مع وجودك في البيت</span></div>
+          <div class="task"><div class="bullet bt"></div><span>مؤسسات مثل: الجمعية الأمريكية للزواج والأسرة (AAMFT) تقدم دورات عن بُعد</span></div>
+          <div class="task"><div class="bullet bt"></div><span>في السودان: تواصلي مع كلية التربية أو علم النفس في جامعات الخرطوم لدورات شهادات مهنية</span></div>
+        </div>
+      </div>
+
+      <div class="pillar">
+        <div class="pillar-title">📣 بناء الصوت والجمهور</div>
+        <div class="tasks">
+          <div class="task"><div class="bullet bg"></div><span>ركزي على منصة واحدة (يوتيوب أو تيك توك أو إنستقرام) وأتقنيها قبل التوسع</span></div>
+          <div class="task"><div class="bullet bg"></div><span>محتواك = قضايا الأسرة السودانية تحديداً — هذا ما يجعلك مختلفة عن كل المحتوى العربي العام</span></div>
+          <div class="task"><div class="bullet bg"></div><span><span class="tag-s">سلاحك</span> الخلفية الدينية + العلمية + الأمومة = مصداقية لا يملكها أحد غيرك في مجالك ببلادك</span></div>
+        </div>
+      </div>
+
+      <div class="result-box rb-teal">
+        <b>✓ نهاية السنة الثانية</b>
+        شهادة إرشاد معتمدة + جمهور متخصص يعرف اسمك في مجال الأسرة + مصدر دخل ثابت من المحتوى
+      </div>
+    </div>
+  </div>
+
+  <!-- YEAR 3 -->
+  <div class="year">
+    <div class="year-head" onclick="toggle(this)">
+      <div class="year-num yn3"><div class="ny">٣</div><div class="nl">السنة</div></div>
+      <div class="year-info">
+        <div class="dates">مارس ٢٠٢٨ — مارس ٢٠٢٩</div>
+        <h3>إطلاق الجلسات الرسمية</h3>
+        <div class="sub">أول جلسات إرشادية مدفوعة · هوية مهنية · مشروع حقيقي</div>
+      </div>
+      <span class="year-icon">🚀</span>
+      <span class="year-arr">▼</span>
+    </div>
+    <div class="year-body">
+
+      <div class="pillar">
+        <div class="pillar-title">💼 إطلاق المشروع</div>
+        <div class="tasks">
+          <div class="task"><div class="bullet br"></div><span><span class="tag-p">أولوية</span> قدّمي أول جلسات إرشادية — عبر الإنترنت أولاً لتتجنبي عائق الخروج من البيت</span></div>
+          <div class="task"><div class="bullet br"></div><span>أطفالك سيكونون بين ٣-٨ سنوات — أكثر استقلالية مما هم عليه الآن</span></div>
+          <div class="task"><div class="bullet br"></div><span>اعملي مع مركز نسائي أو مسجد كمتطوعة أولاً لتبني سمعة قبل الدخل</span></div>
+          <div class="task"><div class="bullet bs"></div><span>الدخل من الجلسات + المحتوى = استقلالية مالية حقيقية تغير معادلة البيت</span></div>
+        </div>
+      </div>
+
+      <div class="pillar">
+        <div class="pillar-title">🌐 التوسع الرقمي</div>
+        <div class="tasks">
+          <div class="task"><div class="bullet bg"></div><span>أطلقي أول منتج رقمي: دليل PDF أو دورة مسجلة عن الحياة الزوجية في السياق السوداني</span></div>
+          <div class="task"><div class="bullet bg"></div><span>المحتوى المحلي المتخصص = فجوة ضخمة لم يملأها أحد بعد</span></div>
+        </div>
+      </div>
+
+      <div class="result-box rb-rose">
+        <b>✓ نهاية السنة الثالثة</b>
+        مستشارة أسرية فعلية بجلسات مدفوعة + منتج رقمي + استقلالية مالية تمنحك قوة تفاوضية في بيتك
+      </div>
+    </div>
+  </div>
+
+  <!-- YEAR 4 -->
+  <div class="year">
+    <div class="year-head" onclick="toggle(this)">
+      <div class="year-num yn4"><div class="ny">٤</div><div class="nl">السنة</div></div>
+      <div class="year-info">
+        <div class="dates">مارس ٢٠٢٩ — مارس ٢٠٣٠</div>
+        <h3>التوسع والتأثير الحقيقي</h3>
+        <div class="sub">برنامج متكامل · شراكات · حضور مجتمعي</div>
+      </div>
+      <span class="year-icon">⚡</span>
+      <span class="year-arr">▼</span>
+    </div>
+    <div class="year-body">
+      <div class="tasks">
+        <div class="task"><div class="bullet bg"></div><span><span class="tag-p">أولوية</span> طوّري برنامجاً إرشادياً متكاملاً خاصاً بالأسرة السودانية</span></div>
+        <div class="task"><div class="bullet bt"></div><span>شراكة مع مراكز صحية أو مساجد أو مدارس لتقديم ورش توعوية</span></div>
+        <div class="task"><div class="bullet br"></div><span>فكري في تسجيل مشروعك رسمياً إذا وصل الدخل لمستوى جيد</span></div>
+        <div class="task"><div class="bullet bs"></div><span>بحلول هذا الوقت أطفالك في المدرسة — وقتك سيتضاعف</span></div>
+      </div>
+      <div class="result-box rb-sand">
+        <b>✓ نهاية السنة الرابعة</b>
+        مشروع منظم + حضور مجتمعي معروف + دخل متعدد المصادر + زوج يرى النتائج ويصمت أو يدعم
+      </div>
+    </div>
+  </div>
+
+  <!-- YEAR 5 -->
+  <div class="year">
+    <div class="year-head" onclick="toggle(this)">
+      <div class="year-num yn5"><div class="ny">٥</div><div class="nl">السنة</div></div>
+      <div class="year-info">
+        <div class="dates">مارس ٢٠٣٠ — مارس ٢٠٣١</div>
+        <h3>القيادة والإرث</h3>
+        <div class="sub">الصوت الأول في مجالها بالسودان</div>
+      </div>
+      <span class="year-icon">👑</span>
+      <span class="year-arr">▼</span>
+    </div>
+    <div class="year-body">
+      <div class="tasks">
+        <div class="task"><div class="bullet bg"></div><span><span class="tag-p">أولوية</span> كوني المرجع الأول في الإرشاد الأسري في السودان — الاسم الذي يُقال حين يُسأل عن مستشارة</span></div>
+        <div class="task"><div class="bullet bt"></div><span>درّبي مستشارات أخريات — من متلقية للمعرفة إلى ناقلة لها</span></div>
+        <div class="task"><div class="bullet br"></div><span>اكتبي: كتاباً أو منهجاً في الإرشاد الأسري من منظور إسلامي سوداني</span></div>
+        <div class="task"><div class="bullet bs"></div><span>شاركي في مؤتمرات أو فعاليات كمتحدثة — صوتك يُسمع خارج حدود بيتك</span></div>
+      </div>
+      <div class="result-box rb-dark">
+        <b>✓ بعد ٥ سنوات</b>
+        المستشارة الأسرية الأولى في السودان بمرجعية علمية ودينية — بنتِ كل هذا وأنتِ أم لثلاثة، ودون دعم، وبساعتين يومياً 🌸
+      </div>
+    </div>
+  </div>
+
+  <!-- HUSBAND STRATEGY -->
+  <div class="sec-label"><h2>🤝 استراتيجية التعامل مع الزوج</h2></div>
+  <div class="husband-box">
+    <h3>💡 كيف تبنين بدون معارك</h3>
+    <div class="strategies">
+      <div class="strat"><strong>١. اعملي أولاً، اطلبي الإذن لاحقاً</strong>المعارضة غالباً من الخوف من المجهول. حين يرى النتائج الملموسة تتغير المواقف.</div>
+      <div class="strat"><strong>٢. المحتوى الرقمي لا يحتاج إذناً</strong>ابدئي مما لا يُعارَض — الكتابة من البيت، الجلسات عبر الإنترنت.</div>
+      <div class="strat"><strong>٣. الدخل المادي هو أقوى حجة</strong>حين يرى أن مشروعك يُدخل للبيت، يصعب المعارضة بلا سبب.</div>
+      <div class="strat"><strong>٤. استخدمي مهارة الإقناع التي تملكينها</strong>أنتِ درستِ المناظرة — وظّفيها في بيتك بلطف وصبر.</div>
+      <div class="strat"><strong>٥. لا تنتظري الدعم — ابني الاستقلالية</strong>الاستقلالية المالية تمنحك قوة تفاوضية حقيقية بدون مواجهة.</div>
+    </div>
+  </div>
+
+  <!-- MOTHER FORMULA -->
+  <div class="sec-label"><h2>⚡ فورمولا يومك كأم لثلاثة</h2></div>
+  <div class="formula">
+    <h3>🕐 كيف تستثمرين كل دقيقة هادئة</h3>
+    <div class="formula-rows">
+      <div class="frow"><div class="ftime">١٥ دقيقة</div><div class="fdesc"><strong>اقرئي أو راجعي فكرة واحدة.</strong> قبل صحيان الأطفال أو في أي لحظة هدوء.</div></div>
+      <div class="frow"><div class="ftime">٣٠ دقيقة</div><div class="fdesc"><strong>اكتبي منشوراً أو مقطعاً.</strong> المحتوى يُبنى بالتراكم اليومي.</div></div>
+      <div class="frow"><div class="ftime">ساعة كاملة</div><div class="fdesc"><strong>جلسة إرشاد أو دراسة معمقة.</strong> وقت نوم الأطفال = كنزك الحقيقي.</div></div>
+      <div class="frow"><div class="ftime">أثناء الأعمال</div><div class="fdesc"><strong>بودكاست أو كتاب صوتي</strong> في علم النفس والإرشاد — المخ يتعلم حتى وأنتِ تطبخين.</div></div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <p>"أنقذتِ أسرة بساعة واحدة<br>بدون شهادة — <em>تخيلي ما ستصنعينه بالشهادة</em>"</p>
+    <span>السودان ينتظر صوتك 🌸</span>
+  </div>
+
+</div>
+
+<script>
+function toggle(head) {
+  var body = head.nextElementSibling;
+  var arr = head.querySelector('.year-arr');
+  var isOpen = body.classList.contains('open');
+  document.querySelectorAll('.year-body').forEach(function(b){ b.classList.remove('open'); });
+  document.querySelectorAll('.year-arr').forEach(function(a){ a.classList.remove('open'); });
+  if (!isOpen) {
+    body.classList.add('open');
+    arr.classList.add('open');
+  }
+}
+</script>
+</body>
+</html>
