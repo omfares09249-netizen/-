@@ -1,0 +1,374 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>الخطة الشخصية للإنجاز</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+  /* Layout: navy hero, week strip with seven day colors, then a two-column grid of day cards that stacks on phones */
+  :root {
+    --bg: #f3f6fb;
+    --surface: #ffffff;
+    --fg: #14243a;
+    --muted: #586982;
+    --line: #dae3ef;
+    --track: #e5ecf5;
+    --accent: #2c5282;
+    --hero-a: #1b3a5c;
+    --hero-b: #2c5282;
+    --hero-fg: #ffffff;
+    --hero-sub: #cfdcee;
+    --p: #2862ad;  --p-soft: #e2edfb;
+    --r: #26724a;  --r-soft: #dff1e7;
+    --f: #a8530f;  --f-soft: #fbe9d8;
+    --d0: #3182ce; --d1: #2c5282; --d2: #319795; --d3: #2f855a;
+    --d4: #d69e2e; --d5: #dd6b20; --d6: #e53e3e;
+    --font: 'Cairo', 'Segoe UI', Tahoma, system-ui, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0c1524; --surface: #14223a; --fg: #e8eef7; --muted: #9db0ca;
+      --line: #253652; --track: #253652; --accent: #8dbdf5;
+      --hero-a: #11284a; --hero-b: #1c3f6e; --hero-fg: #ffffff; --hero-sub: #b9cbe4;
+      --p: #8dbdf5; --p-soft: #1a2d4d;
+      --r: #7fd6a0; --r-soft: #14342a;
+      --f: #f5ac72; --f-soft: #3d2613;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0c1524; --surface: #14223a; --fg: #e8eef7; --muted: #9db0ca;
+    --line: #253652; --track: #253652; --accent: #8dbdf5;
+    --hero-a: #11284a; --hero-b: #1c3f6e; --hero-fg: #ffffff; --hero-sub: #b9cbe4;
+    --p: #8dbdf5; --p-soft: #1a2d4d;
+    --r: #7fd6a0; --r-soft: #14342a;
+    --f: #f5ac72; --f-soft: #3d2613;
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg); color: var(--fg); font-family: var(--font);
+    font-size: 16px; line-height: 1.7;
+    padding-inline: 16px; padding-block: 20px 44px;
+  }
+  .wrap { max-width: 1040px; margin-inline: auto; display: flex; flex-direction: column; gap: 18px; }
+
+  .hero {
+    background: linear-gradient(135deg, var(--hero-a), var(--hero-b));
+    color: var(--hero-fg); border-radius: 18px; padding: 28px 20px; text-align: center;
+    display: flex; flex-direction: column; gap: 6px;
+    box-shadow: 0 10px 28px -14px rgba(14, 30, 58, .55);
+  }
+  .hero h1 { margin: 0; font-size: clamp(1.8rem, 6vw, 2.8rem); font-weight: 900; line-height: 1.25; text-wrap: balance; }
+  .hero p { margin: 0 auto; color: var(--hero-sub); max-width: 52ch; text-wrap: balance; }
+
+  .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 16px; }
+  .top { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; }
+  .total { flex: 1 1 240px; min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+  .total-line { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+  .total-line b { font-size: 2rem; font-weight: 900; line-height: 1; font-variant-numeric: tabular-nums; }
+  .total-line span { color: var(--muted); font-size: .9rem; }
+  .bar { height: 10px; border-radius: 999px; background: var(--track); overflow: hidden; }
+  .bar i { display: block; height: 100%; width: 0; border-radius: 999px; background: var(--accent); transition: width .3s ease; }
+
+  .strip { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; }
+  .strip button {
+    font: inherit; cursor: pointer; color: var(--fg); background: transparent;
+    border: 1px solid var(--line); border-radius: 10px; padding: 6px 2px 8px;
+    display: flex; flex-direction: column; align-items: center; gap: 6px; min-width: 0;
+  }
+  .strip button .nm { font-size: .72rem; font-weight: 700; line-height: 1.2; white-space: nowrap; }
+  .strip button .mini { width: 70%; height: 6px; border-radius: 999px; background: var(--track); overflow: hidden; }
+  .strip button .mini i { display: block; height: 100%; width: 0; background: var(--dc); border-radius: 999px; transition: width .3s ease; }
+  .strip button.is-today { border-color: var(--dc); box-shadow: inset 0 -3px 0 var(--dc); }
+
+  .tools { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    font: inherit; font-size: .9rem; font-weight: 600; cursor: pointer; color: var(--fg);
+    border: 1.5px solid var(--line); background: transparent; border-radius: 999px;
+    padding: 2px 14px; min-height: 40px; display: inline-flex; align-items: center; gap: 8px;
+  }
+  .chip .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--c); }
+  .chip[aria-pressed="true"] { border-color: var(--c, var(--accent)); background: var(--cs, var(--track)); }
+  .reset {
+    font: inherit; font-size: .85rem; font-weight: 600; cursor: pointer; min-height: 40px;
+    border: 1px dashed var(--line); background: transparent; color: var(--muted);
+    border-radius: 10px; padding: 2px 14px;
+  }
+  .reset[data-armed="true"] { border-style: solid; border-color: var(--f); color: var(--f); }
+  button:focus-visible, .task input:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr)); gap: 14px; align-items: start; }
+  .day {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 16px;
+    border-inline-start: 6px solid var(--dc);
+    padding: 14px 16px 10px; display: flex; flex-direction: column; gap: 4px; min-width: 0;
+    scroll-margin-top: 16px;
+  }
+  .day.is-today { box-shadow: 0 0 0 2px var(--dc); }
+  .day[hidden] { display: none; }
+  .day-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+  .day-head h2 { margin: 0; font-size: 1.35rem; font-weight: 800; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .now { font-size: .72rem; font-weight: 700; color: #fff; background: var(--dc); border-radius: 999px; padding: 0 10px; line-height: 1.8; }
+  .ring {
+    --pct: 0; width: 46px; height: 46px; border-radius: 50%; flex: none; position: relative;
+    background: conic-gradient(var(--dc) calc(var(--pct) * 1%), var(--track) 0);
+    display: grid; place-items: center;
+  }
+  .ring::before { content: ''; position: absolute; inset: 5px; border-radius: 50%; background: var(--surface); }
+  .ring span { position: relative; font-size: .78rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+
+  .task { display: flex; align-items: flex-start; gap: 12px; padding: 10px 2px; cursor: pointer; border-top: 1px dashed var(--line); }
+  .task:first-of-type { border-top: 0; }
+  .task input { width: 22px; height: 22px; margin: 6px 0 0; flex: none; accent-color: var(--c); cursor: pointer; }
+  .body { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+  .line1 { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; }
+  .badge { font-size: .75rem; font-weight: 700; color: var(--c); background: var(--cs); border-radius: 6px; padding: 0 10px; }
+  .ttl { font-weight: 700; }
+  .desc { color: var(--muted); font-size: .94rem; overflow-wrap: anywhere; }
+  .task input:checked ~ .body { opacity: .6; }
+  .task input:checked ~ .body .ttl { text-decoration: line-through; text-decoration-color: var(--muted); }
+  .task[hidden] { display: none; }
+
+  .p { --c: var(--p); --cs: var(--p-soft); }
+  .r { --c: var(--r); --cs: var(--r-soft); }
+  .f { --c: var(--f); --cs: var(--f-soft); }
+
+  .foot { color: var(--muted); font-size: .85rem; text-align: center; }
+  @media (prefers-reduced-motion: reduce) { .bar i, .strip .mini i { transition: none; } }
+</style>
+
+<div class="wrap">
+  <header class="hero">
+    <h1>الخطة الشخصية للإنجاز</h1>
+    <p>جدول المتابعة اليومي المتوازن (الجانب الشخصي، الجانب الديني، والجانب الأسري)</p>
+  </header>
+
+  <section class="panel" aria-label="ملخص الأسبوع">
+    <div class="top">
+      <div class="total">
+        <div class="total-line"><b id="totalPct">٠٪</b><span id="totalCount"></span></div>
+        <div class="bar" id="totalBar" role="progressbar" aria-label="إنجاز الأسبوع" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i></i></div>
+      </div>
+    </div>
+    <div class="strip" id="strip"></div>
+    <div class="tools">
+      <div class="chips" id="chips" role="group" aria-label="تصفية حسب الجانب"></div>
+      <button type="button" class="reset" id="reset">إعادة ضبط الأسبوع</button>
+    </div>
+  </section>
+
+  <main class="grid" id="grid"></main>
+  <div class="foot">يُحفظ التقدم في هذا المتصفح فقط. الأسبوع يبدأ من السبت.</div>
+</div>
+
+<script>
+  var ASPECTS = {
+    p: 'الجانب الشخصي',
+    r: 'الجانب الديني',
+    f: 'الجانب الأسري'
+  };
+
+  var HISTO   = ['p', 'مراجعة الهيستو باثولوجي', 'مراجعة تخصص علم الأنسجة المريضة.'];
+  var CONTENT = ['p', 'تطوير كتابة المحتوى', 'تطوير مهارة كتابة المحتوى والنسخ التجاري.'];
+  var QURAN   = ['r', 'حفظ القرآن الكريم', 'حفظ وجهين (سورة البقرة).'];
+  var ILM     = ['r', 'طلب العلم الشرعي', 'المعهد العقدي للشيخ خالد عبد اللطيف / معهد طريقة العلماء / أحسن الحديث.'];
+
+  var DAYS = [
+    { name: 'السبت',    color: 'var(--d0)', tasks: [HISTO] },
+    { name: 'الأحد',    color: 'var(--d1)', tasks: [HISTO, QURAN] },
+    { name: 'الاثنين',  color: 'var(--d2)', tasks: [CONTENT, QURAN] },
+    { name: 'الثلاثاء', color: 'var(--d3)', tasks: [CONTENT, QURAN] },
+    { name: 'الأربعاء', color: 'var(--d4)', tasks: [
+      ['f', 'تعليم الأبناء', 'القراءة والكتابة (عربي شخصياً + إنجليزي دورة الجولي فونكس).'],
+      QURAN
+    ]},
+    { name: 'الخميس',   color: 'var(--d5)', tasks: [
+      ['r', 'حفظ القرآن الكريم', 'حفظ وجهين (ختام حلقة الحفظ الأسبوعية).'],
+      ILM
+    ]},
+    { name: 'الجمعة',   color: 'var(--d6)', tasks: [ILM] }
+  ];
+
+  var KEY = 'achievement-plan-v2';
+  var state = {};
+  var filter = 'all';
+  var AR = new Intl.NumberFormat('ar-EG');
+  function n(x) { return AR.format(x); }
+
+  function load() {
+    try { var raw = localStorage.getItem(KEY); if (raw) state = JSON.parse(raw) || {}; } catch (e) { state = {}; }
+  }
+  function save() {
+    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
+  }
+
+  var grid = document.getElementById('grid');
+  var strip = document.getElementById('strip');
+  var refs = [];
+  var todayIdx = (new Date().getDay() + 1) % 7;
+
+  function build() {
+    DAYS.forEach(function (day, di) {
+      var card = document.createElement('section');
+      card.className = 'day' + (di === todayIdx ? ' is-today' : '');
+      card.id = 'day' + di;
+      card.style.setProperty('--dc', day.color);
+
+      var head = document.createElement('div');
+      head.className = 'day-head';
+      var h2 = document.createElement('h2');
+      h2.textContent = day.name;
+      if (di === todayIdx) {
+        var now = document.createElement('span');
+        now.className = 'now';
+        now.textContent = 'اليوم';
+        h2.appendChild(now);
+      }
+      var ring = document.createElement('div');
+      ring.className = 'ring';
+      var rt = document.createElement('span');
+      ring.appendChild(rt);
+      head.appendChild(h2);
+      head.appendChild(ring);
+      card.appendChild(head);
+
+      var rows = [];
+      day.tasks.forEach(function (t, ti) {
+        var id = 'd' + di + 't' + ti;
+        var label = document.createElement('label');
+        label.className = 'task ' + t[0];
+        var input = document.createElement('input');
+        input.type = 'checkbox';
+        input.id = id;
+        input.checked = !!state[id];
+        input.addEventListener('change', function () {
+          if (input.checked) state[id] = 1; else delete state[id];
+          save();
+          update();
+        });
+        var body = document.createElement('div');
+        body.className = 'body';
+        var l1 = document.createElement('div');
+        l1.className = 'line1';
+        var badge = document.createElement('span');
+        badge.className = 'badge';
+        badge.textContent = ASPECTS[t[0]];
+        var ttl = document.createElement('span');
+        ttl.className = 'ttl';
+        ttl.textContent = t[1];
+        l1.appendChild(badge);
+        l1.appendChild(ttl);
+        var desc = document.createElement('div');
+        desc.className = 'desc';
+        desc.textContent = t[2];
+        body.appendChild(l1);
+        body.appendChild(desc);
+        label.appendChild(input);
+        label.appendChild(body);
+        card.appendChild(label);
+        rows.push({ el: label, input: input, a: t[0] });
+      });
+      grid.appendChild(card);
+
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = di === todayIdx ? 'is-today' : '';
+      btn.style.setProperty('--dc', day.color);
+      btn.setAttribute('aria-label', 'الانتقال إلى ' + day.name);
+      var nm = document.createElement('span');
+      nm.className = 'nm';
+      nm.textContent = day.name;
+      var mini = document.createElement('span');
+      mini.className = 'mini';
+      var mf = document.createElement('i');
+      mini.appendChild(mf);
+      btn.appendChild(nm);
+      btn.appendChild(mini);
+      btn.addEventListener('click', function () {
+        card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+      strip.appendChild(btn);
+
+      refs.push({ card: card, ring: ring, rt: rt, rows: rows, mf: mf });
+    });
+  }
+
+  function update() {
+    var done = 0, total = 0;
+    refs.forEach(function (r) {
+      var d = 0, shown = 0;
+      r.rows.forEach(function (row) {
+        if (row.input.checked) d++;
+        var vis = filter === 'all' || filter === row.a;
+        row.el.hidden = !vis;
+        if (vis) shown++;
+      });
+      var t = r.rows.length;
+      done += d; total += t;
+      var pct = t ? Math.round((d / t) * 100) : 0;
+      r.ring.style.setProperty('--pct', pct);
+      r.rt.textContent = n(d) + '/' + n(t);
+      r.mf.style.width = pct + '%';
+      r.card.hidden = shown === 0;
+    });
+    var all = total ? Math.round((done / total) * 100) : 0;
+    document.getElementById('totalPct').textContent = n(all) + '٪';
+    document.getElementById('totalCount').textContent = n(done) + ' من ' + n(total) + ' مهمة هذا الأسبوع';
+    var tb = document.getElementById('totalBar');
+    tb.setAttribute('aria-valuenow', all);
+    tb.firstElementChild.style.width = all + '%';
+  }
+
+  function buildChips() {
+    var box = document.getElementById('chips');
+    [['all', 'الكل', ''], ['p', ASPECTS.p, 'p'], ['r', ASPECTS.r, 'r'], ['f', ASPECTS.f, 'f']].forEach(function (d) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'chip' + (d[2] ? ' ' + d[2] : '');
+      btn.setAttribute('aria-pressed', d[0] === filter ? 'true' : 'false');
+      if (d[2]) {
+        var dot = document.createElement('span');
+        dot.className = 'dot';
+        btn.appendChild(dot);
+      }
+      btn.appendChild(document.createTextNode(d[1]));
+      btn.addEventListener('click', function () {
+        filter = d[0];
+        box.querySelectorAll('.chip').forEach(function (c) { c.setAttribute('aria-pressed', 'false'); });
+        btn.setAttribute('aria-pressed', 'true');
+        update();
+      });
+      box.appendChild(btn);
+    });
+  }
+
+  var resetBtn = document.getElementById('reset');
+  var armTimer = null;
+  function disarm() {
+    resetBtn.dataset.armed = 'false';
+    resetBtn.textContent = 'إعادة ضبط الأسبوع';
+  }
+  resetBtn.addEventListener('click', function () {
+    if (resetBtn.dataset.armed !== 'true') {
+      resetBtn.dataset.armed = 'true';
+      resetBtn.textContent = 'اضغطي مرة أخرى للتأكيد';
+      armTimer = setTimeout(disarm, 4000);
+      return;
+    }
+    clearTimeout(armTimer);
+    state = {};
+    save();
+    refs.forEach(function (r) { r.rows.forEach(function (row) { row.input.checked = false; }); });
+    disarm();
+    update();
+  });
+
+  load();
+  buildChips();
+  build();
+  update();
+</script>
+
+</body></html>
